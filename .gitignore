@@ -1,0 +1,11 @@
+settings_local.py
+nbproject/
+files/logos/
+media/
+*.pyc
+*.html~
+*.py~
+*.js~
+*.css~
+*.db
+*.swp
