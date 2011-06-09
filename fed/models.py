@@ -51,6 +51,18 @@ class Tema(models.Model):
         verbose_name = u'Tema de FED'        
         verbose_name_plural = u'Temas del FED'
 
+class Resultado(models.Model):
+    nombre_corto = models.CharField(max_length=35)
+    descripcion = models.TextField()
+    codigo = models.IntegerField()
+    
+    def __unicode__(self):
+        return u'%s' % self.nombre_corto
+    
+    class Meta:        
+        verbose_name_plural = 'Resultados'
+
+
 MODALIDAD_CHOICE = ((1, u'Apoyo programático'),
                (2, u'Convocatoria pública'),
                (3, u'Pequeños proyectos'),
@@ -62,7 +74,7 @@ COBERTURA = ((1, 'Municipal'), (2, 'Departamental'), (3, 'Nacional'))
 
 class Proyecto(models.Model):
     organizacion = models.ForeignKey(Organizacion)
-    codigo = models.CharField(max_length=100, verbose_name=u'Código', unique=True)
+    codigo = models.CharField(max_length=100, verbose_name=u'Código', unique=True, primary_key=True)
     nombre = models.TextField()
     modalidad = models.IntegerField(choices=MODALIDAD_CHOICE, verbose_name=u'Modalidad de apoyo')
     cobertura = models.IntegerField(choices=COBERTURA, verbose_name=u'Area de Cobertura')
@@ -72,6 +84,7 @@ class Proyecto(models.Model):
     monto_contrapartida = models.DecimalField('Monto contrapartida local', blank=True, null=True, decimal_places=2, max_digits=8)
     monto_otros = models.DecimalField('Monto otros donantes', blank=True, null=True, decimal_places=2, max_digits=8)
     otros_donantes = models.ManyToManyField(Donante, blank=True, null=True)    
+    resultados = models.ManyToManyField(Resultado, blank=True, null=True)
     
     def __unicode__(self):
         return u'%s - %s' % (self.organizacion.nombre_corto, self.codigo)

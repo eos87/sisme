@@ -24,24 +24,25 @@ class PoblacionMetaIndirectaInline(admin.TabularInline):
     extra = 1
     
 class ProyectoAdmin(BaseAdmin):
-    list_display = ['organizacion', 'codigo', 'fecha_inicio', 'fecha_fin']
+    list_display = ['organizacion', 'codigo', 'nombre', 'fecha_inicio', 'fecha_fin']    
     list_filter = ['organizacion', 'modalidad']
     search_fields = ['nombre', 'organizacion__nombre', 'organizacion__nombre_corto']
     
     inlines = [TemaTrabajoInline, PoblacionMetaDirectaInline, PoblacionMetaIndirectaInline]
     
-    def get_formsets(self, request, obj=None):        
-        if not request.user.is_superuser:
-            self.inline_instances = []            
-            for inline_class in [TemaTrabajoInline,]:
-                inline_instance = inline_class(self.model, self.admin_site)
-                self.inline_instances.append(inline_instance)
-                        
-        for inline in self.inline_instances:
-            yield inline.get_formset(request)   
+    #sobreescribiendo el metodo para filtrar los objetos    
+    def queryset(self, request):        
+        if request.user.is_superuser:
+            return Proyecto.objects.all()        
+        return Proyecto.objects.filter(organizacion__user=request.user)
 
 admin.site.register(Donante)
 admin.site.register(Tema)
 admin.site.register(Organizacion, OrganizacionAdmin)
 admin.site.register(Proyecto, ProyectoAdmin)
+
+class ResultadoAdmin(BaseAdmin):
+    search_fields = ['nombre_corto', 'descripcion']    
+
+admin.site.register(Resultado, ResultadoAdmin)
 
