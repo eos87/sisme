@@ -61,6 +61,16 @@ class InformeAdmin(admin.ModelAdmin):
             form.base_fields['organizacion'].queryset = request.user.organizacion_set.all()
             form.base_fields['proyecto'].queryset = Proyecto.objects.filter(organizacion__in = request.user.organizacion_set.all())            
         return form
+    
+    def get_formsets(self, request, obj=None):
+        if not obj == None:            
+            self.inline_instances = []
+            for inline_class in get_proy_perms(obj):
+                inline_instance = inline_class(self.model, self.admin_site)
+                self.inline_instances.append(inline_instance)
+                
+        for inline in self.inline_instances:
+            yield inline.get_formset(request, obj)
 
 admin.site.register(Informe, InformeAdmin)
 
