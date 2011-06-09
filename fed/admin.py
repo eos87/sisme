@@ -28,14 +28,8 @@ class ProyectoAdmin(BaseAdmin):
     list_filter = ['organizacion', 'modalidad']
     search_fields = ['nombre', 'organizacion__nombre', 'organizacion__nombre_corto']
     
-    inlines = [TemaTrabajoInline, PoblacionMetaDirectaInline, PoblacionMetaIndirectaInline]
+    inlines = [TemaTrabajoInline, PoblacionMetaDirectaInline, PoblacionMetaIndirectaInline]   
     
-    #sobreescribiendo el metodo para filtrar los objetos    
-    def queryset(self, request):        
-        if request.user.is_superuser:
-            return Proyecto.objects.all()        
-        return Proyecto.objects.filter(organizacion__user=request.user)
-
 admin.site.register(Donante)
 admin.site.register(Tema)
 admin.site.register(Organizacion, OrganizacionAdmin)
