@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from models import *
 from fed.models import *
 
@@ -53,8 +54,10 @@ class InformeAdmin(admin.ModelAdmin):
             for inline_class in get_proy_perms(obj):
                 inline_instance = inline_class(self.model, self.admin_site)
                 self.inline_instances.append(inline_instance)
-            
-        if request.user.is_superuser:
+        
+        grupos = request.user.groups.all()
+        fed = Group.objects.get(name='Equipo Fed')
+        if request.user.is_superuser or fed in grupos:        
             form = super(InformeAdmin, self).get_form(request, ** kwargs)
         else:
             form = super(InformeAdmin, self).get_form(request, ** kwargs)
