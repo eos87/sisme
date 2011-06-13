@@ -1,4 +1,4 @@
-# Django settings for sisme project.
+# Django settings for sisme project.a
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
