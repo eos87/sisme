@@ -16,8 +16,23 @@ class AccionImplementadaInline(admin.TabularInline):
     model = AccionImplementada
     extra = 1
     
+class ParticipacionComisionInline(admin.TabularInline):
+    verbose_name_plural = '1.1.2 Participación en comisiones para incidir sobre toma de decisiones sobre DDSSRR y equidad'
+    model = ParticipacionComision
+    extra = 1
+    
+class AgendaPublicaInline(admin.TabularInline):
+    verbose_name_plural = '1.1.3 Organizaciones que mantienen en la agenda pública la defensa de los DDSSRR, incluyendo el derecho al aborto terapéutico.'
+    model = AgendaPublica
+    extra = 1
+
+class ObservatorioInline(admin.TabularInline):
+    verbose_name_plural = '1.1.4 Observatorios para la vigilancia de la restitución, creación y aplicación de leyes, políticas, acciones y servicios en torno a los DDSSRR.'
+    model = Observatorio
+    extra = 1
+    
 PERMISOS = {
-            1: [AccionImpulsadaInline, AccionImplementadaInline],
+            1: [AccionImpulsadaInline, AccionImplementadaInline, ParticipacionComisionInline, AgendaPublicaInline, ObservatorioInline],
             2: []            
             }
 
@@ -43,14 +58,16 @@ class InformeAdmin(admin.ModelAdmin):
     
     #sobreescribiendo el metodo para filtrar los objetos    
     def queryset(self, request):
-        if request.user.is_superuser:
+        grupos = request.user.groups.all()
+        fed = Group.objects.get(name='Equipo Fed')
+        if request.user.is_superuser or fed in grupos:
             return Informe.objects.all()
         return Informe.objects.filter(organizacion__user=request.user)
     
     def get_form(self, request, obj=None, ** kwargs):
         #CODIGO ENCARGADO MOSTRAR INLINES SE MUESTRAN EN AL ADMIN
-        if not obj == None:            
-            self.inline_instances = []
+        self.inline_instances = []
+        if not obj == None:
             for inline_class in get_proy_perms(obj):
                 inline_instance = inline_class(self.model, self.admin_site)
                 self.inline_instances.append(inline_instance)
@@ -66,8 +83,8 @@ class InformeAdmin(admin.ModelAdmin):
         return form
     
     def get_formsets(self, request, obj=None):
-        if not obj == None:            
-            self.inline_instances = []
+        self.inline_instances = []
+        if not obj == None:       
             for inline_class in get_proy_perms(obj):
                 inline_instance = inline_class(self.model, self.admin_site)
                 self.inline_instances.append(inline_instance)
@@ -76,6 +93,9 @@ class InformeAdmin(admin.ModelAdmin):
             yield inline.get_formset(request, obj)
 
 admin.site.register(Informe, InformeAdmin)
+admin.site.register(Comision)
+admin.site.register(AccionAgenda)
+admin.site.register(TipoObservatorio)
 
 
 

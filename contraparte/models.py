@@ -44,7 +44,7 @@ class AccionImpulsada(models.Model):
     tema = models.ForeignKey(Tema)
     hombres = models.IntegerField('No. de participantes hombres')
     mujeres = models.IntegerField('No. de participantes mujeres')
-    ambito = models.IntegerField(choices=AMBITO)
+    ambito = models.IntegerField(choices=AMBITO, verbose_name=u'Ámbito territorial')
     
     def __unicode__(self):
         return u'%s - %s' % (self.informe, self.id)
@@ -69,13 +69,92 @@ class AccionImplementada(models.Model):
     
     class Meta:
         verbose_name_plural = 'Acciones Implementadas'
+        
+class Comision(models.Model):
+    nombre = models.CharField(max_length=150)
     
+    def __unicode__(self):
+        return '%s' % self.nombre
     
+    class Meta:
+        verbose_name = u'Comisión'
+        verbose_name_plural = 'Comisiones'
     
+class ParticipacionComision(models.Model):
+    informe = models.ForeignKey(Informe)
+    tipo_comision = models.ForeignKey(Comision)
+    tipo_accion = models.IntegerField(choices=ACCIONES)
+    estado = models.IntegerField(choices=ESTADO_ACCION, verbose_name=u'Situación de la acción')
+    ambito = models.IntegerField(choices=AMBITO, verbose_name=u'Ámbito territorial')
     
+    def __unicode__(self):
+        return u'%s - %s' % (self.informe, self.id)
     
+    verbose_name = u'Participación en Comisiones'
+    verbose_name_plural = u'Participaciones en Comisiones'
     
+ACCIONES2 = ((1, u'Campañas de televisión'), (2, u'Campañas radiales'), (3, u'Artítulos de periódicos'))
+
+class AccionAgenda(models.Model):
+    nombre = models.CharField(max_length=150)
     
+    def __unicode__(self):
+        return '%s' % self.nombre
+    
+    class Meta:
+        verbose_name = u'Acción de agenda'
+        verbose_name_plural = 'Acciones de agenda'
+
+class AgendaPublica(models.Model):
+    informe = models.ForeignKey(Informe)    
+    tipo_accion = models.ForeignKey(AccionAgenda)
+    tema = models.ForeignKey(Tema)    
+    ambito = models.IntegerField(choices=AMBITO, verbose_name=u'Ámbito territorial')
+    
+    def __unicode__(self):
+        return u'%s - %s' % (self.informe, self.id)
+    
+    verbose_name = u'Agenda Pública'
+    verbose_name_plural = u'Agenda Pública'
+    
+class TipoObservatorio(models.Model):
+    nombre = models.CharField(max_length=150)
+    
+    def __unicode__(self):
+        return '%s' % self.nombre
+    
+    class Meta:
+        verbose_name = u'Tipo de Observatorio'
+        verbose_name_plural = 'Tipos de Observatorios'
+
+ACCION_OBSERVATORIO = ((1, u'Divulgaciones de investigación'),
+                       (2, u'Divulgación de estudios'),
+                       (3, u'Divulgación de agendas de actividades de interés para las organizaciones'),
+                       (4, u'Divulgación de actividades públicas periódicas'),
+                       (5, u'Divulgación de Boletín electrónico'),
+                       (6, u'Comunicación hacia los medios'),
+                       (7, u'Mantención y actualización del portal Web del Observatorio'),
+                       (8, u'Elaboración de informes'),
+                       (9, u'Columnas de opinión'),
+                       (10, u'Análisis y el debate con artículos, entrevistas, opiniones y estadísticas'),
+                       (11, u'Foro de discusión'),
+                       (12, u'Seminarios'))    
+
+class Observatorio(models.Model):
+    informe = models.ForeignKey(Informe)
+    tipo_observatorio = models.ForeignKey(TipoObservatorio)
+    accion = models.IntegerField(choices=ACCION_OBSERVATORIO)
+    
+    def __unicode__(self):
+        return u'%s - %s' % (self.informe, self.id)
+    
+    verbose_name = u'Observatorio'
+    verbose_name_plural = u'Observatorios'
+        
+
+
+
+
     
     
     
