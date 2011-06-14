@@ -10,7 +10,7 @@ class Organizacion(models.Model):
     nombre_corto = models.CharField(max_length=25)
     codigo = models.CharField(max_length=50)
     direccion = models.CharField(max_length=250, blank=True, default='')
-    fecha = models.DateField(default=datetime.date.today(), blank=True, verbose_name=u'Fecha de constitución')
+    fecha = models.DateField(default=datetime.date.today(), blank=True, verbose_name=u'Fecha de Constitución')
     no_mingob = models.CharField(max_length=50, blank=True, default='', verbose_name=u'No. perpetuo del MINGOB')
     no_ruc = models.CharField(max_length=50, blank=True, default='', verbose_name=u'No. RUC')
     no_inss = models.CharField(max_length=50, blank=True, default='', verbose_name=u'No. patronal del INSS')
