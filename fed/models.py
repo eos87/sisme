@@ -5,7 +5,7 @@ from sisme.lugar.models import Municipio
 import datetime
 
 class Organizacion(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, verbose_name='Usuario')
     nombre = models.CharField(max_length=200)
     nombre_corto = models.CharField(max_length=25)
     codigo = models.CharField(max_length=50)
