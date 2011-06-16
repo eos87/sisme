@@ -31,9 +31,50 @@ class ObservatorioInline(admin.TabularInline):
     model = Observatorio
     extra = 1
     
+#--------------------------- Resultado 1.2 ---------------------------------
+class DemandaJusticiaInline(admin.TabularInline):
+    verbose_name_plural = '1.2.1 OSC que impulsan acciones públicas demandado justicia, igualdad y la no discriminación en contra de las personas LGBTTTI, con discapacidad, etnia e indígena y PVVS'
+    model = DemandaJusticia
+    template = 'admin/contraparte/informe/tabular.html'
+    extra = 1
+    resultado = 'R1.2. Demandando justicia, la igualdad y no discriminación de las personas, independientemente de su sexo, orientación sexual, raza, etnia, condición física, o de las personas que viven con VIH y SIDA'
+    
+class DenunciaInline(admin.TabularInline):
+    verbose_name_plural = '1.2.1 OSC  que impulsan denuncias demandado justicia, igualdad y la no discriminación ante instancias del Estado en contra de las personas'
+    model = Denuncia
+    extra = 1
+    
+#--------------------------- Resultado 2.1 ----------------------------------
+class PoseenInfoInline(admin.TabularInline):
+    verbose_name_plural = '2.1.1 Porcentaje de mujeres en las áreas de cobertura de las OCP que poseen información que les permite tomar decisiones sexuales y reproductivas de manera autónoma y bien informada'
+    model = PoseenInfo
+    template = 'admin/contraparte/informe/tabular.html'
+    extra = 1
+    resultado = 'R2.1. Involucramiento de las poblaciones metas en procesos de reflexión sobre los DDSSRR, dirigidos a una sexualidad integral, placentera, responsable, segura y libre de prejuicios.'
+
+class RecibenInfoInline(admin.TabularInline):
+    verbose_name_plural = '2.1.4 Porcentaje de personas en las áreas de cobertura de las OCP que reciben información sobre VIH y SIDA, incluyendo las que viven con VIH.'
+    model = RecibenInfo
+    extra = 1
+
+#--------------------------- Resultado 2.2 ----------------------------------    
+class PrevencionVBGInline(admin.TabularInline):
+    verbose_name_plural = '2.2.1 Número y tipo de acciones emprendidas por las organizaciones contrapartes del FED que actúan individual o articuladas en la prevención de la VBG.'
+    model = PrevencionVBG
+    template = 'admin/contraparte/informe/tabular.html'
+    extra = 1
+    resultado = 'R2.2 Fortalecida la prevención de la violencia basada en género.'
+
+class MasculinidadLibreInline(admin.TabularInline):
+    verbose_name_plural = '2.2.3 Número y tipo de acciones especificas que promueven la masculinidad libre de prejuicios y violencia'
+    model = MasculinidadLibre
+    extra = 1
+
 PERMISOS = {
-            1: [AccionImpulsadaInline, AccionImplementadaInline, ParticipacionComisionInline, AgendaPublicaInline, ObservatorioInline],
-            2: []            
+            1: [AccionImpulsadaInline, AccionImplementadaInline, ParticipacionComisionInline, AgendaPublicaInline],
+            2: [DemandaJusticiaInline, DenunciaInline],
+            3: [PoseenInfoInline, RecibenInfoInline],
+            4: [PrevencionVBGInline, MasculinidadLibreInline],            
             }
 
 #funcion para obtener los permisos del proyecto
