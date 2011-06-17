@@ -74,9 +74,9 @@ MODALIDAD_CHOICE = ((1, u'Apoyo programático'),
 
 COBERTURA = ((1, 'Municipal'), (2, 'Departamental'), (3, 'Nacional'))
 
-class Proyecto(models.Model):
+class Proyecto(models.Model):    
     organizacion = models.ForeignKey(Organizacion)
-    codigo = models.CharField(max_length=100, verbose_name=u'Código', unique=True, primary_key=True)
+    codigo = models.CharField(max_length=100, verbose_name=u'Código', unique=True)
     nombre = models.TextField()
     modalidad = models.IntegerField(choices=MODALIDAD_CHOICE, verbose_name=u'Modalidad de apoyo')
     cobertura = models.IntegerField(choices=COBERTURA, verbose_name=u'Area de Cobertura')
