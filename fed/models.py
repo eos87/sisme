@@ -89,7 +89,7 @@ class Proyecto(models.Model):
     resultados = models.ManyToManyField(Resultado, blank=True, null=True)
     
     def __unicode__(self):
-        return u'%s' % self.organizacion.nombre_corto
+        return u'%s - %s' % (self.organizacion.nombre_corto, self.codigo)
     
     class Meta:
         verbose_name_plural = u'Proyectos'
