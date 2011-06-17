@@ -15,12 +15,13 @@ class Organizacion(models.Model):
     no_ruc = models.CharField(max_length=50, blank=True, default='', verbose_name=u'No. RUC')
     no_inss = models.CharField(max_length=50, blank=True, default='', verbose_name=u'No. patronal del INSS')
     representante_legal = models.CharField(max_length=120, blank=True, default='')
-    telefono = models.CharField(max_length=15, blank=True, default='')
+    telefono_1 = models.CharField(max_length=15, blank=True, default='')
+    telefono_2 = models.CharField(max_length=15, blank=True, default='')
     email = models.EmailField(blank=True, default='email@example.com')
     contacto = models.CharField(max_length=120, blank=True, default='', verbose_name=u'Persona de contacto del proyecto')
     telefono_contacto = models.CharField(max_length=15, blank=True, default='', verbose_name=u'Teléfono del contacto')
     sitio_web = models.URLField(blank=True, default='www.example.com')
-    obj_gral = models.CharField(max_length=250, blank=True, default='', verbose_name='Objetivo General')
+    obj_gral = models.TextField(blank=True, default='', verbose_name='Objetivo General')
     estrategias = models.TextField(blank=True, default='', verbose_name=u'Líneas estratégicas')
     antecedentes = models.TextField(blank=True, default='')
     
@@ -64,11 +65,12 @@ class Resultado(models.Model):
 
 
 MODALIDAD_CHOICE = ((1, u'Apoyo programático'),
-               (2, u'Convocatoria pública'),
-               (3, u'Pequeños proyectos'),
-               (4, u'Actividades puntuales'),
-               (5, u'Acciones de emergencia'),
-               (6, u'Estrategias con grupos priorizados'))
+               (2, u'Convocatoria pública 2009'),
+               (3, u'Convocatoria pública 2011'),
+               (4, u'Pequeños proyectos'),
+               (5, u'Actividades puntuales'),
+               (6, u'Acciones de emergencia'),
+               (7, u'Estrategias con grupos priorizados'))
 
 COBERTURA = ((1, 'Municipal'), (2, 'Departamental'), (3, 'Nacional'))
 
