@@ -82,9 +82,9 @@ class Proyecto(models.Model):
     cobertura = models.IntegerField(choices=COBERTURA, verbose_name=u'Area de Cobertura')
     fecha_inicio = models.DateField(default=datetime.date.today(), verbose_name=u'Fecha de Inicio')
     fecha_fin = models.DateField(default=datetime.date.today(), verbose_name=u'Fecha de Finalización')
-    monto_fed = models.DecimalField('Monto aprobado por FED', blank=True, null=True, decimal_places=2, max_digits=8)    
-    monto_contrapartida = models.DecimalField('Monto contrapartida local', blank=True, null=True, decimal_places=2, max_digits=8)
-    monto_otros = models.DecimalField('Monto otros donantes', blank=True, null=True, decimal_places=2, max_digits=8)
+    monto_fed = models.DecimalField('Monto aprobado por FED', blank=True, null=True, decimal_places=2, max_digits=30)    
+    monto_contrapartida = models.DecimalField('Monto contrapartida local', blank=True, null=True, decimal_places=2, max_digits=30)
+    monto_otros = models.DecimalField('Monto otros donantes', blank=True, null=True, decimal_places=2, max_digits=30)
     otros_donantes = models.ManyToManyField(Donante, blank=True, null=True)    
     resultados = models.ManyToManyField(Resultado, blank=True, null=True)
     

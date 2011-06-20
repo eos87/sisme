@@ -120,7 +120,8 @@ class Migration(SchemaMigration):
         },
         'fed.proyecto': {
             'Meta': {'object_name': 'Proyecto'},
-            'cobertura': ('django.db.models.fields.IntegerField', [], {}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+	    'cobertura': ('django.db.models.fields.IntegerField', [], {}),
             'codigo': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100', 'primary_key': 'True'}),
             'fecha_fin': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 6, 17)'}),
             'fecha_inicio': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 6, 17)'}),

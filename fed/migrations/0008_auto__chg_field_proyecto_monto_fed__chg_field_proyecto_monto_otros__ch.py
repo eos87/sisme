@@ -8,8 +8,14 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
-        # Adding field 'Proyecto.id'
-        db.add_column('fed_proyecto', 'id', self.gf('django.db.models.fields.AutoField')(default=1, primary_key=True), keep_default=False)
+        # Changing field 'Proyecto.monto_fed'
+        db.alter_column('fed_proyecto', 'monto_fed', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=30, decimal_places=2))
+
+        # Changing field 'Proyecto.monto_otros'
+        db.alter_column('fed_proyecto', 'monto_otros', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=30, decimal_places=2))
+
+        # Changing field 'Proyecto.monto_contrapartida'
+        db.alter_column('fed_proyecto', 'monto_contrapartida', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=30, decimal_places=2))
 
         # Changing field 'Proyecto.codigo'
         db.alter_column('fed_proyecto', 'codigo', self.gf('django.db.models.fields.CharField')(unique=True, max_length=100))
@@ -17,8 +23,14 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         
-        # Deleting field 'Proyecto.id'
-        db.delete_column('fed_proyecto', 'id')
+        # Changing field 'Proyecto.monto_fed'
+        db.alter_column('fed_proyecto', 'monto_fed', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=8, decimal_places=2))
+
+        # Changing field 'Proyecto.monto_otros'
+        db.alter_column('fed_proyecto', 'monto_otros', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=8, decimal_places=2))
+
+        # Changing field 'Proyecto.monto_contrapartida'
+        db.alter_column('fed_proyecto', 'monto_contrapartida', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=8, decimal_places=2))
 
         # Changing field 'Proyecto.codigo'
         db.alter_column('fed_proyecto', 'codigo', self.gf('django.db.models.fields.CharField')(max_length=100, unique=True, primary_key=True))
@@ -75,7 +87,7 @@ class Migration(SchemaMigration):
             'direccion': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'blank': 'True'}),
             'email': ('django.db.models.fields.EmailField', [], {'default': "'email@example.com'", 'max_length': '75', 'blank': 'True'}),
             'estrategias': ('django.db.models.fields.TextField', [], {'default': "''", 'blank': 'True'}),
-            'fecha': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 6, 17)', 'blank': 'True'}),
+            'fecha': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 6, 20)', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'no_inss': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '50', 'blank': 'True'}),
             'no_mingob': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '50', 'blank': 'True'}),
@@ -110,13 +122,13 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Proyecto'},
             'cobertura': ('django.db.models.fields.IntegerField', [], {}),
             'codigo': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100'}),
-            'fecha_fin': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 6, 17)'}),
-            'fecha_inicio': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 6, 17)'}),
+            'fecha_fin': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 6, 20)'}),
+            'fecha_inicio': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 6, 20)'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modalidad': ('django.db.models.fields.IntegerField', [], {}),
-            'monto_contrapartida': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '8', 'decimal_places': '2', 'blank': 'True'}),
-            'monto_fed': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '8', 'decimal_places': '2', 'blank': 'True'}),
-            'monto_otros': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '8', 'decimal_places': '2', 'blank': 'True'}),
+            'monto_contrapartida': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '30', 'decimal_places': '2', 'blank': 'True'}),
+            'monto_fed': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '30', 'decimal_places': '2', 'blank': 'True'}),
+            'monto_otros': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '30', 'decimal_places': '2', 'blank': 'True'}),
             'nombre': ('django.db.models.fields.TextField', [], {}),
             'organizacion': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['fed.Organizacion']"}),
             'otros_donantes': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['fed.Donante']", 'null': 'True', 'blank': 'True'}),
