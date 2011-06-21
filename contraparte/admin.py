@@ -74,7 +74,9 @@ PERMISOS = {
             1: [AccionImpulsadaInline, AccionImplementadaInline, ParticipacionComisionInline, AgendaPublicaInline],
             2: [DemandaJusticiaInline, DenunciaInline],
             3: [PoseenInfoInline, RecibenInfoInline],
-            4: [PrevencionVBGInline, MasculinidadLibreInline],            
+            4: [PrevencionVBGInline, MasculinidadLibreInline], 
+            5: [],
+            6: [],           
             }
 
 #funcion para obtener los permisos del proyecto
