@@ -65,12 +65,11 @@ class Resultado(models.Model):
 
 
 MODALIDAD_CHOICE = ((1, u'Apoyo programático'),
-               (2, u'Convocatoria pública 2009'),
-               (3, u'Convocatoria pública 2011'),
-               (4, u'Pequeños proyectos'),
-               (5, u'Actividades puntuales'),
-               (6, u'Acciones de emergencia'),
-               (7, u'Estrategias con grupos priorizados'))
+               (2, u'Convocatoria pública'),               
+               (3, u'Pequeños proyectos'),
+               (4, u'Actividades puntuales'),
+               (5, u'Acciones de emergencia'),
+               (6, u'Estrategias con grupos priorizados'))
 
 COBERTURA = ((1, 'Municipal'), (2, 'Departamental'), (3, 'Nacional'))
 

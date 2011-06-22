@@ -294,17 +294,135 @@ class MasculinidadLibre(BaseR22):
         verbose_name = u'Masculinidad Libre'
         verbose_name_plural = u'Masculinidad Libre'
  
+#-------------------------- Resultado 2.3 ----------------------------
+TIPOS_CASOS = ((1, u'Médica'), (2, u'Psicológica'), (3, u'Legal'))
+SITUACION_CASOS = ((1, u'Total atendido'), (2, u'Nuevo'), (3, 'En seguimiento'), (4, u'En abandono'), (5, u'Con diagnóstico favorable'))
+
+class CasoAtendido(models.Model):
+    informe = models.ForeignKey(Informe)
+    tipo_caso = models.IntegerField(choices=TIPOS_CASOS, verbose_name=u'Tipo de caso')
+    situacion_caso = models.IntegerField(choices=SITUACION_CASOS, verbose_name=u'Situación del caso')
     
-
-
-
-
-
-
-
-
+    def __unicode__(self):        
+        return u'%s - %s' % (self.informe, self.id)
     
+    class Meta:
+        verbose_name_plural = u'Casos Atendidos'
+
+TIPO_DENUNCIA = ((1, u'Violencia'), (2, u'Pensión alimenticia'))
+INSTANCIA_ADMINISTRA = ((1, u'Policía Nacional/Comisaría de la mujer'), 
+                        (2, u'Instituto de medicina legal'), 
+                        (3, u'Fiscalía'), 
+                        (4, u'Juzgado'))
+SITUACION_DENUNCIA = ((1, u'Recibidas'), (2, u'Atendidas'), (3, u'Que concluye con sanción penal'), (4, u'Con sentencia favorable'))
+
+class DenunciaInterpuesta(models.Model):
+    informe = models.ForeignKey(Informe)
+    tipo_denuncia = models.IntegerField(choices=TIPO_DENUNCIA, verbose_name=u'Tipo de denuncia')
+    instancia_administra = models.IntegerField(choices=INSTANCIA_ADMINISTRA, verbose_name=u'Instancia que administra justicia')
+    situacion_denuncia = models.IntegerField(choices=SITUACION_DENUNCIA, verbose_name=u'Situación de la denuncia')
     
+    def __unicode__(self):        
+        return u'%s - %s' % (self.informe, self.id)
+    
+    class Meta:
+        verbose_name_plural = u'Denuncias Interpuestas'
+        
+ORGANIZACION_CHOICE = ((1, u'Oyanka'), (2, u'INPRHU'), (3, u'Fundación entre Mujeres'))
+TIPO_POBLACION_ATENCION = ((1, u'Mujeres'), (2, u'Niños'), (3, u'Niñas'), (4, u'Adolescentes'))
+SI_NO_SIMPLE = ((1, 'Si'), (2, 'No'))
+
+class AtencionMujer(models.Model):
+    informe = models.ForeignKey(Informe)
+    organizacion = models.IntegerField(choices=ORGANIZACION_CHOICE)
+    tipo_poblacion = models.IntegerField(choices=TIPO_POBLACION_ATENCION)
+    plan_vida = models.IntegerField(choices=SI_NO_SIMPLE)        
+    
+    def __unicode__(self):        
+        return u'%s - %s' % (self.informe, self.id)
+    
+    class Meta:
+        verbose_name = u'Atención a Mujeres'
+        verbose_name_plural = u'Atenciones a Mujeres'
+
+TIPO_REFERENCIA = ((1, u'Referencia realizada por la organización'), (2, u'Contrareferencia recibida por la organización'))
+INSTANCIA_PUBLICA = ((1, u'Policía Nacional/Comisaría de la mujer'), 
+                        (2, u'Ministerio de la familia'), 
+                        (3, u'Medicinal Legal'), 
+                        (4, u'Ministerio público y fiscalía'),
+                        (5, u'Juzgado'))
+
+class ReferenciaContraReferencia(models.Model):
+    informe = models.ForeignKey(Informe)
+    instancia = models.IntegerField(choices=INSTANCIA_PUBLICA, verbose_name=u'Instancia pública')
+    tipo_referencia = models.IntegerField(choices=TIPO_REFERENCIA, verbose_name=u'Tipo de referencia')
+    atendido_personal_pertinente = models.IntegerField(choices=SI_NO_SIMPLE, verbose_name=u'Atendido por personal pertinente')
+    
+    def __unicode__(self):        
+        return u'%s - %s' % (self.informe, self.id)
+    
+    class Meta:
+        verbose_name = u'Referencia y Contrareferencia'
+        verbose_name_plural = u'Referencias y Contrareferencias'
+        
+#----------------------------- Resultado 3.1 --------------------------------
+A_TRAVES = ((1, u'Sistema contable'), (2, u'Manual de procedimiento'), (3, u'Archivo y resguardo de información'),
+            (4, u'Seguimiento al presupuesto'), (5, u'Estado financiero'), (6, u'Documentos legales actualizados'))
+
+class CapacidadAdmitiva(models.Model):
+    informe = models.ForeignKey(Informe)
+    ha_mejorado = models.IntegerField(choices=SI_NO_SIMPLE)
+    atraves = models.IntegerField(choices=A_TRAVES, blank=True, null=True)
+    
+    def __unicode__(self):        
+        return u'%s - %s' % (self.informe, self.id)
+    
+    class Meta:
+        verbose_name = u'Capacidad Administrativa'
+        verbose_name_plural = u'Capacidad Administrativa'
+
+MANERA = ((1, u'Enfoque temático'), (2, u'Sistema de monitoreo'),
+          (3, u'Acceso de información'), (4, u'Uso de información'))
+
+class MedirReportar(models.Model):
+    informe = models.ForeignKey(Informe)
+    ha_mejorado = models.IntegerField(choices=SI_NO_SIMPLE)
+    manera = models.IntegerField(choices=MANERA)
+    
+    def __unicode__(self):        
+        return u'%s - %s' % (self.informe, self.id)
+    
+    class Meta:
+        verbose_name = u'Medir y Reportar'
+        verbose_name_plural = u'Medir y Reportar'
+
+MANERA_PLAN = ((1, u'Para la gestión en desarrollo del proyecto'),
+               (2, u'Para la consecución y ejecución de recursos'),
+               (3, u'Para la infromacion y comunicación'),
+               (4, u'Como visión estratégica'))
+
+class PlanEstrategico(models.Model):
+    informe = models.ForeignKey(Informe)
+    utiliza_plan = models.IntegerField(choices=SI_NO_SIMPLE)
+    manera = models.IntegerField(choices=MANERA_PLAN)
+    
+    def __unicode__(self):        
+        return u'%s - %s' % (self.informe, self.id)
+    
+    class Meta:
+        verbose_name = u'Plan Estratégico'
+        verbose_name_plural = u'Plan Estratégico'
+                   
+
+
+
+
+
+
+
+
+
+   
     
 
 

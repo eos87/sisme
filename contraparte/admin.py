@@ -69,14 +69,55 @@ class MasculinidadLibreInline(admin.TabularInline):
     verbose_name_plural = '2.2.3 Número y tipo de acciones especificas que promueven la masculinidad libre de prejuicios y violencia'
     model = MasculinidadLibre
     extra = 1
+    
+#------------------------- Resultado 2.3 -------------------------------------
+class CasoAtendidoInline(admin.TabularInline):
+    verbose_name_plural = '2.3.1 Número de casos atendidos por las organizaciones contrapartes del FED a través de los servicios de atención en salud, psicológica y legal para víctimas de violencia.'
+    model = CasoAtendido
+    template = 'admin/contraparte/informe/tabular.html'
+    extra = 1
+    resultado = 'R2.3 Acceso a servicios de atención integral y demanda de salud y justicia para las victimas de violencia de género.'
+
+class DenunciaInterpuestaInline(admin.TabularInline):
+    verbose_name_plural = '2.3.2 Número de denuncias interpuestas por las víctimas de violencia en las instancias que administran justicia como producto de las acciones de las organizaciones de la sociedad civil apoyadas por el FED.'
+    model = DenunciaInterpuesta
+    extra = 1
+    
+class AtencionMujerInline(admin.TabularInline):
+    verbose_name_plural = '2.3.4. Número de mujeres atendidas en los albergues apoyados por  el FED como instrumento para la construcción de nuevos proyectos de vida.'
+    model = AtencionMujer
+    extra = 1
+
+class ReferenciaContraReferenciaInline(admin.TabularInline):
+    verbose_name_plural = '2.3.5. Número de referencia y contra referencias que realizan las OCP del FED con instituciones públicas.'
+    model = ReferenciaContraReferencia
+    extra = 1
+
+#------------------------- Resultado 3.1 -------------------------------------
+class CapacidadAdmitivaInline(admin.TabularInline):
+    verbose_name_plural = '3.1.3. Porcentaje y número de OCP que mejoran sus capacidades administrativas y de gestión.'
+    model = CapacidadAdmitiva
+    template = 'admin/contraparte/informe/tabular.html'
+    extra = 1
+    resultado = 'R.3.1 Fortalecida la capacidad técnica de las OSC contrapartes del FED.'
+    
+class MedirReportarInline(admin.TabularInline):
+    verbose_name_plural = '3.1.3 Han mejorado las capacidades para medir y reportar los indicadores propuestos con apoyo del FED '
+    model = MedirReportar
+    extra = 1
+
+class PlanEstrategicoInline(admin.TabularInline):
+    verbose_name_plural = '3.1.3 Utilizan su plan estratégico para mejorar sus capacidades'
+    model = PlanEstrategico
+    extra = 1
 
 PERMISOS = {
             1: [AccionImpulsadaInline, AccionImplementadaInline, ParticipacionComisionInline, AgendaPublicaInline],
             2: [DemandaJusticiaInline, DenunciaInline],
             3: [PoseenInfoInline, RecibenInfoInline],
             4: [PrevencionVBGInline, MasculinidadLibreInline], 
-            5: [],
-            6: [],           
+            5: [CasoAtendidoInline, DenunciaInterpuestaInline, AtencionMujerInline, ReferenciaContraReferenciaInline],
+            6: [CapacidadAdmitivaInline, MedirReportarInline, PlanEstrategicoInline],           
             }
 
 #funcion para obtener los permisos del proyecto
@@ -89,8 +130,7 @@ def get_proy_perms(obj):
 
 class InformeAdmin(admin.ModelAdmin):
     list_display = ['organizacion', 'proyecto', 'desde', 'hasta']
-    search_fields = ['organizacion__nombre', 'organizacion__nombre_corto', 'organizacion__codigo', 'proyecto__nombre', 'proyecto__codigo']
-    #raw_id_fields = ('proyecto',)    
+    search_fields = ['organizacion__nombre', 'organizacion__nombre_corto', 'organizacion__codigo', 'proyecto__nombre', 'proyecto__codigo']    
     add_form_template = 'admin/contraparte/informe/add_template.html'    
     fieldsets = [
         (None, {'fields': ['organizacion', 'proyecto']}),

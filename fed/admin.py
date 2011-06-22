@@ -6,7 +6,7 @@ class BaseAdmin(admin.ModelAdmin):
     save_on_top = True    
 
 class OrganizacionAdmin(BaseAdmin):
-    list_display = ['nombre_corto', 'codigo', 'telefono_1', 'email', 'contacto']
+    list_display = ['nombre_corto', 'telefono_1', 'email', 'contacto']
     list_filter = ['user']
     search_fields = ['nombre', 'nombre_corto', 'email', 'telefono', 'contacto', 'telefono_contacto']
     
