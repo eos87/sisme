@@ -6,11 +6,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'sisme.views.home', name='home'),
+    url(r'^generales/$', 'sisme.fed.views.generales', name='generales'),
     # url(r'^sisme/', include('sisme.foo.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    
     url(r'^admin/', include(admin.site.urls)),
 )

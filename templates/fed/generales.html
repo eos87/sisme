@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Datos generales{% endblock %}
+
+{% block extra_head %}
+
+{% endblock %}
+
+{% block content %}
+<div>
+	<form action="." method="POST">
+		{{form.as_table}}
+		<input type="submit" value="Take this!" />
+	</form>
+</div>
+<div>	
+</div>
+{% endblock %}
