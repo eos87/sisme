@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from sisme.settings import *
 
 # Uncomment the next two lines to enable the admin:
@@ -13,7 +14,4 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 )
 
-if DEBUG:
-    urlpatterns += patterns('',
-                            (r'^files/(?P<path>.*)$', 'django.views.static.serve', {'document_root': STATIC_ROOT}),
-                           )
+urlpatterns += staticfiles_urlpatterns()
