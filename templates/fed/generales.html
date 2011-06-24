@@ -1,17 +1,52 @@
-{% extends "base.html" %}
-{% block title %}Datos generales{% endblock %}
+{% extends "base.html" %} {% block title %}Datos generales{% endblock %}
 
 {% block extra_head %}
-
-{% endblock %}
-
-{% block content %}
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#tabs").tabs();
+	});
+</script>
+{% endblock %} {% block content %}
 <div>
 	<form action="." method="POST">
-		{{form.as_table}}
+		{% csrf_token %} {{form.as_table}} 
 		<input type="submit" value="Take this!" />
 	</form>
 </div>
-<div>	
+<br>
+<div id="tabs" style="font-size: 70%;">
+	<ul>
+		<li><a href="#cont1"><span>Modalidad, Cobertura, Montos</span></a></li>
+		<li><a href="#cont2"><span>Población meta</span></a></li>
+		<li><a href="#cont3"><span>Resultados de los proyectos</span></a></li>
+		<li><a href="#cont4"><span>Organizaciones y Proyectos</span></a></li>
+		<li><a href="#cont5"><span>Área de cobertura</span></a></li>
+	</ul>
+	<div id="cont1">
+		<table width="100%">
+			<thead>
+				<tr>
+					<th>Modalidad de apoyo</th>
+					<th># de organizaciones</th>
+					<th>Nombres de las organizaciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key, value in tabla_modalidad.items %}
+				<tr>
+					<td>{{key}}</td>
+					<td>{{value.cantidad}}</td>
+					<td>{% for org in value.organizaciones %}{{org}}{%if not forloop.last%}, {% endif %}{% endfor %}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>		
+	</div>
+	<div id="cont2"></div>
+	<div id="cont3"></div>
+	<div id="cont4"></div>
+	<div id="cont5"></div>
 </div>
 {% endblock %}
