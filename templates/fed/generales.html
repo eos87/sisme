@@ -61,7 +61,7 @@
 				<tr>					
 					<td>{{key}}</td>					
 					<td>{% for proyecto in value %}{{proyecto.organizacion.nombre_corto}}{% if not forloop.last %},{% endif %} {% endfor %}</td>
-					<td>{% for proyecto in value %}{{proyecto.nombre}}-{{proyecto.codigo}}{% if not forloop.last %},{% endif %} {% endfor %}</td>					
+					<td>{% for proyecto in value %}&bull;{{proyecto.nombre}}-{{proyecto.codigo}}{% if not forloop.last %},{% endif %} {% endfor %}</td>					
 				</tr>
 				{% endfor %}
 			</tbody>
