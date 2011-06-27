@@ -58,12 +58,10 @@
 			</thead>
 			<tbody>
 				{% for key, value in tabla_cobertura.items %}
-				<tr>
-					{% for proyecto in value %}
+				<tr>					
 					<td>{{key}}</td>					
-					<td>{{proyecto.organizacion.nombre_corto}}</td>
-					<td>{{proyecto.nombre}} - {{proyecto.codigo}}</td>
-					{% endfor %}
+					<td>{% for proyecto in value %}{{proyecto.organizacion.nombre_corto}}{% if not forloop.last %},{% endif %} {% endfor %}</td>
+					<td>{% for proyecto in value %}{{proyecto.nombre}}-{{proyecto.codigo}}{% if not forloop.last %},{% endif %} {% endfor %}</td>					
 				</tr>
 				{% endfor %}
 			</tbody>
