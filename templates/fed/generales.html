@@ -25,6 +25,7 @@
 		<li><a href="#cont5"><span>Área de cobertura</span></a></li>
 	</ul>
 	<div id="cont1">
+		<!-- Inicia tabla de modalidad de organizaciones por modelidad de apoyo -->
 		<table width="100%">
 			<caption># de organizaciones por modalidad de apoyo</caption>
 			<thead>
@@ -44,6 +45,30 @@
 				{% endfor %}
 			</tbody>
 		</table>		
+		<br><br>
+		<!-- Inicia tabla por nivel de cobertura de los proyectos -->
+		<table width="100%">
+			<caption># de organizaciones por modalidad de apoyo</caption>
+			<thead>
+				<tr>
+					<th>Area de cobertura</th>
+					<th>Organización</th>
+					<th>Nombre del Proyecto</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key, value in tabla_cobertura.items %}
+				<tr>
+					{% for proyecto in value %}
+					<td>{{key}}</td>					
+					<td>{{proyecto.organizacion.nombre_corto}}</td>
+					<td>{{proyecto.nombre}} - {{proyecto.codigo}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		
 	</div>
 	<div id="cont2"></div>
 	<div id="cont3"></div>

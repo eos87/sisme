@@ -23,5 +23,23 @@ def generales(request):
         orgs = [proyecto.organizacion.nombre_corto for proyecto in Proyecto.objects.filter(modalidad=op[0], ** params)]
         lista = list(set(orgs))
         tabla_modalidad[op[1]] = {'cantidad': len(lista), 'organizaciones': lista}
+        
+    #cobertura de los proyectos
+    tabla_cobertura = {}
+    for op in COBERTURA:
+        proys = Proyecto.objects.filter(cobertura=op[0], ** params)
+        tabla_cobertura[op[1]] = proys
     
     return render_to_response("fed/generales.html", RequestContext(request, locals()))
+
+
+
+
+
+
+
+
+
+
+
+
