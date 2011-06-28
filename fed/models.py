@@ -90,6 +90,9 @@ class Proyecto(models.Model):
     def __unicode__(self):
         return u'%s - %s' % (self.organizacion.nombre_corto, self.codigo)
     
+    def get_monto_total(self):
+        return self.monto_fed + self.monto_contrapartida + self.monto_otros
+    
     class Meta:
         verbose_name_plural = u'Proyectos'
         
@@ -112,7 +115,10 @@ class PoblacionMetaBase(models.Model):
     proyecto = models.ForeignKey(Proyecto)
     grupo_etareo = models.IntegerField(choices=GRUPO_ETAREO)
     hombres = models.IntegerField()
-    mujeres = models.IntegerField()    
+    mujeres = models.IntegerField()
+    
+    def get_total(self):
+        return self.hombres + self.mujeres
     
     def __unicode__(self):
         return u'%s - %s' % (self.proyecto.codigo, self.id)

@@ -12,7 +12,7 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'es-ES'
+LANGUAGE_CODE = 'es-NI'
 
 SITE_ID = 1
 

@@ -1,12 +1,57 @@
-{% extends "base.html" %} {% block title %}Datos generales{% endblock %}
+{% extends "base.html" %}
+{% load tools %}
+ 
+{% block title %}Datos generales{% endblock %}
+
 
 {% block extra_head %}
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 <script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://turismoruralnica.com/files/js/jquery.cookie.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#tabs").tabs();
+		$("#total_org_modalidad").html(sumarColumnas("modalidad table", "cantidad_org"));
+		$("#monto-fed").html(sumarColumnas("montos", "montofed"));
+		$("#monto-propio").html(sumarColumnas("montos", "montopropio"));
+		$("#monto-otros").html(sumarColumnas("montos", "montootros"));
+		$("#monto-total").html(sumarColumnas("montos", "montototal"));
+		$("#monto-entregado-fed").html(sumarColumnas("montosfedasignados table", "monto-entregado-fed"));
 	});
+	function sumOfColumns(tableID, columnIndex, hasHeader) {
+		var tot = 0;
+		$("#" + tableID + " tr" + (hasHeader ? ":gt(0)" : ""))
+		.children("td:nth-child(" + columnIndex + ")")
+		.each(function() {			
+			tot += parseFloat($(this).html());
+	  	});
+		return tot;
+	}
+	function sumarColumnas(tablaID, uniqueClass){
+		var tot = 0;
+		$("#" + tablaID + " ." + uniqueClass).each(function(){
+			tot += parseFloat($(this).html());
+		});		
+		return tot.toFixed(2);
+	}
+	
+	function exportarXLS(id){
+		var foo = $('#'+id).html();
+		var csrf_token =  $.cookie('csrftoken');
+		
+		var form = $('<form>').attr({
+		    type: 'hidden',
+		    method: 'POST',
+		    action: '/xls/',
+		    id: 'formxls'
+		}).appendTo('body');
+		
+		$('<input>').attr({type: 'hidden', name: 'tabla',  value: foo}).appendTo(form);
+		$('<input>').attr({type: 'hidden', name: 'csrfmiddlewaretoken',  value: csrf_token}).appendTo(form);
+		
+		$(form).submit();
+	}
+	
 </script>
 {% endblock %} {% block content %}
 <div>
@@ -26,51 +71,295 @@
 	</ul>
 	<div id="cont1">
 		<!-- Inicia tabla de modalidad de organizaciones por modelidad de apoyo -->
-		<table width="100%">
-			<caption># de organizaciones por modalidad de apoyo</caption>
-			<thead>
-				<tr>
-					<th>Modalidad de apoyo</th>
-					<th># de organizaciones</th>
-					<th>Nombres de las organizaciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for key, value in tabla_modalidad.items %}
-				<tr>
-					<td>{{key}}</td>
-					<td>{{value.cantidad}}</td>
-					<td>{% for org in value.organizaciones %}{{org}}{%if not forloop.last%}, {% endif %}{% endfor %}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>		
+		<a class="guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;">Guardar XLS</a>		
+		<div id="modalidad">
+			<table width="100%">
+				<caption># de organizaciones por modalidad de apoyo</caption>
+				<thead>
+					<tr>
+						<th>Modalidad de apoyo</th>
+						<th># de organizaciones</th>
+						<th>Nombres de las organizaciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for key, value in tabla_modalidad.items %}
+					<tr>
+						<td>{{key}}</td>
+						<td class="cantidad_org">{{value.cantidad}}</td>
+						<td>{% for org in value.organizaciones %}{{org}}{%if not forloop.last%}, {% endif %}{% endfor %}</td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<td class="negrita">Total</td>
+						<td>{{orgs_filtradas}}</td>
+						<td>{{proyectos_filtrados.count}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>		
 		<br><br>
 		<!-- Inicia tabla por nivel de cobertura de los proyectos -->
-		<table width="100%">
-			<caption># de organizaciones por modalidad de apoyo</caption>
-			<thead>
-				<tr>
-					<th>Area de cobertura</th>
-					<th>Organización</th>
-					<th>Nombre del Proyecto</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for key, value in tabla_cobertura.items %}
-				<tr>					
-					<td>{{key}}</td>					
-					<td>{% for proyecto in value %}{{proyecto.organizacion.nombre_corto}}{% if not forloop.last %},{% endif %} {% endfor %}</td>
-					<td>{% for proyecto in value %}&bull;{{proyecto.nombre}}-{{proyecto.codigo}}{% if not forloop.last %},{% endif %} {% endfor %}</td>					
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-		
+		<a class="guardarXLS" href="#" onclick="exportarXLS('cobertura'); return false;">Guardar XLS</a>
+		<div id="cobertura">		
+			<table width="100%">
+				<caption>Proyectos con cobertura a nivel municipal, departamental y nacional.</caption>
+				<thead>
+					<tr>
+						<th>Area de cobertura</th>
+						<th>Organización</th>
+						<th>Nombre del Proyecto</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for key, value in tabla_cobertura.items %}
+					{% for proyecto in value %}
+					<tr>					
+						{% if forloop.first %}<td rowspan="{{value.count}}">{{key}}</td>{% endif %}					
+						<td>{{proyecto.organizacion.nombre_corto}}</td>
+						<td>{{proyecto.nombre}}</td>				
+					</tr>
+					{% endfor %}
+					{% endfor %}
+					<tr>
+						<td class="negrita">Total</td>
+						<td>{{orgs_filtradas}}</td>
+						<td>{{proyectos_filtrados.count}}</td>
+					</tr>
+				</tbody>
+			</table>		
+		</div>
+		<br><br>
+		<!-- Inicia tabla organizaciones y montos -->
+		<a class="guardarXLS" href="#" onclick="exportarXLS('montodiv'); return false;">Guardar XLS</a>
+		<div id="montodiv">
+			<table width="100%" id="montos">
+				<caption>Nombre de la organización y los montos del
+					proyecto a los que aportan otros donantes, el FED o ellos mismos</caption>
+				<thead>
+					<tr>
+						<th rowspan="2" width="15%">Nombre de la Organización</th>
+						<th rowspan="2" width="45%"><center>Proyecto</center>
+						</th>
+						<th colspan="4"><center>Montos</center>
+						</th>
+					</tr>
+					<tr>
+						<th width="10%">FED US$</th>
+						<th width="10%">Propios US$</th>
+						<th width="10%">Donante US$</th>
+						<th width="10%">Total US$</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for key, value in tabla_montos.items %} {% for proyecto in value	%}
+					<tr>
+						{% if forloop.first %}<td rowspan="{{value.count}}">{{key}}</td>{% endif %}
+						<td>{{proyecto.nombre}}</td>
+						<td class="derecha montofed">{{proyecto.monto_fed}}</td>
+						<td class="derecha montopropio">{{proyecto.monto_contrapartida}}</td>
+						<td class="derecha montootros">{{proyecto.monto_otros}}</td>
+						<td class="derecha montototal">{{proyecto.get_monto_total}}</td>
+					</tr>
+					{% endfor %} {% endfor %}
+					<tr>
+						<td colspan="2" class="centrado negrita">Total</td>
+						<td id="monto-fed" class="derecha"></td>
+						<td id="monto-propio" class="derecha"></td>
+						<td id="monto-otros" class="derecha"></td>
+						<td id="monto-total" class="derecha"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<div id="cont2"></div>
-	<div id="cont3"></div>
-	<div id="cont4"></div>
-	<div id="cont5"></div>
+	<div id="cont2">
+		{% for key, value in tabla_poblacion_meta.items %}
+		<a class="guardarXLS" href="#" onclick="exportarXLS('{{key|slugify}}'); return false;">Guardar XLS</a>				
+		<div id="{{key|slugify}}">
+			<table width="100%">
+				<caption>{{key.1}} {% if key.0 == 2 %}{% if not request.session.gral_year == 0 %}{{request.session.gral_year|restar:"1"}}{% endif %}{% endif %}</caption>
+				<thead>
+					<tr>
+						<th rowspan="2" width="20%">Organización</th>
+						<th rowspan="2" width="30%">Proyecto</th>
+						<th colspan="4" class="centrado">Poblacion meta directa</th>						
+					</tr>
+					<tr>						
+						<th>Grupo Etareo</th>
+						<th>Hombre</th>
+						<th>Mujer</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for k,v in value.items %}
+					{% for proyecto in v %}
+					{% for grupoetareo in proyecto.poblacionmetadirecta_set.all %}
+					<tr>
+						{% if forloop.first %}<td rowspan="{{proyecto.poblacionmetadirecta_set.all.count}}">{{proyecto.organizacion}}</td>{% endif %}
+						{% if forloop.first %}<td rowspan="{{proyecto.poblacionmetadirecta_set.all.count}}">{{proyecto.nombre}}</td>{% endif %}
+						<td>{{grupoetareo.get_grupo_etareo_display}}</td>						
+						<td>{{grupoetareo.hombres}}</td>
+						<td>{{grupoetareo.mujeres}}</td>
+						<td>{{grupoetareo.get_total}}</td>
+					</tr>
+					{% endfor %}
+					{% endfor %}
+					{% endfor %}
+				</tbody>
+			</table><br>
+			<table width="100%">				
+				<thead>
+					<tr>
+						<th rowspan="2" width="20%" >Organización</th>
+						<th rowspan="2" width="30%">Proyecto</th>
+						<th colspan="4" class="centrado">Poblacion meta indirecta</th>						
+					</tr>
+					<tr>						
+						<th>Grupo Etareo</th>
+						<th>Hombre</th>
+						<th>Mujer</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>				
+					{% for k,v in value.items %}					
+					{% for proyecto in v %}
+					{% for grupoetareo in proyecto.poblacionmetaindirecta_set.all %}
+					<tr>					
+						{% if forloop.first %}<td rowspan="{{proyecto.poblacionmetaindirecta_set.all.count}}">{{proyecto.organizacion}}</td>{% endif %}
+						{% if forloop.first %}<td " rowspan="{{proyecto.poblacionmetaindirecta_set.all.count}}">{{proyecto.nombre}}</td>{% endif %}
+						<td>{{grupoetareo.get_grupo_etareo_display}}</td>						
+						<td>{{grupoetareo.hombres}}</td>
+						<td>{{grupoetareo.mujeres}}</td>
+						<td>{{grupoetareo.get_total}}</td>
+					</tr>
+					{% endfor %}					
+					{% endfor %}
+					{% endfor %}
+				</tbody>
+			</table>		
+		</div><br><br>		
+		{% endfor %}
+	</div>
+	<div id="cont3">
+		<a class="guardarXLS" href="#" onclick="exportarXLS('aporte-resultados'); return false;">Guardar XLS</a>
+		<div id="aporte-resultados">
+			<table width="100%">
+				<caption>Resultados por proyectos de las organizaciones que aportan al FED</caption>
+				<thead>
+					<tr>
+						<th width="20%">Organizacion</th>
+						<th width="40%">Nombre del proyecto</th>
+						<th>1.1</th>
+						<th>1.2</th>
+						<th>2.1</th>
+						<th>2.2</th>
+						<th>2.3</th>
+						<th>3.1</th>
+						<th>Total</th>
+					</tr>										
+				</thead>
+				<tbody>
+					{% for proyecto, results in tabla_resultados.items %}
+					<tr>
+						<td>{{proyecto.organizacion}}</td>
+						<td>{{proyecto.nombre}}</td>
+						<td class="centrado">{% if results.1 == 1 %}&bull;{% endif %}</td>
+						<td class="centrado">{% if results.2 == 1 %}&bull;{% endif %}</td>
+						<td class="centrado">{% if results.3 == 1 %}&bull;{% endif %}</td>
+						<td class="centrado">{% if results.4 == 1 %}&bull;{% endif %}</td>
+						<td class="centrado">{% if results.5 == 1 %}&bull;{% endif %}</td>
+						<td class="centrado">{% if results.6 == 1 %}&bull;{% endif %}</td>
+						<td class="centrado">{{results|total_dict}}</td>
+					</tr>
+					{% endfor %}					
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="cont4">
+		<a class="guardarXLS" href="#" onclick="exportarXLS('montosfedasignados'); return false;">Guardar XLS</a>
+		<div id="montosfedasignados">
+			<table width="100%">
+				<caption>Nombre de la organización, proyecto, monto total asignado por FED, fecha inicio y fecha finalización</caption>
+				<thead>
+					<tr>
+						<th rowspan="2" width="20">Organización</th>
+						<th rowspan="2" width="40%">Proyecto</th>
+						<th rowspan="2" width="10%">Monto asignado por FED</th>
+						<th colspan="2" class="centrado">Fecha</th>						
+					</tr>
+					<tr>												
+						<th width="15%">Inicio</th>
+						<th width="15%">Finalización</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for proyecto in proyectos_filtrados %}
+					<tr>
+						<td>{{proyecto.organizacion}}</td>
+						<td>{{proyecto.nombre}}</td>
+						<td class="derecha monto-entregado-fed">{{proyecto.monto_fed}}</td>
+						<td>{{proyecto.fecha_inicio|date:"d F Y"}}</td>
+						<td>{{proyecto.fecha_fin|date:"d F Y"}}</td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<td colspan="2" class="centrado negrita">Total</td>
+						<td id="monto-entregado-fed" class="derecha"></td>
+						<td colspan="2"></td>
+					</tr>
+				</tbody>		
+			</table>
+		</div>
+	</div>
+	<div id="cont5">
+		<a class="guardarXLS" href="#" onclick="exportarXLS('cobertura-orgs'); return false;">Guardar XLS</a>
+		<div id='cobertura-orgs'>
+			<table width="100%">
+				<caption>Cobertura de las organizacion por municipios</caption>
+				<thead>
+					<tr>
+						<th>Nombre de la organización</th>
+						<th>Area de cobertura por municipios</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for key, value in tabla_cobertura_municipios.items %}
+					<tr>
+						<td>{{key}}</td>
+						<td>{% for municipio in value %}{{municipio}}{% if not forloop.last %},{% endif %} {% endfor %}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div><br><br>
+		<a class="guardarXLS" href="#" onclick="exportarXLS('coberturaportema'); return false;">Guardar XLS</a>
+		<div id="coberturaportema">			
+			<table width="100%">
+				<caption>Temas que trabajan las OCP y su cobertura</caption>
+				<thead>
+					<tr>
+						<th class="centrado">Tema del FED</th>
+						<th class="centrado">Area de cobertura</th>
+					</tr>					
+				</thead>
+				<tbody>
+					{% for tema, value in tabla_temas.items %}
+					<tr>
+						<td>{{tema}}</td>
+						<td>
+						{% for municipio in value %}
+						{{municipio.nombre}}{% if not forloop.last %}, {% endif %}						
+						{% endfor %}
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 {% endblock %}
