@@ -6,5 +6,6 @@ def save_as_xls(request):
     print tabla
     response = render_to_response('xls.html', {'tabla': tabla, })
     response['Content-Disposition'] = 'attachment; filename=tabla.xls'
-    response['Content-Type'] = 'application/vnd.ms-excel; charset=utf-8'
+    response['Content-Type'] = 'application/vnd.ms-excel'
+    response['Charset'] ='UTF-8'
     return response
