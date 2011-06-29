@@ -55,9 +55,10 @@
 </script>
 {% endblock %} {% block content %}
 <div>
-	<form action="." method="POST">
+	<br>
+	<form action="." method="POST" class="select-year">
 		{% csrf_token %} {{form.as_table}} 
-		<input type="submit" value="Take this!" />
+		<input type="submit" value="Actualizar" />
 	</form>
 </div>
 <br>
@@ -71,7 +72,7 @@
 	</ul>
 	<div id="cont1">
 		<!-- Inicia tabla de modalidad de organizaciones por modelidad de apoyo -->
-		<a class="guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;">Guardar XLS</a>		
+		<a class="guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;">Guardar XLS</a><div class="clean"></div>		
 		<div id="modalidad">
 			<table width="100%">
 				<caption># de organizaciones por modalidad de apoyo</caption>
@@ -100,7 +101,7 @@
 		</div>		
 		<br><br>
 		<!-- Inicia tabla por nivel de cobertura de los proyectos -->
-		<a class="guardarXLS" href="#" onclick="exportarXLS('cobertura'); return false;">Guardar XLS</a>
+		<a class="guardarXLS" href="#" onclick="exportarXLS('cobertura'); return false;">Guardar XLS</a><div class="clean"></div>
 		<div id="cobertura">		
 			<table width="100%">
 				<caption>Proyectos con cobertura a nivel municipal, departamental y nacional.</caption>
@@ -131,7 +132,7 @@
 		</div>
 		<br><br>
 		<!-- Inicia tabla organizaciones y montos -->
-		<a class="guardarXLS" href="#" onclick="exportarXLS('montodiv'); return false;">Guardar XLS</a>
+		<a class="guardarXLS" href="#" onclick="exportarXLS('montodiv'); return false;">Guardar XLS</a><div class="clean"></div>
 		<div id="montodiv">
 			<table width="100%" id="montos">
 				<caption>Nombre de la organización y los montos del
@@ -175,7 +176,7 @@
 	</div>
 	<div id="cont2">
 		{% for key, value in tabla_poblacion_meta.items %}
-		<a class="guardarXLS" href="#" onclick="exportarXLS('{{key|slugify}}'); return false;">Guardar XLS</a>				
+		<a class="guardarXLS" href="#" onclick="exportarXLS('{{key|slugify}}'); return false;">Guardar XLS</a><div class="clean"></div>				
 		<div id="{{key|slugify}}">
 			<table width="100%">
 				<caption>{{key.1}} {% if key.0 == 2 %}{% if not request.session.gral_year == 0 %}{{request.session.gral_year|restar:"1"}}{% endif %}{% endif %}</caption>
@@ -244,7 +245,7 @@
 		{% endfor %}
 	</div>
 	<div id="cont3">
-		<a class="guardarXLS" href="#" onclick="exportarXLS('aporte-resultados'); return false;">Guardar XLS</a>
+		<a class="guardarXLS" href="#" onclick="exportarXLS('aporte-resultados'); return false;">Guardar XLS</a><div class="clean"></div>
 		<div id="aporte-resultados">
 			<table width="100%">
 				<caption>Resultados por proyectos de las organizaciones que aportan al FED</caption>
@@ -280,7 +281,7 @@
 		</div>
 	</div>
 	<div id="cont4">
-		<a class="guardarXLS" href="#" onclick="exportarXLS('montosfedasignados'); return false;">Guardar XLS</a>
+		<a class="guardarXLS" href="#" onclick="exportarXLS('montosfedasignados'); return false;">Guardar XLS</a><div class="clean"></div>
 		<div id="montosfedasignados">
 			<table width="100%">
 				<caption>Nombre de la organización, proyecto, monto total asignado por FED, fecha inicio y fecha finalización</caption>
@@ -316,7 +317,7 @@
 		</div>
 	</div>
 	<div id="cont5">
-		<a class="guardarXLS" href="#" onclick="exportarXLS('cobertura-orgs'); return false;">Guardar XLS</a>
+		<a class="guardarXLS" href="#" onclick="exportarXLS('cobertura-orgs'); return false;">Guardar XLS</a><div class="clean"></div>
 		<div id='cobertura-orgs'>
 			<table width="100%">
 				<caption>Cobertura de las organizacion por municipios</caption>
@@ -336,7 +337,7 @@
 				</tbody>
 			</table>
 		</div><br><br>
-		<a class="guardarXLS" href="#" onclick="exportarXLS('coberturaportema'); return false;">Guardar XLS</a>
+		<a class="guardarXLS" href="#" onclick="exportarXLS('coberturaportema'); return false;">Guardar XLS</a><div class="clean"></div>
 		<div id="coberturaportema">			
 			<table width="100%">
 				<caption>Temas que trabajan las OCP y su cobertura</caption>

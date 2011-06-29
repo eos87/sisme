@@ -1,7 +1,58 @@
 {% extends "base.html" %}
-
 {% block title %}Avance de indicadores{% endblock %}
 
+{% block extra_head %}
+<link href="/files/css/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/files/js/jquery.multiselect.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#id_modalidad").multiselect({
+	        noneSelectedText: 'Todos las modalidades',
+	        selectedText: '# seleccionados',
+	        minWidth: 200
+	    });
+		$("#id_organizacion").multiselect({
+	        noneSelectedText: 'Todos las organizaciones',
+	        selectedText: '# seleccionados',
+	        minWidth: 200
+	    });
+		$("#id_resultado").multiselect({
+	        noneSelectedText: 'Todos las resultados',
+	        selectedText: '# seleccionados',
+	        minWidth: 200
+	    });
+	});
+</script>
+{% endblock %}
+
 {% block content %}
-{{form.as_table}}
+<div>
+	<div class="indicadores-form">
+		<div class="titulo-indicadores-form">Filtro de avance de indicadores</div>
+		<form action="." method="POST" class="indicadores-form" style="width:80%">
+			<table width="100%">
+			{{form.as_table}}
+			</table><br>
+			<input type="submit" name="submit" value="Consultar" />
+		</form>
+	</div>
+	<div class="resultados-container">
+		<div class="titulo-indicadores-form">Resultados</div>
+		<div class="resultados-interna">
+			<div class="botones-results">
+				<a href="#">Impulsando políticas públicas</a>
+				<a href="#">Demandando justicia para la igualdad</a>
+				<a href="#">Involucramiento de poblaciones meta</a>								
+			</div>			
+			<div class="botones-results">			
+				<a href="#">Prevención de violencia</a>
+				<a href="#">Acceso a servicios para víctimas</a>
+				<a href="#">Capacidad técnica de las OSC</a>				
+			</div>			
+		</div>
+	</div>
+	<div class="clean"></div>
+</div>
 {% endblock %}

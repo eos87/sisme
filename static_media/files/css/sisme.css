@@ -1,3 +1,205 @@
+body{
+	margin: 0;
+	padding: 0;
+	font-family: "Arial", "Verdana", sans-serif;
+	background-color: #eef0e4;
+}
+#header{
+	height: 61px;
+	width: 100%;
+	background: #72bbcf url(/files/img/header-back.png) no-repeat;	
+}
+.header-derecha{
+	float: right;	
+}
+a{
+	outline: none;
+}
+.header-buttons{
+	float: left;
+	margin-top: 10px;
+}
+.clean{
+	clear: both;
+}
+.main-nav{
+	display: block;
+	float: left;
+	height: 31px;
+	text-transform: uppercase;
+	color: #fff;
+	background: #46a6c0;
+	border: 1px #98dbe3 solid;
+	padding: 0px 8px;
+	text-decoration: none;
+	line-height: 31px;
+	margin-left: 5px;
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 13px;	
+}
+.main-nav:hover{
+	background: #398fa6;
+}
+.header-user-data{
+	float: left;
+}
+.user-logged{
+	height: 61px;
+	float: left;
+	padding: 0px 10px;
+	border-right: 1px #9acccc solid;
+}
+.user-logged div.user-data{
+	padding-top: 10px;
+	color: #484848;
+	font-size: 12px;
+	line-height: 18px;		
+}
+.global-links{
+	padding-top: 10px;
+}
+.global-links a{
+	color: #fff;
+	font-weight: bold;
+	font-size: 13px;
+	line-height: 20px;
+	text-decoration: none;
+}
+.global-links a:hover{
+	color: #98dbe3;
+}
+.logged-nav{
+	float: left;
+	padding: 0px 10px;
+}
+.logo-hivos img{
+	border-right: 2px #a40000 solid;
+}
+.banda{
+	background: #383838;
+	height: 27px;
+	border-top: 2px #000 solid;
+	padding-left: 10px;
+}
+.sistema-nombre{
+	line-height: 27px;
+	font-size: 14px;
+	color: #bdbebc;
+}
+.guardarXLS{
+	display: block;
+	float: right;
+	width: 96px;
+	height: 28px;
+	background: url(/files/img/xls-sprite.png) no-repeat;
+	text-indent: -9999px;		
+}
+.guardarXLS:hover{
+	background-position: 0px -28px;
+}
+#footer{
+	margin-top: 15px;	
+	background: url(/files/img/footer-line.png) repeat-x top;
+	color: #5a5a5a;
+	font-size: 13px;
+	padding: 20px;
+}
+#footer a{
+	text-decoration: none;
+	font-weight: bold;
+	color: #5a5a5a;	
+}
+#footer a:hover{
+	text-decoration: underline;
+}
+form.select-year{
+	margin-left: 10px;
+}
+form.select-year label{
+	font-family: "Arial", "Verdana", sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	padding-right: 6px;
+	text-transform: uppercase;	
+}
+input[type='submit']{
+	background: url(/files/img/submit-back.png) repeat-x;
+	font-size: 	17px;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;  
+ 	-moz-border-radius:5px;  
+ 	-webkit-border-radius:5px;
+ 	padding: 3px;
+}
+input[type='submit']:hover{
+	color: #2b1100;
+}
+form.select-year select{
+	padding: 3px;
+}
+.indicadores-form{
+	float: left;
+	width: 50%;
+}
+.titulo-indicadores-form{
+	height: 44px;	
+	background: url(/files/img/footer-line.png) repeat-x bottom;
+	line-height: 44px;
+	text-transform: uppercase;
+	color: #2e3436;
+	margin-bottom: 10px;
+	font-size: 13px;
+	padding-left: 10px;	
+	font-weight: bold;
+}
+form.indicadores-form{
+	padding-left: 10px;
+}
+.resultados-interna a{
+	display: block;
+	float: left;
+	background: url(/files/img/resultados-back.jpg);	
+	border-radius: 3px;  
+ 	-moz-border-radius:3px;  
+ 	-webkit-border-radius:3px;
+ 	border: 1px #a5abb1 solid;
+ 	width: 142px;
+ 	height: 64px; 	
+ 	margin: 10px;
+ 	text-align: center;
+ 	color: #545454;
+ 	font-size: 15px;
+ 	text-decoration: none;
+ 	padding: 23px 5px 0px 5px;
+ 	box-shadow: 1px 3px 3px #bdbdbd;
+ 	-moz-box-shadow: 1px 3px 3px #bdbdbd;
+ 	-webkit-box-shadow: 1px 3px 3px #bdbdbd;
+}
+.resultados-interna a:hover{
+	color: #ab2b3b;
+	box-shadow: 1px 3px 3px #959595;
+ 	-moz-box-shadow: 1px 3px 3px #959595;
+ 	-webkit-box-shadow: 1px 3px 3px #959595;
+}
+.botones-results{
+	width: 530px;	
+	float: left;
+}
+form.indicadores-form table label{
+	font-family: "Arial", sans-serif;	
+	color: #383838;	
+	font-size: 14px;
+	text-transform: none;
+	font-weight: normal;	
+}
+form.indicadores-form input[type='submit']{
+	float: right;
+}
+
+/*------------------------------ CSS para TABLAS --------------------------------*/
 caption {
 	text-align: left;
 	font-size: 15px;

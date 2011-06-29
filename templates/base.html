@@ -9,7 +9,48 @@
 {% endblock %}
 </head>
 <body>
-{% block content %}
-{% endblock %}
+	<div id="header">
+		<a class="logo-hivos" href="/"><img src="/files/img/hivos-logo.jpg" alt="Hivos"></a>&nbsp;&nbsp;
+		<a class="logo-fed" href="/"><img src="/files/img/logofed.png" alt="Fed"></a>
+		<div class="header-derecha">
+			<div class="header-buttons">
+				<a class="main-nav" href="/generales/">Datos generales</a> 
+				<a class="main-nav" href="/a/influencia/">Area de influencia</a> 
+				<a class="main-nav" href="/a/indicadores/">Avance de indicadores</a>
+				<div class="clean"></div>
+			</div>
+			<div class="header-user-data">
+				<div class="user-logged">
+					<div class="user-data">
+					byron corrales<br>
+					SIMAS
+					</div>					
+				</div>
+				<div class="logged-nav">
+					<div class="global-links">
+						<a href="/admin">Administración &raquo;</a><br>
+						<a href="/logout">Salir &raquo;</a>
+					</div>
+				</div>
+			</div>
+			<div class="clean"></div>
+		</div>
+		<div class="clean"></div>
+	</div>
+	<div class="banda">
+		<span class="sistema-nombre">Sistema de seguimiento, monitoreo y evaluación</span>		
+		<div class="banda-right">
+		{% block banda %}
+		{% endblock %}
+		</div>
+	</div>	
+	<div id="content">
+		{% block content %}
+		{% endblock %}
+	</div>
+	<div class="clean"></div>
+	<div id="footer">
+		Desarrollado por <a href="http://www.simas.org.ni">SIMAS</a> bajo plataforma <a href="http://www.djangoproject.com">Django</a>
+	</div>
 </body>
 </html>
