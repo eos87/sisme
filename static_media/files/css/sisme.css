@@ -36,7 +36,7 @@ a{
 	margin-left: 5px;
 	margin-right: 10px;
 	font-weight: bold;
-	font-size: 13px;	
+	font-size: 12px;	
 }
 .main-nav:hover{
 	background: #398fa6;
@@ -140,9 +140,12 @@ input[type='submit']:hover{
 form.select-year select{
 	padding: 3px;
 }
-.indicadores-form{
+.indicadores-form-div{
 	float: left;
 	width: 50%;
+}
+img{
+	border: none;
 }
 .titulo-indicadores-form{
 	height: 44px;	
@@ -157,6 +160,10 @@ form.select-year select{
 }
 form.indicadores-form{
 	padding-left: 10px;
+}
+.resultados-container{	
+	float: left;
+	width: 50%;
 }
 .resultados-interna a{
 	display: block;
@@ -186,7 +193,7 @@ form.indicadores-form{
 }
 .botones-results{
 	width: 530px;	
-	float: left;
+	float: left;	
 }
 form.indicadores-form table label{
 	font-family: "Arial", sans-serif;	

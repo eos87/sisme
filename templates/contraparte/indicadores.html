@@ -8,32 +8,76 @@
 <script src="/files/js/jquery.multiselect.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#id_modalidad").multiselect({
+		var modalidad = $("#id_modalidad").multiselect({
 	        noneSelectedText: 'Todos las modalidades',
 	        selectedText: '# seleccionados',
-	        minWidth: 200
+	        minWidth: 230,
+	        beforeclose: function(event, ui){
+	            var selectos = $("#id_modalidad").multiselect("getChecked").map(function(){
+	                return this.value;
+	            }).get();
+	            if(selectos.length!=0){
+	                $.getJSON('/ajax/orgs/?ids='+selectos.join(","), function(data){
+	                    $('#id_organizacion').html('');
+	                    if(data){
+	                        $.each(data, function(i, item){
+	                            $('<option></option>').val(item.id).html(item.nombre_corto).appendTo(orgs)
+	                        });
+	                        orgs.multiselect('refresh');
+	                        orgs.multiselect("enable");
+	                    }
+	                });
+	                orgs.multiselect("enable");
+	            }else{
+	                orgs.multiselect("disable");
+	            }
+	        }
 	    });
-		$("#id_organizacion").multiselect({
+		$("#id_organizacion").html('');
+		var orgs = $("#id_organizacion").multiselect({
 	        noneSelectedText: 'Todos las organizaciones',
 	        selectedText: '# seleccionados',
-	        minWidth: 200
+	        minWidth: 230
 	    });
+		orgs.multiselect("disable");
 		$("#id_resultado").multiselect({
-	        noneSelectedText: 'Todos las resultados',
+	        noneSelectedText: 'Todos los resultados',
 	        selectedText: '# seleccionados',
-	        minWidth: 200
+	        minWidth: 230
 	    });
 	});
 </script>
 {% endblock %}
 
 {% block content %}
-<div>
-	<div class="indicadores-form">
+<div class="wrapper">
+	<div class="indicadores-form-div">
 		<div class="titulo-indicadores-form">Filtro de avance de indicadores</div>
-		<form action="." method="POST" class="indicadores-form" style="width:80%">
+		<form action="." method="POST" class="indicadores-form" style="width:90%">
+		{% csrf_token %}
 			<table width="100%">
-			{{form.as_table}}
+				<tbody>
+					<tr>
+						<th>{{form.modalidad.label_tag}}</th>
+						<td>{{form.modalidad}}</td>
+					</tr>
+					<tr>
+						<th>{{form.organizacion.label_tag}}</th>
+						<td>{{form.organizacion}}</td>
+					</tr>
+					<tr>
+						<th>{{form.resultado.label_tag}}</th>
+						<td>{{form.resultado}}</td>
+					</tr>
+					<tr>
+						<th><label>Inicio período</label></th>
+						<td>{{form.mes_inicio}} {{form.anio_inicio}}{{form.mes_inicio.errors}}{{form.anio_inicio.errors}}</td>
+					</tr>
+					<tr>
+						<th><label>Fin período</label></th>
+						<td>{{form.mes_fin}} {{form.anio_fin}}{{form.mes_fin.errors}}{{form.anio_fin.errors}}</td>
+					</tr>					
+				</tbody>
 			</table><br>
 			<input type="submit" name="submit" value="Consultar" />
 		</form>
@@ -41,6 +85,7 @@
 	<div class="resultados-container">
 		<div class="titulo-indicadores-form">Resultados</div>
 		<div class="resultados-interna">
+		{% if centinela == 1 %}
 			<div class="botones-results">
 				<a href="#">Impulsando políticas públicas</a>
 				<a href="#">Demandando justicia para la igualdad</a>
@@ -50,9 +95,12 @@
 				<a href="#">Prevención de violencia</a>
 				<a href="#">Acceso a servicios para víctimas</a>
 				<a href="#">Capacidad técnica de las OSC</a>				
-			</div>			
-		</div>
+			</div>
+			<div class="clean"></div>			
+		</div>		
+		{% endif %}
 	</div>
 	<div class="clean"></div>
+	{{informes}}
 </div>
 {% endblock %}
