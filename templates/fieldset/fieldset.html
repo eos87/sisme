@@ -1,0 +1,88 @@
+              
+	{% if fieldset.name == 'mujeres' %}
+	<div style="float: left; width: 30%; margin-top: 5px; margin-right: 30px;">		
+		<table>
+			<caption><center>Participantes Mujeres</center></caption>
+			<thead>
+				<tr>
+					<th>Grupo</th>
+					{% for title in	inline_admin_formset.opts.mujeres_titles %}
+					<th>{{title}}</th>
+					{% endfor %}					
+				</tr>
+			</thead>
+			<tbody>
+				{% for line in fieldset %}
+				{% for field in line %}
+				{% cycle '<b style="display:none;">1</b>' '' '' '<b style="display:none;">4</b>' as ciclo %}				
+					{% if ciclo == '<b style="display:none;">1</b>' %}
+					<td>{% cycle 'Mujeres' 'Discapacitadas' 'Etnicas' 'VIH' %}</td>
+					{% endif %}
+				<td>{{field.field}}</td>{% if ciclo == '<b style="display:none;">4</b>' %}</tr><tr>{% endif %}
+				{% endfor %} 
+				{% endfor %}
+			</tbody>
+		</table>	
+	</div>
+	{% else %}
+	{% if fieldset.name == 'hombres' %}
+	<div style="float: left; width: 30%; margin-top: 5px;">		
+		<table>
+			<caption><center>Participantes Hombres</center></caption>
+			<thead>
+				<tr>
+					<th>Grupo</th>
+					{% for title in	inline_admin_formset.opts.hombres_titles %}
+					<th>{{title}}</th>
+					{% endfor %}					
+				</tr>
+			</thead>
+			<tbody>
+				{% for line in fieldset %}
+				{% for field in line %}
+				{% cycle '<b style="display:none;">1</b>' '' '' '<b style="display:none;">4</b>' as ciclo %}				
+					{% if ciclo == '<b style="display:none;">1</b>' %}
+					<td>{% cycle 'Hombre' 'Discapacitados' 'Etnicos' 'VIH' %}</td>
+					{% endif %}
+				<td>{{field.field}}</td>{% if ciclo == '<b style="display:none;">4</b>' %}</tr><tr>{% endif %}
+				{% endfor %} 
+				{% endfor %}
+			</tbody>
+		</table>	
+	</div>
+	<div style="clear: both;"></div>	
+	{% endif %}
+	{% endif %}	
+	
+	
+	
+	
+	
+	
+		
+	{% comment %}    	
+    	{% else %}
+        <div class="form-row{% if line.fields|length_is:'1' and line.errors %} errors{% endif %}{% for field in line %} {{ field.field.name }}{% endfor %}">
+            {% if line.fields|length_is:'1' %}{{ line.errors }}{% endif %}
+            {% for field in line %}
+                <div{% if not line.fields|length_is:'1' %} class="field-box{% if not field.is_readonly and field.errors %} errors{% endif %}"{% endif %}>
+                    {% if not line.fields|length_is:'1' and not field.is_readonly %}{{ field.errors }}{% endif %}
+                    {% if field.is_checkbox %}
+                        {{ field.field }}{{ field.label_tag }}
+                    {% else %}
+                        {{ field.label_tag }}
+                        {% if field.is_readonly %}
+                            <p>{{ field.contents }}</p>
+                        {% else %}
+                            {{ field.field }}
+                        {% endif %}
+                    {% endif %}
+                    {% if field.field.help_text %}
+                        <p class="help">{{ field.field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}  {% endcomment %}
+
+

@@ -51,11 +51,20 @@ class PoseenInfoInline(admin.StackedInline):
     template = 'admin/contraparte/informe/stacked.html'
     extra = 1
     resultado = 'R2.1. Involucramiento de las poblaciones metas en procesos de reflexión sobre los DDSSRR, dirigidos a una sexualidad integral, placentera, responsable, segura y libre de prejuicios.'
+    mujeres_titles = [u'Niñas', u'Adolescentes', u'Jóvenes', 'Adultas']
+    hombres_titles = [u'Niños', u'Adolescentes', u'Jóvenes', 'Adultos']
     fieldsets = [
-        (None, {'fields': ['nombre', 'tipo_accion', 'tema']}),
-        ('Participantes mujeres', {'fields': [('muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas'),]}),
-        #('Participantes mujeres discapacitadas', {'fields': ['titulo_galeria', 'fecha_galeria']}),
+        (None, {'fields': [('nombre', 'tipo_accion', 'tema'),]}),
+        ('mujeres', {'fields': ['muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas',  
+                                'muj_disca_ninas', 'muj_disca_adols', 'muj_disca_jovenes', 'muj_disca_adultas', 
+                                'muj_etnia_ninas', 'muj_etnia_adols', 'muj_etnia_jovenes', 'muj_etnia_adultas',
+                                'muj_vih_ninas', 'muj_vih_adols', 'muj_vih_jovenes', 'muj_vih_adultas']}),
+        ('hombres', {'fields': ['hom_ninos', 'hom_adols', 'hom_jovenes', 'hom_adultos',  
+                                'hom_disca_ninos', 'hom_disca_adols', 'hom_disca_jovenes', 'hom_disca_adultos', 
+                                'hom_etnia_ninos', 'hom_etnia_adols', 'hom_etnia_jovenes', 'hom_etnia_adultos',
+                                'hom_vih_ninos', 'hom_vih_adols', 'hom_vih_jovenes', 'hom_vih_adultos']}),                                             
     ]
+    
     
 
 class RecibenInfoInline(admin.TabularInline):

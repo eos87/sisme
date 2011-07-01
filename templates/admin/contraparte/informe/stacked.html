@@ -10,10 +10,24 @@
     {% if inline_admin_form.show_url %}<a href="../../../r/{{ inline_admin_form.original_content_type_id }}/{{ inline_admin_form.original.id }}/">{% trans "View on site" %}</a>{% endif %}
     {% if inline_admin_formset.formset.can_delete and inline_admin_form.original %}<span class="delete">{{ inline_admin_form.deletion_field.field }} {{ inline_admin_form.deletion_field.label_tag }}</span>{% endif %}
   </h3>
-  {% if inline_admin_form.form.non_field_errors %}{{ inline_admin_form.form.non_field_errors }}{% endif %}  
-  {% for fieldset in inline_admin_form %}
+  {% if inline_admin_form.form.non_field_errors %}{{ inline_admin_form.form.non_field_errors }}{% endif %}
+  {% for fieldset in inline_admin_form %}  	
+  	{% if fieldset.name != None %}  	
+  	{% else %}
+  	<fieldset class="module aligned {{ fieldset.classes }}">
     {% include "admin/includes/fieldset.html" %}
+    </fieldset>
+    {% endif %}
   {% endfor %}
+  <fieldset class="module aligned {{ fieldset.classes }}">
+  {% for fieldset in inline_admin_form %}  	
+  	{% if fieldset.name != None %}
+  	{% include "fieldset/fieldset.html" %}
+    {% endif %}
+  {% endfor %}
+  </fieldset>  
+  <!-- participantes mujeres -->
+  
   {% if inline_admin_form.has_auto_field %}{{ inline_admin_form.pk_field.field }}{% endif %}
   {{ inline_admin_form.fk_field.field }}
 </div>{% endfor %}

@@ -244,6 +244,30 @@ class PoseenInfo(models.Model):
     muj_vih_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
     muj_vih_adultas = models.IntegerField(verbose_name=u'Adultas', default=0)
     
+    #------------ participantes HOMBRES ---------------
+    hom_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes HOMBRES discapacitados ---------------
+    hom_disca_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_disca_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_disca_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_disca_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes hombres etnicos ---------------
+    hom_etnia_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_etnia_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_etnia_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_etnia_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes hombres etnicas ---------------
+    hom_vih_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_vih_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_vih_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_vih_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
     
     def __unicode__(self):
         return u'%s - %s' % (self.informe, self.id)
