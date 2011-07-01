@@ -38,19 +38,25 @@ class DemandaJusticiaInline(admin.TabularInline):
     template = 'admin/contraparte/informe/tabular.html'
     extra = 1
     resultado = 'R1.2. Demandando justicia, la igualdad y no discriminación de las personas, independientemente de su sexo, orientación sexual, raza, etnia, condición física, o de las personas que viven con VIH y SIDA'
-    
+        
 class DenunciaInline(admin.TabularInline):
     verbose_name_plural = '1.2.1 OSC  que impulsan denuncias demandado justicia, igualdad y la no discriminación ante instancias del Estado en contra de las personas'
     model = Denuncia
     extra = 1
     
 #--------------------------- Resultado 2.1 ----------------------------------
-class PoseenInfoInline(admin.TabularInline):
+class PoseenInfoInline(admin.StackedInline):
     verbose_name_plural = '2.1.1 Porcentaje de mujeres en las áreas de cobertura de las OCP que poseen información que les permite tomar decisiones sexuales y reproductivas de manera autónoma y bien informada'
     model = PoseenInfo
-    template = 'admin/contraparte/informe/tabular.html'
+    template = 'admin/contraparte/informe/stacked.html'
     extra = 1
     resultado = 'R2.1. Involucramiento de las poblaciones metas en procesos de reflexión sobre los DDSSRR, dirigidos a una sexualidad integral, placentera, responsable, segura y libre de prejuicios.'
+    fieldsets = [
+        (None, {'fields': ['nombre', 'tipo_accion', 'tema']}),
+        ('Participantes mujeres', {'fields': [('muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas'),]}),
+        #('Participantes mujeres discapacitadas', {'fields': ['titulo_galeria', 'fecha_galeria']}),
+    ]
+    
 
 class RecibenInfoInline(admin.TabularInline):
     verbose_name_plural = '2.1.4 Porcentaje de personas en las áreas de cobertura de las OCP que reciben información sobre VIH y SIDA, incluyendo las que viven con VIH.'
@@ -129,13 +135,12 @@ def get_proy_perms(obj):
     return perms
 
 class InformeAdmin(admin.ModelAdmin):
-    list_display = ['organizacion', 'proyecto', 'desde', 'hasta']
+    list_display = ['organizacion', 'proyecto', 'mes', 'anio']
     search_fields = ['organizacion__nombre', 'organizacion__nombre_corto', 'organizacion__codigo', 'proyecto__nombre', 'proyecto__codigo']    
     add_form_template = 'admin/contraparte/informe/add_template.html'    
     fieldsets = [
         (None, {'fields': ['organizacion', 'proyecto']}),
-        (u'Inicio de período', {'fields': [('anio_desde', 'mes_desde'),]}),
-        (u'Fin de período', {'fields': [('anio_hasta', 'mes_hasta')]}),        
+        (u'Período de reporte', {'fields': [('mes', 'anio'),]}),                
     ]
     inlines = []
     
