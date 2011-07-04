@@ -1,12 +1,14 @@
 {% load i18n adminmedia %}
+{% if inline_admin_formset.opts.resultado %}
 <div style="font-size: 13px; color: #fff; font-weight: bold; background: #069; margin-top: 15px; padding: 5px 2px; font-family: 'Trebuchet MS', sans-serif;">{{inline_admin_formset.opts.resultado}}</div>
+{% endif %}
 <div class="inline-group" id="{{ inline_admin_formset.formset.prefix }}-group">
-  <h2>{{ inline_admin_formset.opts.verbose_name_plural|title }}</h2>
+  <h2>{{ inline_admin_formset.opts.verbose_name_plural }}</h2>
 {{ inline_admin_formset.formset.management_form }}
 {{ inline_admin_formset.formset.non_form_errors }}
 
 {% for inline_admin_form in inline_admin_formset %}<div class="inline-related{% if forloop.last %} empty-form last-related{% endif %}" id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
-  <h3><b>{{ inline_admin_formset.opts.verbose_name|title }}:</b>&nbsp;<span class="inline_label">{% if inline_admin_form.original %}{{ inline_admin_form.original }}{% else %}#{{ forloop.counter }}{% endif %}</span>
+  <h3><b>{{ inline_admin_formset.opts.verbose_name }}:</b>&nbsp;<span class="inline_label">{% if inline_admin_form.original %}{{ inline_admin_form.original }}{% else %}#{{ forloop.counter }}{% endif %}</span>
     {% if inline_admin_form.show_url %}<a href="../../../r/{{ inline_admin_form.original_content_type_id }}/{{ inline_admin_form.original.id }}/">{% trans "View on site" %}</a>{% endif %}
     {% if inline_admin_formset.formset.can_delete and inline_admin_form.original %}<span class="delete">{{ inline_admin_form.deletion_field.field }} {{ inline_admin_form.deletion_field.label_tag }}</span>{% endif %}
   </h3>
@@ -19,7 +21,7 @@
     </fieldset>
     {% endif %}
   {% endfor %}
-  <fieldset class="module aligned {{ fieldset.classes }}">
+  <fieldset class="module aligned {{ fieldset.classes }}" style="border-bottom: 1px #959595 solid;">
   {% for fieldset in inline_admin_form %}  	
   	{% if fieldset.name != None %}
   	{% include "fieldset/fieldset.html" %}
@@ -79,7 +81,7 @@
         }
         $(rows).formset({
             prefix: "{{ inline_admin_formset.formset.prefix }}",
-            addText: "{% blocktrans with inline_admin_formset.opts.verbose_name|title as verbose_name %}Add another {{ verbose_name }}{% endblocktrans %}",
+            addText: "{% blocktrans with inline_admin_formset.opts.verbose_name as verbose_name %}Add another {{ verbose_name }}{% endblocktrans %}",
             formCssClass: "dynamic-{{ inline_admin_formset.formset.prefix }}",
             deleteCssClass: "inline-deletelink",
             deleteText: "{% trans "Remove" %}",

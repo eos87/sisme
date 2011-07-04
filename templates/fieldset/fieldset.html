@@ -1,4 +1,4 @@
-              
+    <!-- Tablas para mujeres -->          
 	{% if fieldset.name == 'mujeres' %}
 	<div style="float: left; width: 30%; margin-top: 5px; margin-right: 30px;">		
 		<table>
@@ -18,13 +18,14 @@
 					{% if ciclo == '<b style="display:none;">1</b>' %}
 					<td>{% cycle 'Mujeres' 'Discapacitadas' 'Etnicas' 'VIH' %}</td>
 					{% endif %}
-				<td>{{field.field}}</td>{% if ciclo == '<b style="display:none;">4</b>' %}</tr><tr>{% endif %}
+				<td class="{% if not field.is_readonly and field.errors %} errors{% endif %}">{{ field.errors }}{{field.field}}</td>{% if ciclo == '<b style="display:none;">4</b>' %}</tr><tr>{% endif %}
 				{% endfor %} 
 				{% endfor %}
 			</tbody>
 		</table>	
-	</div>
-	{% else %}
+	</div>	
+	{% endif %}
+	<!-- Tablas para hombres -->
 	{% if fieldset.name == 'hombres' %}
 	<div style="float: left; width: 30%; margin-top: 5px;">		
 		<table>
@@ -44,16 +45,37 @@
 					{% if ciclo == '<b style="display:none;">1</b>' %}
 					<td>{% cycle 'Hombre' 'Discapacitados' 'Etnicos' 'VIH' %}</td>
 					{% endif %}
-				<td>{{field.field}}</td>{% if ciclo == '<b style="display:none;">4</b>' %}</tr><tr>{% endif %}
+				<td class="{% if not field.is_readonly and field.errors %} errors{% endif %}">{{ field.errors }}{{field.field}}</td>{% if ciclo == '<b style="display:none;">4</b>' %}</tr><tr>{% endif %}
 				{% endfor %} 
 				{% endfor %}
 			</tbody>
 		</table>	
+	</div>		
+	{% endif %}	
+	{% if fieldset.name == 'lgbt' %}
+	<div style="float: left; width: 30%; margin-top: 5px; margin-left: 30px;">
+		<table>
+			<caption><center>Participantes LGBT</center></caption>
+			<thead>
+				<tr>
+				{% for title in	inline_admin_formset.opts.lgbt_titles %}
+					<th>{{title}}</th>
+				{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				{% for line in fieldset %}
+				{% for field in line %}				
+				<td class="{% if not field.is_readonly and field.errors %} errors{% endif %}">{{ field.errors }}{{field.field}}</td>
+				{% endfor %} 
+				{% endfor %}
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	<div style="clear: both;"></div>	
 	{% endif %}
-	{% endif %}	
-	
 	
 	
 	

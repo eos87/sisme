@@ -61,21 +61,18 @@ class AccionImplementada(models.Model):
     
     class Meta:
         verbose_name_plural = 'Acciones Implementadas'
-        
-class Comision(models.Model):
-    nombre = models.CharField(max_length=150)
-    
-    def __unicode__(self):
-        return '%s' % self.nombre
-    
-    class Meta:
-        verbose_name = u'Comisión'
-        verbose_name_plural = 'Comisiones'
+
+COMISION_CHOICE = ((1, u'Comisión de la Niñez y Adolescencia'),
+                   (2, u'Comisión de género / mujer'),
+                   (3, u'Comisión de Salud'),
+                   (4, u'Comisión de lucha contra el SIDA'),
+                   (5, u'Comisión de seguimiento a la aplicación del código penal'),
+                   (6, u'Comisión de prevención de la violencia'))
     
 class ParticipacionComision(models.Model):
     informe = models.ForeignKey(Informe)
-    nombre = models.CharField(max_length=200, verbose_name='Nombre de la actividad')
-    tipo_comision = models.ForeignKey(Comision)
+    nombre = models.CharField(max_length=200, verbose_name='Nombre de la actividad')    
+    comision = models.IntegerField(choices=COMISION_CHOICE)
     ambito = models.IntegerField(choices=AMBITO, verbose_name=u'Ámbito territorial')
     estado = models.IntegerField(choices=ESTADO_ACCION, verbose_name=u'Efectividad de la acción')    
     
@@ -87,20 +84,10 @@ class ParticipacionComision(models.Model):
     
 ACCIONES2 = ((1, u'Campañas de televisión'), (2, u'Campañas radiales'), (3, u'Artítulos de periódicos'))
 
-class AccionAgenda(models.Model):
-    nombre = models.CharField(max_length=150)
-    
-    def __unicode__(self):
-        return '%s' % self.nombre
-    
-    class Meta:
-        verbose_name = u'Acción de agenda'
-        verbose_name_plural = 'Acciones de agenda'
-
 class AgendaPublica(models.Model):
     informe = models.ForeignKey(Informe)
-    nombre = models.CharField(max_length=200, verbose_name='Nombre de la actividad')    
-    tipo_accion = models.ForeignKey(AccionAgenda)
+    nombre = models.CharField(max_length=200, verbose_name='Nombre de la actividad')
+    tipo_accion = models.IntegerField(choices=ACCIONES2)
     tema = models.ForeignKey(Tema)    
     ambito = models.IntegerField(choices=AMBITO, verbose_name=u'Ámbito territorial')
     
@@ -268,6 +255,11 @@ class PoseenInfo(models.Model):
     hom_vih_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
     hom_vih_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
     
+    #------------ LGBT participantes -------------------------
+    lgbt_trans = models.IntegerField(verbose_name=u'Trans', default=0)
+    lgbt_lesbi = models.IntegerField(verbose_name=u'Lesbianas', default=0)
+    lgbt_gay = models.IntegerField(verbose_name=u'Gay', default=0)
+    lgbt_hsh = models.IntegerField(verbose_name=u'HSH', default=0)    
     
     def __unicode__(self):
         return u'%s - %s' % (self.informe, self.id)

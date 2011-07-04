@@ -47,12 +47,14 @@ class DenunciaInline(admin.TabularInline):
 #--------------------------- Resultado 2.1 ----------------------------------
 class PoseenInfoInline(admin.StackedInline):
     verbose_name_plural = '2.1.1 Porcentaje de mujeres en las áreas de cobertura de las OCP que poseen información que les permite tomar decisiones sexuales y reproductivas de manera autónoma y bien informada'
+    verbose_name = 'actividad'
     model = PoseenInfo
     template = 'admin/contraparte/informe/stacked.html'
     extra = 1
     resultado = 'R2.1. Involucramiento de las poblaciones metas en procesos de reflexión sobre los DDSSRR, dirigidos a una sexualidad integral, placentera, responsable, segura y libre de prejuicios.'
     mujeres_titles = [u'Niñas', u'Adolescentes', u'Jóvenes', 'Adultas']
     hombres_titles = [u'Niños', u'Adolescentes', u'Jóvenes', 'Adultos']
+    lgbt_titles = [u'Trans', u'Lesbianas', u'Gay', 'HSH']
     fieldsets = [
         (None, {'fields': [('nombre', 'tipo_accion', 'tema'),]}),
         ('mujeres', {'fields': ['muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas',  
@@ -62,10 +64,9 @@ class PoseenInfoInline(admin.StackedInline):
         ('hombres', {'fields': ['hom_ninos', 'hom_adols', 'hom_jovenes', 'hom_adultos',  
                                 'hom_disca_ninos', 'hom_disca_adols', 'hom_disca_jovenes', 'hom_disca_adultos', 
                                 'hom_etnia_ninos', 'hom_etnia_adols', 'hom_etnia_jovenes', 'hom_etnia_adultos',
-                                'hom_vih_ninos', 'hom_vih_adols', 'hom_vih_jovenes', 'hom_vih_adultos']}),                                             
+                                'hom_vih_ninos', 'hom_vih_adols', 'hom_vih_jovenes', 'hom_vih_adultos']}),
+        ('lgbt', {'fields': ['lgbt_trans', 'lgbt_lesbi', 'lgbt_gay', 'lgbt_hsh']})                                             
     ]
-    
-    
 
 class RecibenInfoInline(admin.TabularInline):
     verbose_name_plural = '2.1.4 Porcentaje de personas en las áreas de cobertura de las OCP que reciben información sobre VIH y SIDA, incluyendo las que viven con VIH.'
@@ -149,9 +150,13 @@ class InformeAdmin(admin.ModelAdmin):
     add_form_template = 'admin/contraparte/informe/add_template.html'    
     fieldsets = [
         (None, {'fields': ['organizacion', 'proyecto']}),
-        (u'Período de reporte', {'fields': [('mes', 'anio'),]}),                
+        (u'Período de reporte', {'fields': [('anio', 'mes'),]}),                
     ]
     inlines = []
+    
+    class Media:
+        js = ('/files/js/validar_fecha.js',)
+              
     
     #sobreescribiendo el metodo para filtrar los objetos    
     def queryset(self, request):
@@ -190,8 +195,6 @@ class InformeAdmin(admin.ModelAdmin):
             yield inline.get_formset(request, obj)
 
 admin.site.register(Informe, InformeAdmin)
-admin.site.register(Comision)
-admin.site.register(AccionAgenda)
 admin.site.register(TipoObservatorio)
 
 
