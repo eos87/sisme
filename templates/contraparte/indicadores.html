@@ -45,6 +45,11 @@
 	        selectedText: '# seleccionados',
 	        minWidth: 230
 	    });
+		$("#id_meses").multiselect({
+	        noneSelectedText: 'Mes',
+	        selectedText: '# seleccionados',
+	        minWidth: 115
+	    });
 	});
 </script>
 {% endblock %}
@@ -70,13 +75,9 @@
 						<td>{{form.resultado}}</td>
 					</tr>
 					<tr>
-						<th><label>Inicio período</label></th>
-						<td>{{form.mes_inicio}} {{form.anio_inicio}}{{form.mes_inicio.errors}}{{form.anio_inicio.errors}}</td>
-					</tr>
-					<tr>
-						<th><label>Fin período</label></th>
-						<td>{{form.mes_fin}} {{form.anio_fin}}{{form.mes_fin.errors}}{{form.anio_fin.errors}}</td>
-					</tr>					
+						<th><label>Período de informe</label></th>
+						<td>{{form.meses}} {{form.anio}} {{form.meses.errors}} {{form.anio.errors}}</td>
+					</tr>									
 				</tbody>
 			</table><br>
 			<input type="submit" name="submit" value="Consultar" />
@@ -87,7 +88,7 @@
 		<div class="resultados-interna">
 		{% if centinela == 1 %}
 			<div class="botones-results">
-				<a href="#">Impulsando políticas públicas</a>
+				<a href="/a/impulsando-politicas-publicas/">Impulsando políticas públicas</a>
 				<a href="#">Demandando justicia para la igualdad</a>
 				<a href="#">Involucramiento de poblaciones meta</a>								
 			</div>			

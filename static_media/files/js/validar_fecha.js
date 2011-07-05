@@ -6,19 +6,23 @@ $(document).ready(function() {
 		$('#id_mes, #id_anio').attr('disabled', true);
 		$('#id_anio').change(function(){
 			if($(this).val() != ''){
-				loadOptions('', $('#id_proyecto').val());
+				loadOptions('', $('#id_proyecto').val(), $(this).val());
 			}
 		});
-	}else{
-		
+	}else if(estado == 'edit'){
+		var selecto = $('#id_mes').val();
+		loadOptions('&load='+selecto, $('#id_proyecto').val(), $('#id_anio').val());		
 	}
 	
 	$('#id_proyecto').change(function(){
 		if(estado == 'add'){
 			if($(this).val() != ''){
-				$('#id_anio').removeAttr('disabled');
+				$("#id_anio").val($("#id_anio option:first").val());
+				$('#id_anio').removeAttr('disabled');				
+				$('#id_mes').attr('disabled', true);
 			}else{
 				$('#id_anio').attr('disabled', true);
+				$('#id_mes').attr('disabled', true);
 			}
 		}		
 	});
@@ -26,30 +30,24 @@ $(document).ready(function() {
 
 function checkURL(){
 	var url = window.location.href.split('/');
-	if(url[url.length-2]=="add"){
+	if((url[url.length-2]=="add") && (url.length == 8)){
 		return 'add';
-	}else{
+	}else if(url.length == 8){
 		return 'edit';
 	}
 }
-function loadOptions(url, proy_id){
-	$.getJSON('/ajax/meses/id='+proy_id+url, function(data){
-        $('#id_organizacion').html('');
+function loadOptions(url, proy_id, year){
+	$.getJSON('/ajax/meses/?id='+proy_id+'&year='+year+url, function(data){
+        $('#id_mes').html('');
+        $('#id_mes').removeAttr('disabled');
+        $('<option></option>').val('').html('-------').appendTo($('#id_mes'));
         if(data){
             $.each(data, function(i, item){
-                $('<option></option>').val(item.id).html(item.nombre_corto).appendTo(orgs)
+                $('<option></option>').val(item.id).html(item.nombre).appendTo($('#id_mes'));
             });
-            orgs.multiselect('refresh');
-            orgs.multiselect("enable");
+            if(url != ''){
+            	$("#id_mes").val(url.split('=')[1]);
+            }            
         }
     });
 }
-/*validar que los dos campos tengan valor*/
-function validarSeleccion() {	
-	if (($("#id_mes").val() != "") && ($("#id_mes").val() != "")) {
-		return true;
-	} else {
-		return false;
-	}
-}
-

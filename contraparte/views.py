@@ -10,12 +10,9 @@ def indicadores(request):
             request.session['modalidad'] = form.cleaned_data['modalidad']
             request.session['organizacion'] = form.cleaned_data['organizacion']
             request.session['resultado'] = form.cleaned_data['resultado']
-            request.session['mes_inicio'] = form.cleaned_data['mes_inicio']
-            request.session['anio_inicio'] = form.cleaned_data['anio_inicio']
-            request.session['mes_fin'] = form.cleaned_data['mes_fin']
-            request.session['anio_fin'] = form.cleaned_data['anio_fin']
-            centinela = 1
-            informes = _query_set_filtrado(request)
+            request.session['meses'] = form.cleaned_data['meses']
+            request.session['anio'] = form.cleaned_data['anio']            
+            centinela = 1            
     else:
         form = InfluenciaForm()
         centinela = 0
@@ -34,19 +31,17 @@ def _query_set_filtrado(request):
     if request.session['resultado']:
         params['proyecto__resultados__id__in'] = request.session['resultado']
         
-    if request.session['mes_inicio']:
-        params['mes_desde'] = request.session['mes_inicio']
+    if request.session['meses']:
+        params['mes__in'] = request.session['meses']
     
-    if request.session['anio_inicio']:
-        params['anio_desde'] = request.session['anio_inicio']
-    
-    if request.session['mes_fin']:
-        params['mes_hasta'] = request.session['mes_fin']
-    
-    if request.session['anio_fin']:
-        params['anio_hasta'] = request.session['anio_fin']
+    if request.session['anio']:
+        params['anio'] = request.session['anio']    
         
     return Informe.objects.filter(** params)
+
+#Salidas para resultado 1
+def impulsando_politicas_publicas(request):
+    return render_to_response('contraparte/impulsando_politicas_publicas.html', RequestContext(request, locals()))
     
         
         
