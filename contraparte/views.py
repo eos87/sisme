@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from forms import InfluenciaForm
 from models import *
+from sisme.fed.models import Tema
 
 def indicadores(request):
     if request.method == 'POST':
@@ -39,10 +40,27 @@ def _query_set_filtrado(request):
         
     return Informe.objects.filter(** params)
 
-#Salidas para resultado 1
-def impulsando_politicas_publicas(request):
-    return render_to_response('contraparte/impulsando_politicas_publicas.html', RequestContext(request, locals()))
-    
+#------------- Resultado 1.1 ------------------------
+def acciones_impulsadas(request):
+    tabla_por_tipo = {}
+    temas = Tema.objects.all()
+    informes = _query_set_filtrado(request)
+    for op in ACCIONES:
+        tabla_por_tipo[op[1]] = {tema.nombre: AccionImpulsada.objects.filter(informe__in=informes, \
+                                                                      tema=tema, \
+                                                                      tipo_accion=op[0]).count() for tema in temas}
+    tabla_por_ambito = {}
+    for op in AMBITO:
+        tabla_por_ambito[op[1]] = {tema.nombre: AccionImpulsada.objects.filter(informe__in=informes, \
+                                                                      tema=tema, \
+                                                                      ambito=op[0]).count() for tema in temas}
+    tabla_estado_accion = {}
+    for op in ACCION:
+        tabla_estado_accion[op[1]] = {tema.nombre: AccionImplementada.objects.filter(informe__in=informes, \
+                                                                      tema=tema, \
+                                                                      accion=op[0]).count() for tema in temas}
+        
+    return render_to_response('contraparte/acciones_impulsadas.html', RequestContext(request, locals()))
         
         
         

@@ -9,4 +9,5 @@ def restar(value, arg):
 @register.filter
 def total_dict(value):    
     return sum(value.values())
+
         

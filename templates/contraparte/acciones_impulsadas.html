@@ -1,0 +1,13 @@
+<!-- Acciones impulsadas -->
+{% with tabla=tabla_por_tipo titulo='Acciones impulsadas' primer_td='Tipo de acciones' %}
+{% include "tabla_generica.html" %}
+{% endwith %}
+
+<!-- Acciones impulsadas por ambito de accion -->
+{% with tabla=tabla_por_ambito titulo='Ambito de las acciones impulsadas' primer_td='Ambito de acciones' %}
+{% include "tabla_generica.html" %}
+{% endwith %}
+
+{% with tabla=tabla_estado_accion titulo='Estado de las acciones' primer_td='Acciones' %}
+{% include "tabla_generica.html" %}
+{% endwith %}
