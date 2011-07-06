@@ -1,13 +1,19 @@
 <!-- Acciones impulsadas -->
-{% with tabla=tabla_por_tipo titulo='Acciones impulsadas' primer_td='Tipo de acciones' %}
+{% with tabla=tabla_por_tipo titulo='Acciones impulsadas' primer_td='Tipo de acciones' colspan=7 titulo_combinado='Temas del FED' %}
 {% include "tabla_generica.html" %}
 {% endwith %}
 
 <!-- Acciones impulsadas por ambito de accion -->
-{% with tabla=tabla_por_ambito titulo='Ambito de las acciones impulsadas' primer_td='Ambito de acciones' %}
+{% with tabla=tabla_por_ambito titulo='Ambito de las acciones impulsadas' primer_td='Ambito de acciones' colspan=7 titulo_combinado='Temas del FED' %}
 {% include "tabla_generica.html" %}
 {% endwith %}
 
-{% with tabla=tabla_estado_accion titulo='Estado de las acciones' primer_td='Acciones' %}
+<!-- Acciones impulsadas por estado de accion -->
+{% with tabla=tabla_estado_accion titulo='Acciones implementadas' primer_td='Acciones' colspan=7 titulo_combinado='Temas del FED' %}
+{% include "tabla_generica.html" %}
+{% endwith %}
+
+<!-- Acciones impulsadas por estado de accion y tema -->
+{% with tabla=tabla_estado_accion_2 titulo='Estado de las acciones implementadas' primer_td='Acciones' colspan=3 titulo_combinado='Estado de la acción' %}
 {% include "tabla_generica.html" %}
 {% endwith %}

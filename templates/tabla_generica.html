@@ -5,13 +5,18 @@
 		<caption>{{titulo}}</caption>
 		<thead>
 			<tr>
-				<th>{{primer_td}}</th>
+				<th rowspan="2">{{primer_td}}</th>
+				<th colspan="{{colspan}}" class="centrado">{{titulo_combinado}}</th>
+				{% if not percent == 1 %}<th rowspan="2">Total</th>{% endif %}
+				{% if percent == 1 %}<th rowspan="2" class="centrado">%</th>{% endif %}
+			</tr>
+			<tr>				
 				{% for key, value in tabla.items|slice:":1" %}
 				{% for k in value.keys %}
 				<th class="centrado">{{k}}</th>
 				{% endfor %}
-				{% endfor %}
-				<th>Total</th>
+				{% endfor %}	
+				{% if percent == 1 %}<th>Total</th>{% endif %}
 			</tr>
 		</thead>
 		<tbody>
@@ -19,31 +24,27 @@
 			<tr>
 				<td>{{key}}</td>
 				{% for k, v in value.items %}
-				<td class="{{k|slugify}}">{{v}}</td>
-				{% endfor %}
-				<td class="general_{{titulo|slugify}}">{{value|total_dict}}</td>
-			</tr>			
+				<td>{{v}}</td>
+				{% endfor %}				
+				<td>{{value|total_dict}}</td>
+				{% if percent == 1 %}
+					{% with total=value|total_dict %}
+					<td>{{total|frecuencia:tabla}}</td>
+					{% endwith %}
+				{% endif %}								
+			</tr>
 			{% endfor %}
 			<tr>
 				<td class="negrita">Total</td>
 				{% for key, value in tabla.items|slice:":1" %}
-				{% for k in value.keys %}				
-				<td id="{{k|slugify}}_total_{{titulo|slugify}}" class="calcular-total"></td>
+				{% for k in value.keys %}
+				<td>{{tabla|total_per_key:k}}</td>
 				{% endfor %}
-				{% endfor %}
-				<td id="general_{{titulo|slugify}}_total_" class="calcular-total"></td>
+				{% endfor %}				
+				<td>{{tabla|total_general}}</td>								
 			</tr>
 			
 		</tbody>
 	</table>
 </div>
-<!-- calcular los totales al final de la tabla -->
-<script type="text/javascript">	
-	$(document).ready(function(){
-		$('.calcular-total').each(function(){
-			var id = $(this).attr('id');			
-			sumAndputHere('{{titulo|slugify}} table', id.split('_total_')[0], id, 0);			
-		});
-	});
-</script>
 <br><br>

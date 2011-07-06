@@ -1,10 +1,11 @@
-function sumAndputHere(tablaID, uniqueClass, elem_id, decimal){
-	$('#'+elem_id).html(sumarColumnas(tablaID, uniqueClass, decimal));
+function sumAndputHere(tablaID, classToSum, elem_id, decimal){
+	$('#'+elem_id).html(sumarColumnas(tablaID, classToSum, decimal));
 }
 
-function sumarColumnas(tablaID, uniqueClass, decimal){
+function sumarColumnas(tablaID, classToSum, decimal){
 	var tot = 0;
-	$("#" + tablaID + " ." + uniqueClass).each(function(){
+	console.log($("#" + tablaID + " ." + classToSum));
+	$("#" + tablaID + " ." + classToSum).each(function(){		
 		tot += parseFloat($(this).html());
 	});		
 	if(decimal==1){

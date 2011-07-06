@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Demandando Justicia para la Igualdad{% endblock %}
+
+{% block extra_head %}
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('#tabs').tabs();
+	});
+</script>
+<style type="text/css">
+.ui-tabs-panel{
+	padding: 0em !important;
+	padding-top: 0.6em !important;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="tabs" style="font-size: 70%;">
+	<ul>
+		<li><a href="/a/acciones-reflexion/"><span>Acciones para reflexionar</span></a></li>				
+		<li><a href="#participantes-mujeres"><span>Participantes mujeres</span></a></li>
+		<li><a href="#participantes-hombres"><span>Participantes hombres</span></a></li>
+	</ul>	
+	{% for key, value in resultados.items %}
+	<div id="{{key|slugify}}">		
+		{% with tabla=value titulo=key primer_td='Acciones' colspan=5 titulo_combinado='Temas del FED' percent=1 %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+	</div>	
+	{% endfor %}	
+</div>	
+{% endblock %}

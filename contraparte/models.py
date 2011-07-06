@@ -133,25 +133,20 @@ class Observatorio(models.Model):
         verbose_name_plural = u'Observatorios'        
     
 #------------------------------ Resultado 1.2 --------------------------------------
-class AccionDemanda(models.Model):
-    nombre = models.CharField(max_length=150)
-    
-    def __unicode__(self):
-        return '%s' % self.nombre
-    
-    class Meta:
-        verbose_name = u'Acción de demanda'
-        verbose_name_plural = 'Acciones de demanda' 
-
 POBLACION = ((1, u'En contra de las discriminación a personas LGBT'), 
              (2, u'En contra de la discriminación a personas discapacitadas'), 
              (3, u'En contra de la discriminación a personas con VIH'), 
              (4, u'En contra de la discriminación por etnias'))
 
+ACCION_DEMANDA = ((1, u'Campañas en televisión '),
+                  (2, u'Marchas/plantones'),
+                  (3, u'Campañas en radio'),
+                  (4, u'Foros'))
+
 class DemandaJusticia(models.Model):
     informe = models.ForeignKey(Informe)
-    nombre = models.CharField(max_length=200, verbose_name='Nombre de la actividad')
-    tipo_accion = models.ForeignKey(AccionDemanda)
+    nombre = models.CharField(max_length=200, verbose_name='Nombre de la actividad')    
+    accion = models.IntegerField(choices=ACCION_DEMANDA)
     poblacion_discriminada = models.IntegerField(choices=POBLACION)
     
     def __unicode__(self):
