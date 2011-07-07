@@ -7,7 +7,7 @@ body{
 #header{
 	min-height: 61px;
 	width: 100%;
-	background: #6bb6d0 url(/files/img/header-back.png) no-repeat;	
+	background: #6bb6d0 url(/files/img/header-back.png) repeat-y;	
 }
 .header-derecha{
 	float: right;	
