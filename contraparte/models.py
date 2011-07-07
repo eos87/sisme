@@ -137,7 +137,7 @@ POBLACION = ((1, u'En contra de las discriminación a personas LGBT'),
              (2, u'En contra de la discriminación a personas discapacitadas'), 
              (3, u'En contra de la discriminación a personas con VIH'), 
              (4, u'En contra de la discriminación por etnias'),
-	     (5, u'En contra de la discriminación a la mujer'))
+     	     (5, u'En contra de la discriminación a la mujer'))
 
 ACCION_DEMANDA = ((1, u'Campañas en televisión '),
                   (2, u'Marchas/plantones'),
@@ -178,7 +178,8 @@ ACCION_POSEE_INFO = ((1, u'Talleres de formación'),
                      (2, u'Círculos de estudio'), 
                      (3, u'Videos reflexivos'), 
                      (4, u'Intercambios de experiencias'),
-		(5, u'Visitas de campo'))
+                     (5, u'Visitas de campo'),
+                     (6, u'Consejería'))
 
 TIPO_POBLACION2 = ((1, 'Mujeres'), 
                   (2, 'Hombres'), 
