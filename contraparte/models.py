@@ -136,7 +136,8 @@ class Observatorio(models.Model):
 POBLACION = ((1, u'En contra de las discriminación a personas LGBT'), 
              (2, u'En contra de la discriminación a personas discapacitadas'), 
              (3, u'En contra de la discriminación a personas con VIH'), 
-             (4, u'En contra de la discriminación por etnias'))
+             (4, u'En contra de la discriminación por etnias'),
+	     (5, u'En contra de la discriminación a la mujer'))
 
 ACCION_DEMANDA = ((1, u'Campañas en televisión '),
                   (2, u'Marchas/plantones'),
@@ -176,7 +177,8 @@ class Denuncia(models.Model):
 ACCION_POSEE_INFO = ((1, u'Talleres de formación'), 
                      (2, u'Círculos de estudio'), 
                      (3, u'Videos reflexivos'), 
-                     (4, u'Intercambios de experiencias'))
+                     (4, u'Intercambios de experiencias'),
+		(5, u'Visitas de campo'))
 
 TIPO_POBLACION2 = ((1, 'Mujeres'), 
                   (2, 'Hombres'), 
@@ -426,6 +428,7 @@ class CasoAtendido(models.Model):
     informe = models.ForeignKey(Informe)
     tipo_caso = models.IntegerField(choices=TIPOS_CASOS, verbose_name=u'Tipo de caso')
     situacion_caso = models.IntegerField(choices=SITUACION_CASOS, verbose_name=u'Situación del caso')
+    cantidad = models.IntegerField()
     
     def __unicode__(self):        
         return u'%s - %s' % (self.informe, self.id)
@@ -476,11 +479,13 @@ INSTANCIA_PUBLICA = ((1, u'Policía Nacional/Comisaría de la mujer'),
                         (4, u'Ministerio público y fiscalía'),
                         (5, u'Juzgado'))
 
+SI_NO_REF = ((1, u'Si'), (2, u'No'), (3, u'No sabe'))
+
 class ReferenciaContraReferencia(models.Model):
     informe = models.ForeignKey(Informe)
     instancia = models.IntegerField(choices=INSTANCIA_PUBLICA, verbose_name=u'Instancia pública')
     tipo_referencia = models.IntegerField(choices=TIPO_REFERENCIA, verbose_name=u'Tipo de referencia')
-    atendido_personal_pertinente = models.IntegerField(choices=SI_NO_SIMPLE, verbose_name=u'Atendido por personal pertinente')
+    atendido_personal_pertinente = models.IntegerField(choices=SI_NO_REF, verbose_name=u'Atendido por personal pertinente')
     
     def __unicode__(self):        
         return u'%s - %s' % (self.informe, self.id)
