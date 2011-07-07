@@ -73,9 +73,9 @@ class RecibenInfoInline(admin.TabularInline):
     model = RecibenInfo
     template = 'admin/contraparte/informe/stacked.html'
     extra = 1
-    mujeres_titles = [u'Niñas', u'Adolescentes', u'Jóvenes', 'Adultas']
-    hombres_titles = [u'Niños', u'Adolescentes', u'Jóvenes', 'Adultos']
-    lgbt_titles = [u'Trans', u'Lesbianas', u'Gay', 'HSH']
+    mujeres_titles = [u'Niñas', u'Adol', u'Jóv', 'Adul']
+    hombres_titles = [u'Niños', u'Adol', u'Jóv', 'Adul']
+    lgbt_titles = [u'Trans', u'Lesb', u'Gay', 'HSH']
     fieldsets = [
         (None, {'fields': [('nombre', 'tipo_accion'),]}),
         ('mujeres', {'fields': ['muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas',  
@@ -96,9 +96,9 @@ class PrevencionVBGInline(admin.TabularInline):
     template = 'admin/contraparte/informe/stacked.html'
     extra = 1
     resultado = 'R2.2 Fortalecida la prevención de la violencia basada en género.'
-    mujeres_titles = [u'Niñas', u'Adolescentes', u'Jóvenes', 'Adultas']
-    hombres_titles = [u'Niños', u'Adolescentes', u'Jóvenes', 'Adultos']
-    lgbt_titles = [u'Trans', u'Lesbianas', u'Gay', 'HSH']
+    mujeres_titles = [u'Niñas', u'Adol', u'Jóv', 'Adul']
+    hombres_titles = [u'Niños', u'Adol', u'Jóv', 'Adul']
+    lgbt_titles = [u'Trans', u'Lesb', u'Gay', 'HSH']
     fieldsets = [
         (None, {'fields': [('nombre', 'tipo_accion'),]}),
         ('mujeres', {'fields': ['muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas',  
@@ -117,9 +117,9 @@ class MasculinidadLibreInline(admin.TabularInline):
     model = MasculinidadLibre
     template = 'admin/contraparte/informe/stacked.html'
     extra = 1
-    mujeres_titles = [u'Niñas', u'Adolescentes', u'Jóvenes', 'Adultas']
-    hombres_titles = [u'Niños', u'Adolescentes', u'Jóvenes', 'Adultos']
-    lgbt_titles = [u'Trans', u'Lesbianas', u'Gay', 'HSH']
+    mujeres_titles = [u'Niñas', u'Adol', u'Jóv', 'Adul']
+    hombres_titles = [u'Niños', u'Adol', u'Jóv', 'Adul']
+    lgbt_titles = [u'Trans', u'Lesb', u'Gay', 'HSH']
     fieldsets = [
         (None, {'fields': [('nombre', 'tipo_accion'),]}),
         ('mujeres', {'fields': ['muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas',  
