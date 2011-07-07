@@ -5,7 +5,7 @@ body{
 	background-color: #eef0e4;
 }
 #header{
-	height: 61px;
+	min-height: 61px;
 	width: 100%;
 	background: #72bbcf url(/files/img/header-back.png) no-repeat;	
 }
