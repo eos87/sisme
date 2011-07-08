@@ -163,6 +163,19 @@ def involucramiento_poblacion(request):
                                       u'Adolescentes': 'hom_adols',
                                       u'Jóvenes': 'hom_jovenes',
                                       u'Adultos': 'hom_adultos'},
+            'Participantes LGBT': {u'Trans': 'lgbt_trans',
+                                      u'Lesbianas': 'lgbt_lesbi',
+                                      u'Gay': 'lgbt_gay',
+                                      u'HSH': 'lgbt_hsh'},
+            'Mujeres discapacitadas': {u'Niñas': 'muj_disca_ninas',
+                                      u'Adolescentes': 'muj_disca_adols',
+                                      u'Jóvenes': 'muj_disca_jovenes',
+                                      u'Adultas': 'muj_disca_adultas'},
+            'Hombres discapacitados': {u'Niños': 'hom_disca_ninos',
+                                      u'Adolescentes': 'hom_disca_adols',
+                                      u'Jóvenes': 'hom_disca_jovenes',
+                                      u'Adultos': 'hom_disca_adultos'},
+            
             }    
     
     check_none = lambda x: x if x else 0
