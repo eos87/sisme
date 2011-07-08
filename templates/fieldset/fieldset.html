@@ -1,4 +1,9 @@
-    <!-- Tablas para mujeres -->          
+<style type="text/css">
+.aux input{
+width: 35px;
+}
+</style>    
+<!-- Tablas para mujeres -->          
 	{% if fieldset.name == 'mujeres' %}
 	<div style="float: left; width: 30%; margin-top: 5px; margin-right: 30px;">		
 		<table>
@@ -18,7 +23,7 @@
 					{% if ciclo == '<b style="display:none;">1</b>' %}
 					<td>{% cycle 'Mujeres' 'Discapacitadas' 'Etnicas' 'VIH' %}</td>
 					{% endif %}
-				<td class="{% if not field.is_readonly and field.errors %} errors{% endif %}">{{ field.errors }}{{field.field}}</td>{% if ciclo == '<b style="display:none;">4</b>' %}</tr><tr>{% endif %}
+				<td class="aux {% if not field.is_readonly and field.errors %} errors{% endif %}">{{ field.errors }}{{field.field}}</td>{% if ciclo == '<b style="display:none;">4</b>' %}</tr><tr>{% endif %}
 				{% endfor %} 
 				{% endfor %}
 			</tbody>
@@ -45,7 +50,7 @@
 					{% if ciclo == '<b style="display:none;">1</b>' %}
 					<td>{% cycle 'Hombre' 'Discapacitados' 'Etnicos' 'VIH' %}</td>
 					{% endif %}
-				<td class="{% if not field.is_readonly and field.errors %} errors{% endif %}">{{ field.errors }}{{field.field}}</td>{% if ciclo == '<b style="display:none;">4</b>' %}</tr><tr>{% endif %}
+				<td class="aux {% if not field.is_readonly and field.errors %} errors{% endif %}">{{ field.errors }}{{field.field}}</td>{% if ciclo == '<b style="display:none;">4</b>' %}</tr><tr>{% endif %}
 				{% endfor %} 
 				{% endfor %}
 			</tbody>
@@ -67,7 +72,7 @@
 				<tr>
 				{% for line in fieldset %}
 				{% for field in line %}				
-				<td class="{% if not field.is_readonly and field.errors %} errors{% endif %}">{{ field.errors }}{{field.field}}</td>
+				<td class="aux {% if not field.is_readonly and field.errors %} errors{% endif %}">{{ field.errors }}{{field.field}}</td>
 				{% endfor %} 
 				{% endfor %}
 				</tr>

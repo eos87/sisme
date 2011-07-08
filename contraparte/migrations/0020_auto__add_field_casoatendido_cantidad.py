@@ -8,20 +8,14 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
-        # Deleting field 'DemandaJusticia.tipo_accion'
-        db.delete_column('contraparte_demandajusticia', 'tipo_accion_id')
-
-        # Adding field 'DemandaJusticia.accion'
-        db.add_column('contraparte_demandajusticia', 'accion', self.gf('django.db.models.fields.IntegerField')(default=1), keep_default=False)
+        # Adding field 'CasoAtendido.cantidad'
+        db.add_column('contraparte_casoatendido', 'cantidad', self.gf('django.db.models.fields.IntegerField')(default=1), keep_default=False)
 
 
     def backwards(self, orm):
         
-        # Adding field 'DemandaJusticia.tipo_accion'
-        db.add_column('contraparte_demandajusticia', 'tipo_accion', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['contraparte.AccionDemanda']), keep_default=False)
-
-        # Deleting field 'DemandaJusticia.accion'
-        db.delete_column('contraparte_demandajusticia', 'accion')
+        # Deleting field 'CasoAtendido.cantidad'
+        db.delete_column('contraparte_casoatendido', 'cantidad')
 
 
     models = {
@@ -60,11 +54,6 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'contraparte.acciondemanda': {
-            'Meta': {'object_name': 'AccionDemanda'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'nombre': ('django.db.models.fields.CharField', [], {'max_length': '150'})
         },
         'contraparte.accionimplementada': {
             'Meta': {'object_name': 'AccionImplementada'},
@@ -112,6 +101,7 @@ class Migration(SchemaMigration):
         },
         'contraparte.casoatendido': {
             'Meta': {'object_name': 'CasoAtendido'},
+            'cantidad': ('django.db.models.fields.IntegerField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'informe': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contraparte.Informe']"}),
             'situacion_caso': ('django.db.models.fields.IntegerField', [], {}),
@@ -151,14 +141,46 @@ class Migration(SchemaMigration):
         },
         'contraparte.masculinidadlibre': {
             'Meta': {'object_name': 'MasculinidadLibre'},
-            'hombres': ('django.db.models.fields.IntegerField', [], {}),
+            'hom_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'informe': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contraparte.Informe']"}),
-            'mujeres': ('django.db.models.fields.IntegerField', [], {}),
+            'lgbt_gay': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_hsh': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_lesbi': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_trans': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'nombre': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'segmento_poblacional': ('django.db.models.fields.IntegerField', [], {}),
-            'tipo_accion': ('django.db.models.fields.IntegerField', [], {}),
-            'tipo_poblacion': ('django.db.models.fields.IntegerField', [], {})
+            'tipo_accion': ('django.db.models.fields.IntegerField', [], {})
         },
         'contraparte.medirreportar': {
             'Meta': {'object_name': 'MedirReportar'},
@@ -236,25 +258,89 @@ class Migration(SchemaMigration):
         },
         'contraparte.prevencionvbg': {
             'Meta': {'object_name': 'PrevencionVBG'},
-            'hombres': ('django.db.models.fields.IntegerField', [], {}),
+            'hom_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'informe': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contraparte.Informe']"}),
-            'mujeres': ('django.db.models.fields.IntegerField', [], {}),
+            'lgbt_gay': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_hsh': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_lesbi': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_trans': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'nombre': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'segmento_poblacional': ('django.db.models.fields.IntegerField', [], {}),
-            'tipo_accion': ('django.db.models.fields.IntegerField', [], {}),
-            'tipo_poblacion': ('django.db.models.fields.IntegerField', [], {})
+            'tipo_accion': ('django.db.models.fields.IntegerField', [], {})
         },
         'contraparte.recibeninfo': {
             'Meta': {'object_name': 'RecibenInfo'},
-            'hombres': ('django.db.models.fields.IntegerField', [], {}),
+            'hom_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'informe': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contraparte.Informe']"}),
-            'mujeres': ('django.db.models.fields.IntegerField', [], {}),
+            'lgbt_gay': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_hsh': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_lesbi': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_trans': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'nombre': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'segmento_poblacional': ('django.db.models.fields.IntegerField', [], {}),
-            'tipo_accion': ('django.db.models.fields.IntegerField', [], {}),
-            'tipo_poblacion': ('django.db.models.fields.IntegerField', [], {})
+            'tipo_accion': ('django.db.models.fields.IntegerField', [], {})
         },
         'contraparte.referenciacontrareferencia': {
             'Meta': {'object_name': 'ReferenciaContraReferencia'},
@@ -282,7 +368,7 @@ class Migration(SchemaMigration):
             'direccion': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'blank': 'True'}),
             'email': ('django.db.models.fields.EmailField', [], {'default': "'email@example.com'", 'max_length': '75', 'blank': 'True'}),
             'estrategias': ('django.db.models.fields.TextField', [], {'default': "''", 'blank': 'True'}),
-            'fecha': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 7, 6)', 'blank': 'True'}),
+            'fecha': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 7, 7)', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'no_inss': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '50', 'blank': 'True'}),
             'no_mingob': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '50', 'blank': 'True'}),
@@ -301,8 +387,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Proyecto'},
             'cobertura': ('django.db.models.fields.IntegerField', [], {}),
             'codigo': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100'}),
-            'fecha_fin': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 7, 6)'}),
-            'fecha_inicio': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 7, 6)'}),
+            'fecha_fin': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 7, 7)'}),
+            'fecha_inicio': ('django.db.models.fields.DateField', [], {'default': 'datetime.date(2011, 7, 7)'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modalidad': ('django.db.models.fields.IntegerField', [], {}),
             'monto_contrapartida': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '30', 'decimal_places': '2', 'blank': 'True'}),

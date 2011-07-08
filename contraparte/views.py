@@ -50,8 +50,8 @@ def acciones_impulsadas(request):
     
     #Utilizando dict comprehension, soportado solo por python2.7+
     for op in ACCIONES:
-        tabla_por_tipo[op[1]] = {tema.nombre: AccionImpulsada.objects.filter(informe__in=informes, \
-                                                                      tema=tema, \
+        tabla_por_tipo[op[1]] = {tema.nombre: AccionImpulsada.objects.filter(informe__in=informes,
+                                                                      tema=tema,
                                                                       tipo_accion=op[0]).count() for tema in temas}
     tabla_por_ambito = {}
     for op in AMBITO:

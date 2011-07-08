@@ -8,20 +8,258 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
-        # Deleting field 'DemandaJusticia.tipo_accion'
-        db.delete_column('contraparte_demandajusticia', 'tipo_accion_id')
+        # Deleting model 'AccionDemanda'
+        db.delete_table('contraparte_acciondemanda')
 
-        # Adding field 'DemandaJusticia.accion'
-        db.add_column('contraparte_demandajusticia', 'accion', self.gf('django.db.models.fields.IntegerField')(default=1), keep_default=False)
+        # Deleting field 'RecibenInfo.tipo_poblacion'
+        db.delete_column('contraparte_recibeninfo', 'tipo_poblacion')
+
+        # Deleting field 'RecibenInfo.mujeres'
+        db.delete_column('contraparte_recibeninfo', 'mujeres')
+
+        # Deleting field 'RecibenInfo.hombres'
+        db.delete_column('contraparte_recibeninfo', 'hombres')
+
+        # Deleting field 'RecibenInfo.segmento_poblacional'
+        db.delete_column('contraparte_recibeninfo', 'segmento_poblacional')
+
+        # Adding field 'RecibenInfo.muj_ninas'
+        db.add_column('contraparte_recibeninfo', 'muj_ninas', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_adols'
+        db.add_column('contraparte_recibeninfo', 'muj_adols', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_jovenes'
+        db.add_column('contraparte_recibeninfo', 'muj_jovenes', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_adultas'
+        db.add_column('contraparte_recibeninfo', 'muj_adultas', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_disca_ninas'
+        db.add_column('contraparte_recibeninfo', 'muj_disca_ninas', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_disca_adols'
+        db.add_column('contraparte_recibeninfo', 'muj_disca_adols', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_disca_jovenes'
+        db.add_column('contraparte_recibeninfo', 'muj_disca_jovenes', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_disca_adultas'
+        db.add_column('contraparte_recibeninfo', 'muj_disca_adultas', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_etnia_ninas'
+        db.add_column('contraparte_recibeninfo', 'muj_etnia_ninas', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_etnia_adols'
+        db.add_column('contraparte_recibeninfo', 'muj_etnia_adols', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_etnia_jovenes'
+        db.add_column('contraparte_recibeninfo', 'muj_etnia_jovenes', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_etnia_adultas'
+        db.add_column('contraparte_recibeninfo', 'muj_etnia_adultas', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_vih_ninas'
+        db.add_column('contraparte_recibeninfo', 'muj_vih_ninas', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_vih_adols'
+        db.add_column('contraparte_recibeninfo', 'muj_vih_adols', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_vih_jovenes'
+        db.add_column('contraparte_recibeninfo', 'muj_vih_jovenes', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.muj_vih_adultas'
+        db.add_column('contraparte_recibeninfo', 'muj_vih_adultas', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_ninos'
+        db.add_column('contraparte_recibeninfo', 'hom_ninos', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_adols'
+        db.add_column('contraparte_recibeninfo', 'hom_adols', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_jovenes'
+        db.add_column('contraparte_recibeninfo', 'hom_jovenes', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_adultos'
+        db.add_column('contraparte_recibeninfo', 'hom_adultos', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_disca_ninos'
+        db.add_column('contraparte_recibeninfo', 'hom_disca_ninos', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_disca_adols'
+        db.add_column('contraparte_recibeninfo', 'hom_disca_adols', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_disca_jovenes'
+        db.add_column('contraparte_recibeninfo', 'hom_disca_jovenes', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_disca_adultos'
+        db.add_column('contraparte_recibeninfo', 'hom_disca_adultos', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_etnia_ninos'
+        db.add_column('contraparte_recibeninfo', 'hom_etnia_ninos', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_etnia_adols'
+        db.add_column('contraparte_recibeninfo', 'hom_etnia_adols', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_etnia_jovenes'
+        db.add_column('contraparte_recibeninfo', 'hom_etnia_jovenes', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_etnia_adultos'
+        db.add_column('contraparte_recibeninfo', 'hom_etnia_adultos', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_vih_ninos'
+        db.add_column('contraparte_recibeninfo', 'hom_vih_ninos', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_vih_adols'
+        db.add_column('contraparte_recibeninfo', 'hom_vih_adols', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_vih_jovenes'
+        db.add_column('contraparte_recibeninfo', 'hom_vih_jovenes', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.hom_vih_adultos'
+        db.add_column('contraparte_recibeninfo', 'hom_vih_adultos', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.lgbt_trans'
+        db.add_column('contraparte_recibeninfo', 'lgbt_trans', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.lgbt_lesbi'
+        db.add_column('contraparte_recibeninfo', 'lgbt_lesbi', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.lgbt_gay'
+        db.add_column('contraparte_recibeninfo', 'lgbt_gay', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
+
+        # Adding field 'RecibenInfo.lgbt_hsh'
+        db.add_column('contraparte_recibeninfo', 'lgbt_hsh', self.gf('django.db.models.fields.IntegerField')(default=0), keep_default=False)
 
 
     def backwards(self, orm):
         
-        # Adding field 'DemandaJusticia.tipo_accion'
-        db.add_column('contraparte_demandajusticia', 'tipo_accion', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['contraparte.AccionDemanda']), keep_default=False)
+        # Adding model 'AccionDemanda'
+        db.create_table('contraparte_acciondemanda', (
+            ('nombre', self.gf('django.db.models.fields.CharField')(max_length=150)),
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+        ))
+        db.send_create_signal('contraparte', ['AccionDemanda'])
 
-        # Deleting field 'DemandaJusticia.accion'
-        db.delete_column('contraparte_demandajusticia', 'accion')
+        # User chose to not deal with backwards NULL issues for 'RecibenInfo.tipo_poblacion'
+        raise RuntimeError("Cannot reverse this migration. 'RecibenInfo.tipo_poblacion' and its values cannot be restored.")
+
+        # User chose to not deal with backwards NULL issues for 'RecibenInfo.mujeres'
+        raise RuntimeError("Cannot reverse this migration. 'RecibenInfo.mujeres' and its values cannot be restored.")
+
+        # User chose to not deal with backwards NULL issues for 'RecibenInfo.hombres'
+        raise RuntimeError("Cannot reverse this migration. 'RecibenInfo.hombres' and its values cannot be restored.")
+
+        # User chose to not deal with backwards NULL issues for 'RecibenInfo.segmento_poblacional'
+        raise RuntimeError("Cannot reverse this migration. 'RecibenInfo.segmento_poblacional' and its values cannot be restored.")
+
+        # Deleting field 'RecibenInfo.muj_ninas'
+        db.delete_column('contraparte_recibeninfo', 'muj_ninas')
+
+        # Deleting field 'RecibenInfo.muj_adols'
+        db.delete_column('contraparte_recibeninfo', 'muj_adols')
+
+        # Deleting field 'RecibenInfo.muj_jovenes'
+        db.delete_column('contraparte_recibeninfo', 'muj_jovenes')
+
+        # Deleting field 'RecibenInfo.muj_adultas'
+        db.delete_column('contraparte_recibeninfo', 'muj_adultas')
+
+        # Deleting field 'RecibenInfo.muj_disca_ninas'
+        db.delete_column('contraparte_recibeninfo', 'muj_disca_ninas')
+
+        # Deleting field 'RecibenInfo.muj_disca_adols'
+        db.delete_column('contraparte_recibeninfo', 'muj_disca_adols')
+
+        # Deleting field 'RecibenInfo.muj_disca_jovenes'
+        db.delete_column('contraparte_recibeninfo', 'muj_disca_jovenes')
+
+        # Deleting field 'RecibenInfo.muj_disca_adultas'
+        db.delete_column('contraparte_recibeninfo', 'muj_disca_adultas')
+
+        # Deleting field 'RecibenInfo.muj_etnia_ninas'
+        db.delete_column('contraparte_recibeninfo', 'muj_etnia_ninas')
+
+        # Deleting field 'RecibenInfo.muj_etnia_adols'
+        db.delete_column('contraparte_recibeninfo', 'muj_etnia_adols')
+
+        # Deleting field 'RecibenInfo.muj_etnia_jovenes'
+        db.delete_column('contraparte_recibeninfo', 'muj_etnia_jovenes')
+
+        # Deleting field 'RecibenInfo.muj_etnia_adultas'
+        db.delete_column('contraparte_recibeninfo', 'muj_etnia_adultas')
+
+        # Deleting field 'RecibenInfo.muj_vih_ninas'
+        db.delete_column('contraparte_recibeninfo', 'muj_vih_ninas')
+
+        # Deleting field 'RecibenInfo.muj_vih_adols'
+        db.delete_column('contraparte_recibeninfo', 'muj_vih_adols')
+
+        # Deleting field 'RecibenInfo.muj_vih_jovenes'
+        db.delete_column('contraparte_recibeninfo', 'muj_vih_jovenes')
+
+        # Deleting field 'RecibenInfo.muj_vih_adultas'
+        db.delete_column('contraparte_recibeninfo', 'muj_vih_adultas')
+
+        # Deleting field 'RecibenInfo.hom_ninos'
+        db.delete_column('contraparte_recibeninfo', 'hom_ninos')
+
+        # Deleting field 'RecibenInfo.hom_adols'
+        db.delete_column('contraparte_recibeninfo', 'hom_adols')
+
+        # Deleting field 'RecibenInfo.hom_jovenes'
+        db.delete_column('contraparte_recibeninfo', 'hom_jovenes')
+
+        # Deleting field 'RecibenInfo.hom_adultos'
+        db.delete_column('contraparte_recibeninfo', 'hom_adultos')
+
+        # Deleting field 'RecibenInfo.hom_disca_ninos'
+        db.delete_column('contraparte_recibeninfo', 'hom_disca_ninos')
+
+        # Deleting field 'RecibenInfo.hom_disca_adols'
+        db.delete_column('contraparte_recibeninfo', 'hom_disca_adols')
+
+        # Deleting field 'RecibenInfo.hom_disca_jovenes'
+        db.delete_column('contraparte_recibeninfo', 'hom_disca_jovenes')
+
+        # Deleting field 'RecibenInfo.hom_disca_adultos'
+        db.delete_column('contraparte_recibeninfo', 'hom_disca_adultos')
+
+        # Deleting field 'RecibenInfo.hom_etnia_ninos'
+        db.delete_column('contraparte_recibeninfo', 'hom_etnia_ninos')
+
+        # Deleting field 'RecibenInfo.hom_etnia_adols'
+        db.delete_column('contraparte_recibeninfo', 'hom_etnia_adols')
+
+        # Deleting field 'RecibenInfo.hom_etnia_jovenes'
+        db.delete_column('contraparte_recibeninfo', 'hom_etnia_jovenes')
+
+        # Deleting field 'RecibenInfo.hom_etnia_adultos'
+        db.delete_column('contraparte_recibeninfo', 'hom_etnia_adultos')
+
+        # Deleting field 'RecibenInfo.hom_vih_ninos'
+        db.delete_column('contraparte_recibeninfo', 'hom_vih_ninos')
+
+        # Deleting field 'RecibenInfo.hom_vih_adols'
+        db.delete_column('contraparte_recibeninfo', 'hom_vih_adols')
+
+        # Deleting field 'RecibenInfo.hom_vih_jovenes'
+        db.delete_column('contraparte_recibeninfo', 'hom_vih_jovenes')
+
+        # Deleting field 'RecibenInfo.hom_vih_adultos'
+        db.delete_column('contraparte_recibeninfo', 'hom_vih_adultos')
+
+        # Deleting field 'RecibenInfo.lgbt_trans'
+        db.delete_column('contraparte_recibeninfo', 'lgbt_trans')
+
+        # Deleting field 'RecibenInfo.lgbt_lesbi'
+        db.delete_column('contraparte_recibeninfo', 'lgbt_lesbi')
+
+        # Deleting field 'RecibenInfo.lgbt_gay'
+        db.delete_column('contraparte_recibeninfo', 'lgbt_gay')
+
+        # Deleting field 'RecibenInfo.lgbt_hsh'
+        db.delete_column('contraparte_recibeninfo', 'lgbt_hsh')
 
 
     models = {
@@ -60,11 +298,6 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'contraparte.acciondemanda': {
-            'Meta': {'object_name': 'AccionDemanda'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'nombre': ('django.db.models.fields.CharField', [], {'max_length': '150'})
         },
         'contraparte.accionimplementada': {
             'Meta': {'object_name': 'AccionImplementada'},
@@ -247,14 +480,46 @@ class Migration(SchemaMigration):
         },
         'contraparte.recibeninfo': {
             'Meta': {'object_name': 'RecibenInfo'},
-            'hombres': ('django.db.models.fields.IntegerField', [], {}),
+            'hom_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_disca_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_etnia_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_adultos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'hom_vih_ninos': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'informe': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contraparte.Informe']"}),
-            'mujeres': ('django.db.models.fields.IntegerField', [], {}),
+            'lgbt_gay': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_hsh': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_lesbi': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'lgbt_trans': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_disca_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_etnia_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_adols': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_adultas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_jovenes': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'muj_vih_ninas': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'nombre': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'segmento_poblacional': ('django.db.models.fields.IntegerField', [], {}),
-            'tipo_accion': ('django.db.models.fields.IntegerField', [], {}),
-            'tipo_poblacion': ('django.db.models.fields.IntegerField', [], {})
+            'tipo_accion': ('django.db.models.fields.IntegerField', [], {})
         },
         'contraparte.referenciacontrareferencia': {
             'Meta': {'object_name': 'ReferenciaContraReferencia'},

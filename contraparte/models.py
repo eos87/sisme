@@ -136,7 +136,8 @@ class Observatorio(models.Model):
 POBLACION = ((1, u'En contra de las discriminación a personas LGBT'), 
              (2, u'En contra de la discriminación a personas discapacitadas'), 
              (3, u'En contra de la discriminación a personas con VIH'), 
-             (4, u'En contra de la discriminación por etnias'))
+             (4, u'En contra de la discriminación por etnias'),
+     	     (5, u'En contra de la discriminación a la mujer'))
 
 ACCION_DEMANDA = ((1, u'Campañas en televisión '),
                   (2, u'Marchas/plantones'),
@@ -176,7 +177,9 @@ class Denuncia(models.Model):
 ACCION_POSEE_INFO = ((1, u'Talleres de formación'), 
                      (2, u'Círculos de estudio'), 
                      (3, u'Videos reflexivos'), 
-                     (4, u'Intercambios de experiencias'))
+                     (4, u'Intercambios de experiencias'),
+                     (5, u'Visitas de campo'),
+                     (6, u'Consejería'))
 
 TIPO_POBLACION2 = ((1, 'Mujeres'), 
                   (2, 'Hombres'), 
@@ -266,11 +269,61 @@ class PoseenInfo(models.Model):
 class RecibenInfo(models.Model):
     informe = models.ForeignKey(Informe)
     nombre = models.CharField(max_length=200, verbose_name='Nombre de la actividad')
-    tipo_accion = models.IntegerField(choices=ACCION_POSEE_INFO)    
-    tipo_poblacion = models.IntegerField(choices=TIPO_POBLACION2)
-    segmento_poblacional = models.IntegerField(choices=SEGMENTO_POBLACIONAL)
-    hombres = models.IntegerField('No. de participantes hombres')
-    mujeres = models.IntegerField('No. de participantes mujeres')
+    tipo_accion = models.IntegerField(choices=ACCION_POSEE_INFO)
+        
+    #------------ participantes mujeres ---------------
+    muj_ninas = models.IntegerField(verbose_name=u'Niñas', default=0)
+    muj_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    muj_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    muj_adultas = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes mujeres discapacitadas ---------------
+    muj_disca_ninas = models.IntegerField(verbose_name=u'Niñas', default=0)
+    muj_disca_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    muj_disca_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    muj_disca_adultas = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes mujeres etnicas ---------------
+    muj_etnia_ninas = models.IntegerField(verbose_name=u'Niñas', default=0)
+    muj_etnia_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    muj_etnia_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    muj_etnia_adultas = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes mujeres etnicas ---------------
+    muj_vih_ninas = models.IntegerField(verbose_name=u'Niñas', default=0)
+    muj_vih_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    muj_vih_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    muj_vih_adultas = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes HOMBRES ---------------
+    hom_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes HOMBRES discapacitados ---------------
+    hom_disca_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_disca_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_disca_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_disca_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes hombres etnicos ---------------
+    hom_etnia_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_etnia_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_etnia_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_etnia_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes hombres etnicas ---------------
+    hom_vih_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_vih_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_vih_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_vih_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ LGBT participantes -------------------------
+    lgbt_trans = models.IntegerField(verbose_name=u'Trans', default=0)
+    lgbt_lesbi = models.IntegerField(verbose_name=u'Lesbianas', default=0)
+    lgbt_gay = models.IntegerField(verbose_name=u'Gay', default=0)
+    lgbt_hsh = models.IntegerField(verbose_name=u'HSH', default=0)  
     
     def __unicode__(self):
         return u'%s - %s' % (self.informe, self.id)
@@ -295,10 +348,60 @@ class BaseR22(models.Model):
     informe = models.ForeignKey(Informe)
     nombre = models.CharField(max_length=200, verbose_name='Nombre de la actividad')
     tipo_accion = models.IntegerField(choices=ACCION_PREVENCION)    
-    tipo_poblacion = models.IntegerField(choices=TIPO_POBLACION2)
-    segmento_poblacional = models.IntegerField(choices=SEGMENTO_POBLACIONAL)
-    hombres = models.IntegerField('No. de participantes hombres')
-    mujeres = models.IntegerField('No. de participantes mujeres')
+        
+    #------------ participantes mujeres ---------------
+    muj_ninas = models.IntegerField(verbose_name=u'Niñas', default=0)
+    muj_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    muj_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    muj_adultas = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes mujeres discapacitadas ---------------
+    muj_disca_ninas = models.IntegerField(verbose_name=u'Niñas', default=0)
+    muj_disca_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    muj_disca_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    muj_disca_adultas = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes mujeres etnicas ---------------
+    muj_etnia_ninas = models.IntegerField(verbose_name=u'Niñas', default=0)
+    muj_etnia_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    muj_etnia_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    muj_etnia_adultas = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes mujeres etnicas ---------------
+    muj_vih_ninas = models.IntegerField(verbose_name=u'Niñas', default=0)
+    muj_vih_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    muj_vih_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    muj_vih_adultas = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes HOMBRES ---------------
+    hom_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes HOMBRES discapacitados ---------------
+    hom_disca_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_disca_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_disca_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_disca_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes hombres etnicos ---------------
+    hom_etnia_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_etnia_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_etnia_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_etnia_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ participantes hombres etnicas ---------------
+    hom_vih_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
+    hom_vih_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
+    hom_vih_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
+    hom_vih_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
+    
+    #------------ LGBT participantes -------------------------
+    lgbt_trans = models.IntegerField(verbose_name=u'Trans', default=0)
+    lgbt_lesbi = models.IntegerField(verbose_name=u'Lesbianas', default=0)
+    lgbt_gay = models.IntegerField(verbose_name=u'Gay', default=0)
+    lgbt_hsh = models.IntegerField(verbose_name=u'HSH', default=0) 
     
     def __unicode__(self):
         return u'%s - %s' % (self.informe, self.id)
@@ -326,6 +429,7 @@ class CasoAtendido(models.Model):
     informe = models.ForeignKey(Informe)
     tipo_caso = models.IntegerField(choices=TIPOS_CASOS, verbose_name=u'Tipo de caso')
     situacion_caso = models.IntegerField(choices=SITUACION_CASOS, verbose_name=u'Situación del caso')
+    cantidad = models.IntegerField()
     
     def __unicode__(self):        
         return u'%s - %s' % (self.informe, self.id)
@@ -376,11 +480,13 @@ INSTANCIA_PUBLICA = ((1, u'Policía Nacional/Comisaría de la mujer'),
                         (4, u'Ministerio público y fiscalía'),
                         (5, u'Juzgado'))
 
+SI_NO_REF = ((1, u'Si'), (2, u'No'), (3, u'No sabe'))
+
 class ReferenciaContraReferencia(models.Model):
     informe = models.ForeignKey(Informe)
     instancia = models.IntegerField(choices=INSTANCIA_PUBLICA, verbose_name=u'Instancia pública')
     tipo_referencia = models.IntegerField(choices=TIPO_REFERENCIA, verbose_name=u'Tipo de referencia')
-    atendido_personal_pertinente = models.IntegerField(choices=SI_NO_SIMPLE, verbose_name=u'Atendido por personal pertinente')
+    atendido_personal_pertinente = models.IntegerField(choices=SI_NO_REF, verbose_name=u'Atendido por personal pertinente')
     
     def __unicode__(self):        
         return u'%s - %s' % (self.informe, self.id)

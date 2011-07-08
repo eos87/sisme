@@ -52,9 +52,9 @@ class PoseenInfoInline(admin.StackedInline):
     template = 'admin/contraparte/informe/stacked.html'
     extra = 1
     resultado = 'R2.1. Involucramiento de las poblaciones metas en procesos de reflexión sobre los DDSSRR, dirigidos a una sexualidad integral, placentera, responsable, segura y libre de prejuicios.'
-    mujeres_titles = [u'Niñas', u'Adolescentes', u'Jóvenes', 'Adultas']
-    hombres_titles = [u'Niños', u'Adolescentes', u'Jóvenes', 'Adultos']
-    lgbt_titles = [u'Trans', u'Lesbianas', u'Gay', 'HSH']
+    mujeres_titles = [u'Niñas', u'Adol', u'Jóv', 'Adul']
+    hombres_titles = [u'Niños', u'Adol', u'Jóv', 'Adul']
+    lgbt_titles = [u'Trans', u'Lesb', u'Gay', 'HSH']
     fieldsets = [
         (None, {'fields': [('nombre', 'tipo_accion', 'tema'),]}),
         ('mujeres', {'fields': ['muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas',  
@@ -71,20 +71,67 @@ class PoseenInfoInline(admin.StackedInline):
 class RecibenInfoInline(admin.TabularInline):
     verbose_name_plural = '2.1.4 Porcentaje de personas en las áreas de cobertura de las OCP que reciben información sobre VIH y SIDA, incluyendo las que viven con VIH.'
     model = RecibenInfo
+    template = 'admin/contraparte/informe/stacked.html'
     extra = 1
+    mujeres_titles = [u'Niñas', u'Adol', u'Jóv', 'Adul']
+    hombres_titles = [u'Niños', u'Adol', u'Jóv', 'Adul']
+    lgbt_titles = [u'Trans', u'Lesb', u'Gay', 'HSH']
+    fieldsets = [
+        (None, {'fields': [('nombre', 'tipo_accion'),]}),
+        ('mujeres', {'fields': ['muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas',  
+                                'muj_disca_ninas', 'muj_disca_adols', 'muj_disca_jovenes', 'muj_disca_adultas', 
+                                'muj_etnia_ninas', 'muj_etnia_adols', 'muj_etnia_jovenes', 'muj_etnia_adultas',
+                                'muj_vih_ninas', 'muj_vih_adols', 'muj_vih_jovenes', 'muj_vih_adultas']}),
+        ('hombres', {'fields': ['hom_ninos', 'hom_adols', 'hom_jovenes', 'hom_adultos',  
+                                'hom_disca_ninos', 'hom_disca_adols', 'hom_disca_jovenes', 'hom_disca_adultos', 
+                                'hom_etnia_ninos', 'hom_etnia_adols', 'hom_etnia_jovenes', 'hom_etnia_adultos',
+                                'hom_vih_ninos', 'hom_vih_adols', 'hom_vih_jovenes', 'hom_vih_adultos']}),
+        ('lgbt', {'fields': ['lgbt_trans', 'lgbt_lesbi', 'lgbt_gay', 'lgbt_hsh']})                                             
+    ]
 
 #--------------------------- Resultado 2.2 ----------------------------------    
 class PrevencionVBGInline(admin.TabularInline):
     verbose_name_plural = '2.2.1 Número y tipo de acciones emprendidas por las organizaciones contrapartes del FED que actúan individual o articuladas en la prevención de la VBG.'
     model = PrevencionVBG
-    template = 'admin/contraparte/informe/tabular.html'
+    template = 'admin/contraparte/informe/stacked.html'
     extra = 1
     resultado = 'R2.2 Fortalecida la prevención de la violencia basada en género.'
+    mujeres_titles = [u'Niñas', u'Adol', u'Jóv', 'Adul']
+    hombres_titles = [u'Niños', u'Adol', u'Jóv', 'Adul']
+    lgbt_titles = [u'Trans', u'Lesb', u'Gay', 'HSH']
+    fieldsets = [
+        (None, {'fields': [('nombre', 'tipo_accion'),]}),
+        ('mujeres', {'fields': ['muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas',  
+                                'muj_disca_ninas', 'muj_disca_adols', 'muj_disca_jovenes', 'muj_disca_adultas', 
+                                'muj_etnia_ninas', 'muj_etnia_adols', 'muj_etnia_jovenes', 'muj_etnia_adultas',
+                                'muj_vih_ninas', 'muj_vih_adols', 'muj_vih_jovenes', 'muj_vih_adultas']}),
+        ('hombres', {'fields': ['hom_ninos', 'hom_adols', 'hom_jovenes', 'hom_adultos',  
+                                'hom_disca_ninos', 'hom_disca_adols', 'hom_disca_jovenes', 'hom_disca_adultos', 
+                                'hom_etnia_ninos', 'hom_etnia_adols', 'hom_etnia_jovenes', 'hom_etnia_adultos',
+                                'hom_vih_ninos', 'hom_vih_adols', 'hom_vih_jovenes', 'hom_vih_adultos']}),
+        ('lgbt', {'fields': ['lgbt_trans', 'lgbt_lesbi', 'lgbt_gay', 'lgbt_hsh']})                                             
+    ]
 
 class MasculinidadLibreInline(admin.TabularInline):
     verbose_name_plural = '2.2.3 Número y tipo de acciones especificas que promueven la masculinidad libre de prejuicios y violencia'
     model = MasculinidadLibre
+    template = 'admin/contraparte/informe/stacked.html'
     extra = 1
+    mujeres_titles = [u'Niñas', u'Adol', u'Jóv', 'Adul']
+    hombres_titles = [u'Niños', u'Adol', u'Jóv', 'Adul']
+    lgbt_titles = [u'Trans', u'Lesb', u'Gay', 'HSH']
+    fieldsets = [
+        (None, {'fields': [('nombre', 'tipo_accion'),]}),
+        ('mujeres', {'fields': ['muj_ninas', 'muj_adols', 'muj_jovenes', 'muj_adultas',  
+                                'muj_disca_ninas', 'muj_disca_adols', 'muj_disca_jovenes', 'muj_disca_adultas', 
+                                'muj_etnia_ninas', 'muj_etnia_adols', 'muj_etnia_jovenes', 'muj_etnia_adultas',
+                                'muj_vih_ninas', 'muj_vih_adols', 'muj_vih_jovenes', 'muj_vih_adultas']}),
+        ('hombres', {'fields': ['hom_ninos', 'hom_adols', 'hom_jovenes', 'hom_adultos',  
+                                'hom_disca_ninos', 'hom_disca_adols', 'hom_disca_jovenes', 'hom_disca_adultos', 
+                                'hom_etnia_ninos', 'hom_etnia_adols', 'hom_etnia_jovenes', 'hom_etnia_adultos',
+                                'hom_vih_ninos', 'hom_vih_adols', 'hom_vih_jovenes', 'hom_vih_adultos']}),
+        ('lgbt', {'fields': ['lgbt_trans', 'lgbt_lesbi', 'lgbt_gay', 'lgbt_hsh']})                                             
+    ]
     
 #------------------------- Resultado 2.3 -------------------------------------
 class CasoAtendidoInline(admin.TabularInline):
@@ -103,6 +150,8 @@ class AtencionMujerInline(admin.TabularInline):
     verbose_name_plural = '2.3.4. Número de mujeres atendidas en los albergues apoyados por  el FED como instrumento para la construcción de nuevos proyectos de vida.'
     model = AtencionMujer
     extra = 1
+    template = 'admin/contraparte/informe/tabular.html'
+    resultado = 'R2.3 (Atención en albergues) Acceso a servicios de atención integral y demanda de salud y justicia para las victimas de violencia de género'
 
 class ReferenciaContraReferenciaInline(admin.TabularInline):
     verbose_name_plural = '2.3.5. Número de referencia y contra referencias que realizan las OCP del FED con instituciones públicas.'
@@ -132,8 +181,9 @@ PERMISOS = {
             2: [DemandaJusticiaInline, DenunciaInline],
             3: [PoseenInfoInline, RecibenInfoInline],
             4: [PrevencionVBGInline, MasculinidadLibreInline], 
-            5: [CasoAtendidoInline, DenunciaInterpuestaInline, AtencionMujerInline, ReferenciaContraReferenciaInline],
-            6: [CapacidadAdmitivaInline, MedirReportarInline, PlanEstrategicoInline],           
+            5: [CasoAtendidoInline, DenunciaInterpuestaInline, ReferenciaContraReferenciaInline],
+            6: [CapacidadAdmitivaInline, MedirReportarInline, PlanEstrategicoInline],
+            7: [AtencionMujerInline, ]           
             }
 
 #funcion para obtener los permisos del proyecto

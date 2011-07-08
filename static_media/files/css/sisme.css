@@ -5,9 +5,9 @@ body{
 	background-color: #eef0e4;
 }
 #header{
-	height: 61px;
+    height: 61px;
 	width: 100%;
-	background: #72bbcf url(/files/img/header-back.png) no-repeat;	
+	background: #6bb6d0 url(/files/img/header-back.png) repeat-y;	
 }
 .header-derecha{
 	float: right;	
@@ -34,7 +34,7 @@ a{
 	text-decoration: none;
 	line-height: 31px;
 	margin-left: 5px;
-	margin-right: 10px;
+	margin-right: 5px;
 	font-weight: bold;
 	font-size: 12px;	
 }
