@@ -14,9 +14,57 @@
 {% block content %}
 <div id="tabs" style="font-size: 70%;">
 	<ul>
-		<li><a href="/a/acciones-impulsadas/"><span>Acciones impulsadas</span></a></li>
-		<li><a href="/a/participacion-comisiones/"><span>Participación en comisiones</span></a></li>
-		<li><a href="/a/defensa-ddssrr/"><span>Defensa de los DDSSRR</span></a></li>
+		<li><a href="#acciones-impulsadas"><span>Acciones impulsadas</span></a></li>
+		<li><a href="#participacion-comisiones"><span>Participación en comisiones</span></a></li>
+		<li><a href="#defensa-ddssrr"><span>Defensa de los DDSSRR</span></a></li>
 	</ul>	
+	<div id="acciones-impulsadas">
+		<!-- Acciones impulsadas -->
+		{% with tabla=tabla_por_tipo titulo='Acciones impulsadas' primer_td='Tipo de acciones' colspan=7 titulo_combinado='Temas del FED' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+		
+		<!-- Acciones impulsadas por ambito de accion -->
+		{% with tabla=tabla_por_ambito titulo='Ambito de las acciones impulsadas' primer_td='Ambito de acciones' colspan=7 titulo_combinado='Temas del FED' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+		
+		<!-- Acciones impulsadas por estado de accion -->
+		{% with tabla=tabla_estado_accion titulo='Acciones implementadas' primer_td='Acciones' colspan=7 titulo_combinado='Temas del FED' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+		
+		<!-- Acciones impulsadas por estado de accion y tema -->
+		{% with tabla=tabla_estado_accion_2 titulo='Estado de las acciones implementadas' primer_td='Acciones' colspan=3 titulo_combinado='Estado de la acción' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+	</div>
+	<div id="participacion-comisiones">
+		<!-- Participacion en comisiones -->
+		{% with tabla=tabla_tipo_comisiones titulo='Participación en comisiones' primer_td='Organización' colspan=6 titulo_combinado='Tipos de comisiones' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+		
+		<!-- Participacion en comisiones por ambito territorial -->
+		{% with tabla=tabla_ambito_comisiones titulo='Ambito de las comisiones' primer_td='Ambito de comisiones' colspan=6 titulo_combinado='Tipos de comisiones' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+		
+		<!-- Participacion en comisiones por ambito territorial -->
+		{% with tabla=tabla_comision_estado titulo='Efectividad de las acciones promovidas en las diferentes instancias' primer_td='Tipo de comisiones' colspan=3 titulo_combinado='Estado de accion' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+	</div>
+	<div id="defensa-ddssrr">
+		<!-- Acciones para defensa de los DDSSRR -->
+		{% with tabla=tabla_tipo_accion titulo='Acciones para defensa de los DDSSRR' primer_td='Tipo de acciones' colspan=7 titulo_combinado='Temas del FED' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+		
+		<!-- Acciones por ambito de acciones -->
+		{% with tabla=tabla_ambito_accion titulo='Acciones para defensa de los DDSSRR' primer_td='Ambito de acciones' colspan=3 titulo_combinado='Acciones' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+	</div>
 </div>	
 {% endblock %}

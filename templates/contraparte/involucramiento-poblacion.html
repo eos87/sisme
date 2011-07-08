@@ -9,12 +9,6 @@
 		$('#tabs').tabs();
 	});
 </script>
-<style type="text/css">
-.ui-tabs-panel{
-	padding: 0em !important;
-	padding-top: 0.6em !important;
-	}
-</style>
 {% endblock %}
 
 {% block content %}
@@ -26,7 +20,8 @@
 		<li><a href="#participantes-lgbt"><span>Participantes LGBT</span></a></li>
 		<li><a href="#mujeres-discapacitadas"><span>Mujeres discapacitadas</span></a></li>
 		<li><a href="#hombres-discapacitados"><span>Hombres discapacitadas</span></a></li>
-	</ul>	
+	</ul>
+	{{resultados}}	
 	{% for key, value in resultados.items %}
 	<div id="{{key|slugify}}">		
 		{% with tabla=value titulo=key primer_td='Acciones' colspan=5 titulo_combinado=key percent=1 %}

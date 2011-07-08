@@ -7,7 +7,7 @@ body{
 #header{
     height: 61px;
 	width: 100%;
-	background: #6bb6d0 url(/files/img/header-back.png) repeat-y;	
+	background: #72BBCF url(/files/img/header-back.png) repeat-y;	
 }
 .header-derecha{
 	float: right;	
@@ -246,6 +246,10 @@ td {
 }
 .negrita{
 	font-weight: bold;
+}
+.ui-tabs-panel{
+	padding: 0em !important;
+	padding-top: 0.6em !important;
 }
 	
 

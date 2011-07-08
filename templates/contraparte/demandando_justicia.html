@@ -14,7 +14,23 @@
 {% block content %}
 <div id="tabs" style="font-size: 70%;">
 	<ul>
-		<li><a href="/a/acciones-impulsadas-demandas/"><span>Acciones públicas</span></a></li>				
+		<li><a href="#acciones-impulsadas-demandas"><span>Acciones públicas</span></a></li>				
 	</ul>	
+	<div id="acciones-impulsadas-demandas">
+		<!-- Acciones publicas impulsadas por organizacion -->
+		{% with tabla=tabla_acciones_publicas titulo='Acciones públicas por organización' primer_td='Organización' colspan=5 titulo_combinado='Población discriminada' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+		
+		<!-- Acciones publicas impulsadas por tipo de accion -->
+		{% with tabla=tabla_tipo_acciones titulo='Acciones públicas por tipo' primer_td='Tipo de acción' colspan=5 titulo_combinado='Población discriminada' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+		
+		<!-- Denuncias impulsadas -->
+		{% with tabla=tabla_denuncias titulo='Estado de denuncias impulsadas' primer_td='Denuncias en contra de la discriminación a personas ' colspan=3 titulo_combinado='Estado' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
+	</div>
 </div>	
 {% endblock %}

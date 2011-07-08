@@ -42,8 +42,9 @@ def _query_set_filtrado(request):
         
     return Informe.objects.filter(** params)
 
+
 #------------- Resultado 1.1 ------------------------
-def acciones_impulsadas(request):
+def impulsando_politicas_publicas(request):
     tabla_por_tipo = {}
     temas = Tema.objects.all()
     informes = _query_set_filtrado(request)
@@ -68,11 +69,8 @@ def acciones_impulsadas(request):
         tabla_estado_accion_2[op[1]] = {estado[1]: AccionImplementada.objects.filter(informe__in=informes, \
                                                                                      estado=estado[0], \
                                                                                      accion=op[0]).count() for estado in ESTADO_ACCION}
-        
-    return render_to_response('contraparte/acciones_impulsadas.html', RequestContext(request, locals()))
-        
-def participacion_comisiones(request):
-    informes = _query_set_filtrado(request)
+    
+    #------ Participacion en comisiones -----------------------
     tabla_tipo_comisiones = {}
     for org in informes.values_list('organizacion__nombre_corto', flat=True):
         tabla_tipo_comisiones[org] = {comision[1]: ParticipacionComision.objects.filter(informe__in=informes.filter(organizacion__nombre_corto=org),
@@ -90,14 +88,7 @@ def participacion_comisiones(request):
                                                                                               comision=comision[0], \
                                                                                               estado=estado[0]).count() \
                                               for estado in ESTADO_ACCION}
-    
-    return render_to_response('contraparte/participacion_comisiones.html', RequestContext(request, locals()))
-
-def defensa_ddssrr(request):
-    temas = Tema.objects.all()
-    titulo = u'Acciones para defensa de los DDSSRR'
-    informes = _query_set_filtrado(request)
-    
+        
     tabla_tipo_accion = {}    
     for accion in ACCIONES2:
         tabla_tipo_accion[accion[1]] = {tema.nombre: AgendaPublica.objects.filter(informe__in=informes, \
@@ -108,12 +99,12 @@ def defensa_ddssrr(request):
     for ambito in AMBITO:
         tabla_ambito_accion[ambito[1]] = {accion[1]: AgendaPublica.objects.filter(informe__in=informes, \
                                                                                   ambito=ambito[0], \
-                                                                                  tipo_accion=accion[0]).count() for accion in ACCIONES2}                         
-    
-    return render_to_response('contraparte/defensa_ddssrr.html', RequestContext(request, locals()))
+                                                                                  tipo_accion=accion[0]).count() for accion in ACCIONES2}      
+        
+    return render_to_response('contraparte/impulsando_politicas_publicas.html', RequestContext(request, locals()))        
 
 #--------------------- Resultado 1.2 --------------------------------
-def acciones_impulsadas_demandas(request):
+def demandando_justicia(request):
     temas = Tema.objects.all()
     informes = _query_set_filtrado(request)
     
@@ -135,7 +126,7 @@ def acciones_impulsadas_demandas(request):
                                                                                tipo_poblacion=poblacion[0], \
                                                                                situacion=situacion[0]).count() for situacion in DENUNCIAS}
     
-    return render_to_response('contraparte/acciones_impulsadas_demandas.html', RequestContext(request, locals()))
+    return render_to_response('contraparte/demandando_justicia.html', RequestContext(request, locals()))
 
 #----------------------- Resultado 2.1 --------------------------------------
 def acciones_reflexion(request):
@@ -155,37 +146,44 @@ def involucramiento_poblacion(request):
     
     titulos = {'mujeres': 'Participantes mujeres', 'hombres': 'Participantes hombres'}
         
-    dicc = {'Participantes mujeres': {u'Niñas': 'muj_ninas',
-                                      u'Adolescentes': 'muj_adols',
-                                      u'Jóvenes': 'muj_jovenes',
-                                      u'Adultas': 'muj_adultas'},
-            'Participantes hombres': {u'Niños': 'hom_ninos',
-                                      u'Adolescentes': 'hom_adols',
-                                      u'Jóvenes': 'hom_jovenes',
-                                      u'Adultos': 'hom_adultos'},
-            'Participantes LGBT': {u'Trans': 'lgbt_trans',
-                                      u'Lesbianas': 'lgbt_lesbi',
-                                      u'Gay': 'lgbt_gay',
-                                      u'HSH': 'lgbt_hsh'},
-            'Mujeres discapacitadas': {u'Niñas': 'muj_disca_ninas',
-                                      u'Adolescentes': 'muj_disca_adols',
-                                      u'Jóvenes': 'muj_disca_jovenes',
-                                      u'Adultas': 'muj_disca_adultas'},
-            'Hombres discapacitados': {u'Niños': 'hom_disca_ninos',
-                                      u'Adolescentes': 'hom_disca_adols',
-                                      u'Jóvenes': 'hom_disca_jovenes',
-                                      u'Adultos': 'hom_disca_adultos'},
+    dicc = {1: [{'Participantes mujeres': {u'Niñas': 'muj_ninas',
+                                           u'Adolescentes': 'muj_adols',
+                                           u'Jóvenes': 'muj_jovenes',
+                                           u'Adultas': 'muj_adultas'}},
+                ],
+            2: [{'Participantes hombres': {u'Niños': 'hom_ninos',
+                                           u'Adolescentes': 'hom_adols',
+                                           u'Jóvenes': 'hom_jovenes',
+                                           u'Adultos': 'hom_adultos'}},
+                ],
+            3: [{'Participantes LGBT': {u'Trans': 'lgbt_trans',
+                                        u'Lesbianas': 'lgbt_lesbi',
+                                        u'Gay': 'lgbt_gay',
+                                        u'HSH': 'lgbt_hsh'}},
+                ],
+            4: [{'Mujeres discapacitadas': {u'Niñas': 'muj_disca_ninas',
+                                            u'Adolescentes': 'muj_disca_adols',
+                                            u'Jóvenes': 'muj_disca_jovenes',
+                                            u'Adultas': 'muj_disca_adultas'}},
+                {'Hombres discapacitados': {u'Niños': 'hom_disca_ninos',
+                                            u'Adolescentes': 'hom_disca_adols',
+                                            u'Jóvenes': 'hom_disca_jovenes',
+                                            u'Adultos': 'hom_disca_adultos'}}
+                ],
             
             }    
     
     check_none = lambda x: x if x else 0
     
-    resultados = {}
+    resultados = {}    
     for grupo, campos in dicc.items():
-        resultados[grupo] = {}
-        for accion in ACCION_POSEE_INFO:
-            query = PoseenInfo.objects.filter(informe__in=informes, tipo_accion=accion[0])            
-            resultados[grupo][accion[1]] = {key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campos.items()}
+        resultados[grupo] = []
+        for campo in campos:            
+            for accion in ACCION_POSEE_INFO:
+                query = PoseenInfo.objects.filter(informe__in=informes, tipo_accion=accion[0])
+                print {key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campo.items()}
+                #print {accion[1]:{key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campo.items()}}
+                #resultados[grupo].append({accion[1] : {key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campo.items()}})
     
     return render_to_response('contraparte/involucramiento-poblacion.html', RequestContext(request, locals()))
 
