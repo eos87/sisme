@@ -422,7 +422,7 @@ class MasculinidadLibre(BaseR22):
         verbose_name_plural = u'Masculinidad Libre'
  
 #-------------------------- Resultado 2.3 ----------------------------
-TIPOS_CASOS = ((1, u'Médica'), (2, u'Psicológica'), (3, u'Legal'))
+TIPOS_CASOS = ((1, u'Médica'), (2, u'Psicológica'), (3, u'Legal'), (4, u'Atención General'))
 SITUACION_CASOS = ((1, u'Total atendido'), (2, u'Nuevo'), (3, 'En seguimiento'), (4, u'En abandono'), (5, u'Con diagnóstico favorable'))
 
 class CasoAtendido(models.Model):
@@ -437,11 +437,10 @@ class CasoAtendido(models.Model):
     class Meta:
         verbose_name_plural = u'Casos Atendidos'
 
-TIPO_DENUNCIA = ((1, u'Violencia'), (2, u'Pensión alimenticia'))
-INSTANCIA_ADMINISTRA = ((1, u'Policía Nacional/Comisaría de la mujer'), 
-                        (2, u'Instituto de medicina legal'), 
-                        (3, u'Fiscalía'), 
-                        (4, u'Juzgado'))
+TIPO_DENUNCIA = ((1, u'Violencia'), (2, u'Pensión alimenticia'), (3, u'Violencia intrafamiliar'), (4, u'Delitos sexuales'))
+INSTANCIA_ADMINISTRA = ((1, u'Policía Nacional/Comisaría de la mujer'),
+                        (2, u'Fiscalía'), 
+                        (3, u'Juzgado'))
 SITUACION_DENUNCIA = ((1, u'Recibidas'), (2, u'Atendidas'), (3, u'Que concluye con sanción penal'), (4, u'Con sentencia favorable'))
 
 class DenunciaInterpuesta(models.Model):
