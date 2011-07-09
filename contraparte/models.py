@@ -441,7 +441,7 @@ TIPO_DENUNCIA = ((1, u'Violencia'), (2, u'Pensión alimenticia'), (3, u'Violenci
 INSTANCIA_ADMINISTRA = ((1, u'Policía Nacional/Comisaría de la mujer'),
                         (2, u'Fiscalía'), 
                         (3, u'Juzgado'))
-SITUACION_DENUNCIA = ((1, u'Recibidas'), (2, u'Atendidas'), (3, u'Que concluye con sanción penal'), (4, u'Con sentencia favorable'))
+SITUACION_DENUNCIA = ((1, u'Recibidas'), (2, u'Atendidas'), (3, u'Con sentencia no favorable'), (4, u'Con sentencia favorable'))
 
 class DenunciaInterpuesta(models.Model):
     informe = models.ForeignKey(Informe)
