@@ -223,7 +223,7 @@ class PoseenInfo(models.Model):
     muj_etnia_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
     muj_etnia_adultas = models.IntegerField(verbose_name=u'Adultas', default=0)
     
-    #------------ participantes mujeres etnicas ---------------
+    #------------ participantes mujeres vih ---------------
     muj_vih_ninas = models.IntegerField(verbose_name=u'Niñas', default=0)
     muj_vih_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
     muj_vih_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
@@ -247,7 +247,7 @@ class PoseenInfo(models.Model):
     hom_etnia_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)
     hom_etnia_adultos = models.IntegerField(verbose_name=u'Adultas', default=0)
     
-    #------------ participantes hombres etnicas ---------------
+    #------------ participantes hombres vih ---------------
     hom_vih_ninos = models.IntegerField(verbose_name=u'Niñas', default=0)
     hom_vih_adols = models.IntegerField(verbose_name=u'Adolescentes', default=0)
     hom_vih_jovenes = models.IntegerField(verbose_name=u'Jóvenes', default=0)

@@ -15,19 +15,20 @@
 <div id="tabs" style="font-size: 70%;">
 	<ul>
 		<li><a href="/a/acciones-reflexion/"><span>Acciones para reflexionar</span></a></li>				
-		<li><a href="#participantes-mujeres"><span>Participantes mujeres</span></a></li>
-		<li><a href="#participantes-hombres"><span>Participantes hombres</span></a></li>
-		<li><a href="#participantes-lgbt"><span>Participantes LGBT</span></a></li>
-		<li><a href="#mujeres-discapacitadas"><span>Mujeres discapacitadas</span></a></li>
-		<li><a href="#hombres-discapacitados"><span>Hombres discapacitadas</span></a></li>
+		<li><a href="#1"><span>Participantes mujeres</span></a></li>
+		<li><a href="#2"><span>Participantes hombres</span></a></li>
+		<li><a href="#3"><span>Participantes LGBT</span></a></li>
+		<li><a href="#4"><span>Personas Discapacitadas</span></a></li>
+		<li><a href="#5"><span>Población étnica</span></a></li>		
 	</ul>
-	{{resultados}}	
 	{% for key, value in resultados.items %}
-	<div id="{{key|slugify}}">		
-		{% with tabla=value titulo=key primer_td='Acciones' colspan=5 titulo_combinado=key percent=1 %}
+	<div id="{{key}}">
+	{% for k,v in value.items %}
+	{% with tabla=v titulo=k primer_td='Acciones' colspan=5 titulo_combinado=k percent=1 %}
 		{% include "tabla_generica.html" %}
-		{% endwith %}
-	</div>	
+		{% endwith %}	
+	{% endfor %}
+	</div>
 	{% endfor %}	
 </div>	
 {% endblock %}

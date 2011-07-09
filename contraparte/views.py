@@ -146,44 +146,47 @@ def involucramiento_poblacion(request):
     
     titulos = {'mujeres': 'Participantes mujeres', 'hombres': 'Participantes hombres'}
         
-    dicc = {1: [{'Participantes mujeres': {u'Niñas': 'muj_ninas',
+    dicc = {1: {'Participantes mujeres': {u'Niñas': 'muj_ninas',
                                            u'Adolescentes': 'muj_adols',
                                            u'Jóvenes': 'muj_jovenes',
                                            u'Adultas': 'muj_adultas'}},
-                ],
-            2: [{'Participantes hombres': {u'Niños': 'hom_ninos',
+            2: {'Participantes hombres': {u'Niños': 'hom_ninos',
                                            u'Adolescentes': 'hom_adols',
                                            u'Jóvenes': 'hom_jovenes',
                                            u'Adultos': 'hom_adultos'}},
-                ],
-            3: [{'Participantes LGBT': {u'Trans': 'lgbt_trans',
-                                        u'Lesbianas': 'lgbt_lesbi',
-                                        u'Gay': 'lgbt_gay',
-                                        u'HSH': 'lgbt_hsh'}},
-                ],
-            4: [{'Mujeres discapacitadas': {u'Niñas': 'muj_disca_ninas',
-                                            u'Adolescentes': 'muj_disca_adols',
-                                            u'Jóvenes': 'muj_disca_jovenes',
-                                            u'Adultas': 'muj_disca_adultas'}},
-                {'Hombres discapacitados': {u'Niños': 'hom_disca_ninos',
-                                            u'Adolescentes': 'hom_disca_adols',
-                                            u'Jóvenes': 'hom_disca_jovenes',
-                                            u'Adultos': 'hom_disca_adultos'}}
-                ],
-            
-            }    
+            3: {'Participantes LGBT': {u'Trans': 'lgbt_trans',
+                                       u'Lesbianas': 'lgbt_lesbi',
+                                       u'Gay': 'lgbt_gay',
+                                       u'HSH': 'lgbt_hsh'}},
+            4: {'Mujeres discapacitadas': {u'Niñas': 'muj_disca_ninas',
+                                           u'Adolescentes': 'muj_disca_adols',
+                                           u'Jóvenes': 'muj_disca_jovenes',
+                                           u'Adultas': 'muj_disca_adultas'},
+                'Hombres discapacitados': {u'Niños': 'hom_disca_ninos',
+                                           u'Adolescentes': 'hom_disca_adols',
+                                           u'Jóvenes': 'hom_disca_jovenes',
+                                           u'Adultos': 'hom_disca_adultos'}},
+            5: {u'Mujeres étnicas': {u'Niñas': 'muj_etnia_ninas',
+                                    u'Adolescentes': 'muj_etnia_adols',
+                                    u'Jóvenes': 'muj_etnia_jovenes',
+                                    u'Adultas': 'muj_etnia_adultas'},
+                u'Hombres étnicos': {u'Niños': 'hom_etnia_ninos',
+                                    u'Adolescentes': 'hom_etnia_adols',
+                                    u'Jóvenes': 'hom_etnia_jovenes',
+                                    u'Adultos': 'hom_etnia_adultos'}}
+            }
+                                                
     
     check_none = lambda x: x if x else 0
     
     resultados = {}    
-    for grupo, campos in dicc.items():
-        resultados[grupo] = []
-        for campo in campos:            
+    for grupo, valores in dicc.items():
+        resultados[grupo] = {}
+        for k, campos in valores.items():            
+            resultados[grupo][k] = {}            
             for accion in ACCION_POSEE_INFO:
                 query = PoseenInfo.objects.filter(informe__in=informes, tipo_accion=accion[0])
-                print {key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campo.items()}
-                #print {accion[1]:{key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campo.items()}}
-                #resultados[grupo].append({accion[1] : {key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campo.items()}})
+                resultados[grupo][k][accion[1]] = {key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campos.items()}
     
     return render_to_response('contraparte/involucramiento-poblacion.html', RequestContext(request, locals()))
 
