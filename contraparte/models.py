@@ -437,7 +437,7 @@ class CasoAtendido(models.Model):
     class Meta:
         verbose_name_plural = u'Casos Atendidos'
 
-TIPO_DENUNCIA = ((1, u'Violencia'), (2, u'Pensión alimenticia'), (3, u'Violencia intrafamiliar'), (4, u'Delitos sexuales'))
+TIPO_DENUNCIA = ((1, u'Violencia Intrafamiliar'), (2, u'Pensión alimenticia'), (3, u'Delitos sexuales'))
 INSTANCIA_ADMINISTRA = ((1, u'Policía Nacional/Comisaría de la mujer'),
                         (2, u'Fiscalía'), 
                         (3, u'Juzgado'))
