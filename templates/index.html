@@ -7,6 +7,7 @@
 	$(window).bind("resize", ajustarAncho);
 	$(document).ready(function(){
 		ajustarAncho();
+		ajustarAlto();
 	});
 	function ajustarAncho(){
 		var ancho_meses = $('#calendar-meses').width();		
@@ -15,6 +16,14 @@
 		var new_width = 8.333-borde_porcentaje;		
 		$('.calendar-month').each(function(){			
 			$(this).css({'width': new_width+'%', 'border-left': '1px #d2dbdf solid'});
+		});
+	}
+	function ajustarAlto(){
+		$('.proyecto').each(function(){
+			var altura_nombre = $(this).children('.proyecto_name').outerHeight();
+			$(this).children('.proyecto_meses').children('.proyecto_month').each(function(){				
+				$(this).height(altura_nombre-1);
+			});
 		});
 	}
 </script>
@@ -30,23 +39,52 @@
 </div>
 <div class="gantt-calendar">
 	<div class="index-calendar-title">ACTIVIDAD DE INFORMES REGISTRADOS</div>
-	<div class="calendar-title">
+	<div class="filters">
+		<form action="." method="POST">
+			{% csrf_token %}
+			<div class="gantt-orgnizacion">{{organizacion.nombre_corto}}</div>
+			<div class="gantt-filter"><input type='submit' value='Actualizar'></div>
+			<div class="gantt-filter">{{form.anio}}</div>
+			<div class="gantt-filter">{{form.organizacion}}</div>							
+			<div class="clean"></div>
+		</form>		
+	</div>
+	<div>
+		<div class="calendar-title">
 		Informes
-	</div>
-	<div id="calendar-meses">
-		<div class="calendar-month">Ene</div>
-		<div class="calendar-month">Feb</div>
-		<div class="calendar-month">Mar</div>
-		<div class="calendar-month">Abr</div>
-		<div class="calendar-month">May</div>
-		<div class="calendar-month">Jun</div>
-		<div class="calendar-month">Jul</div>
-		<div class="calendar-month">Ago</div>
-		<div class="calendar-month">Sep</div>
-		<div class="calendar-month">Oct</div>
-		<div class="calendar-month">Nov</div>
-		<div class="calendar-month">Dic</div>
+		</div>
+		<div id="calendar-meses">
+			<div class="calendar-month">Ene</div>
+			<div class="calendar-month">Feb</div>
+			<div class="calendar-month">Mar</div>
+			<div class="calendar-month">Abr</div>
+			<div class="calendar-month">May</div>
+			<div class="calendar-month">Jun</div>
+			<div class="calendar-month">Jul</div>
+			<div class="calendar-month">Ago</div>
+			<div class="calendar-month">Sep</div>
+			<div class="calendar-month">Oct</div>
+			<div class="calendar-month">Nov</div>
+			<div class="calendar-month">Dic</div>
+			<div class="clean"></div>
+		</div>
 		<div class="clean"></div>
-	</div>
+	</div>	
+	<div class="proyecto_list">
+		{% for codigo, proyecto in proys.items %}
+		<div class="proyecto">
+			<div class="proyecto_name">
+				Proyecto: <b>{{codigo}}</b>
+			</div>
+			<div class="proyecto_meses">
+				{% for key, value in proyecto.items %}
+				<div class="proyecto_month{% if value %} month_estilo_1{% endif %}"></div>
+				{% endfor %}
+				<div class="clean"></div>				
+			</div>
+			<div class="clean"></div>
+		</div>
+		{% endfor %}		
+	</div>	
 </div>
 {% endblock %}

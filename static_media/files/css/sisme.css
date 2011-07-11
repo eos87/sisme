@@ -299,7 +299,7 @@ td {
 	background: #fff;
 	padding: 7px 8px;
 }
-.calendar-title{		
+.calendar-title, .proyecto_name{		
 	width: 29%;	
 	float: left;
 	border-bottom: 1px #d2dbdf solid; 
@@ -322,7 +322,49 @@ td {
 	color: #333;
 	text-align: center;
 }
-
+.proyecto{
+	width: 100%;		
+}
+.proyecto_name{
+	background: #fff;
+	padding: 10px 0px 10px 1%;
+}
+.proyecto_meses{
+	float: left;
+	width: 70%;	
+}
+.month_estilo_1{
+	background: #96dbd8 url(/files/img/style_1.png) repeat-x !important;	
+}
+.proyecto_month{	
+	float: left;
+	width: 8.333%;	
+	background: #fff;
+	border-bottom: 1px #d2dbdf solid;
+}
+.filters{
+	background: #fff;
+	border: 1px #d2dbdf solid;
+}
+.gantt-filter{
+	float: right;
+	background: #fff;
+	padding: 8px 5px;	
+}
+.gantt-filter select{	
+	width: 110px;
+}
+.gantt-filter input[type='submit']{
+	width: 80px;
+	font-size: 12px;
+	margin-right: 5px;
+}
+.gantt-orgnizacion{
+	float: left;
+	padding-left: 10px;
+	line-height: 35px;
+}
+	
 	
 
 
