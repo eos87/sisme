@@ -1,3 +1,52 @@
 {% extends "base.html" %}
 
 {% block title %}Inicio{% endblock %}
+
+{% block extra_head %}
+<script type="text/javascript">
+	$(window).bind("resize", ajustarAncho);
+	$(document).ready(function(){
+		ajustarAncho();
+	});
+	function ajustarAncho(){
+		var ancho_meses = $('#calendar-meses').width();		
+		//calcular el porcentaje de 12 pix de borde
+		var borde_porcentaje = (1*100)/ancho_meses;		
+		var new_width = 8.333-borde_porcentaje;		
+		$('.calendar-month').each(function(){			
+			$(this).css({'width': new_width+'%', 'border-left': '1px #d2dbdf solid'});
+		});
+	}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="org-profile">
+	<div class="index-calendar-title right-text">Perfil</div>
+	<div class="index-label">Usuario</div>
+	<div class="index-field">Helmy Giacoman</div>
+	<div class="index-label">Organización</div>
+	<div class="index-field">SIMAS</div>
+</div>
+<div class="gantt-calendar">
+	<div class="index-calendar-title">ACTIVIDAD DE INFORMES REGISTRADOS</div>
+	<div class="calendar-title">
+		Informes
+	</div>
+	<div id="calendar-meses">
+		<div class="calendar-month">Ene</div>
+		<div class="calendar-month">Feb</div>
+		<div class="calendar-month">Mar</div>
+		<div class="calendar-month">Abr</div>
+		<div class="calendar-month">May</div>
+		<div class="calendar-month">Jun</div>
+		<div class="calendar-month">Jul</div>
+		<div class="calendar-month">Ago</div>
+		<div class="calendar-month">Sep</div>
+		<div class="calendar-month">Oct</div>
+		<div class="calendar-month">Nov</div>
+		<div class="calendar-month">Dic</div>
+		<div class="clean"></div>
+	</div>
+</div>
+{% endblock %}
