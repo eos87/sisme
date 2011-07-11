@@ -76,9 +76,9 @@
 			<div class="proyecto_name">
 				Proyecto: <b>{{codigo}}</b>
 			</div>
-			<div class="proyecto_meses">
-				{% for key, value in proyecto.items %}
-				<div class="proyecto_month{% if value %} month_estilo_1{% endif %}"></div>
+			<div class="proyecto_meses">				
+				{% for key, value in proyecto.items %}				
+				<div class="proyecto_month {% if value %}{% cycle 'month_estilo_1' 'month_estilo_2' %}{% endif %}"></div>
 				{% endfor %}
 				<div class="clean"></div>				
 			</div>
