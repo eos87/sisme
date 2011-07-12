@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Acceso a servicios para victimas{% endblock %}
+
+{% block extra_head %}
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('#tabs').tabs();
+	});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="tabs" style="font-size: 70%;">
+	<ul>
+		<li><a href="#casos-atendidos"><span>Casos atendidos</span></a></li>
+		<li><a href="#estado-casos"><span>Estado de los casos atendidos</span></a></li>
+		<li><a href="#denuncias-interpuestas"><span>Denuncias interpuestas</span></a></li>
+		<li><a href="#estado-denuncias"><span>Estado de denuncias</span></a></li>
+		<li><a href="#ref-contra"><span>Referencias y Contrareferencias</span></a></li>
+	</ul>
+	<div id="casos-atendidos">	
+	{% with tabla=tabla_casos_atendidos titulo='Casos atendidos por las organizaciones' primer_td='Organizaciones' colspan=4 titulo_combinado='# de casos atendidos' %}
+		{% include "tabla_generica.html" %}
+	{% endwith %}
+	</div>				
+	<div id="estado-casos">
+	{% with tabla=tabla_estado_casos titulo='Estados de los casos atendidos' primer_td='Tipo de atención' colspan=5 titulo_combinado='Casos' %}
+		{% include "tabla_generica.html" %}
+	{% endwith %}
+	</div>
+	<div id="denuncias-interpuestas">
+	{% with tabla=tabla_denuncias titulo='Denuncias interpuestas' primer_td='Tipo de denuncia' colspan=3 titulo_combinado='Instancia de justicia' %}
+		{% include "tabla_generica.html" %}
+	{% endwith %}
+	</div>
+	<div id="estado-denuncias">
+	{% with tabla=tabla_estado_denuncias titulo='Estado de denuncias interpuestas' primer_td='Instancia' colspan=4 titulo_combinado='Estado de denuncias' %}
+		{% include "tabla_generica.html" %}
+	{% endwith %}
+	</div>
+	<div id="ref-contra">
+	
+	</div>
+</div>	
+{% endblock %}

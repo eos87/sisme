@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Demandando Justicia para la Igualdad{% endblock %}
+{% block title %}Prevención de Violencia{% endblock %}
 
 {% block extra_head %}
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -14,11 +14,11 @@
 {% block content %}
 <div id="tabs" style="font-size: 70%;">
 	<ul>
-		<li><a href="/a/acciones-reflexion/"><span>Acciones para reflexionar</span></a></li>				
-		<li><a href="#participantes-ddssrr"><span>Participantes en acciones impulsadas</span></a></li>
-		<li><a href="#informacion-vih"><span>Personas que reciben información sobre VIH</span></a></li>						
+		<li><a href="#acciones-impulsadas"><span>Acciones impulsadas Prevención VBG</span></a></li>				
+		<li><a href="#masculinidad-libre"><span>Promoción de masculinidad libre</span></a></li>
+<!-- 		<li><a href="#informacion-vih"><span>Personas que reciben información sobre VIH</span></a></li>						 -->
 	</ul>
-	<div id="participantes-ddssrr">
+	<div id="acciones-impulsadas">
 	{% for key, value in resultados.items %}	
 	{% for k,v in value.items %}
 	{% with tabla=v titulo=k primer_td='Acciones' colspan=5 titulo_combinado=k percent=1 %}
@@ -27,7 +27,7 @@
 	{% endfor %}	
 	{% endfor %}
 	</div>
-	<div id="informacion-vih">
+	<div id="masculinidad-libre">
 	{% for key, value in resultados_2.items %}	
 	{% for k,v in value.items %}
 	{% with tabla=v titulo=k primer_td='Acciones' colspan=5 titulo_combinado=k percent=1 %}
@@ -35,6 +35,6 @@
 		{% endwith %}	
 	{% endfor %}	
 	{% endfor %}
-	</div>	
+	</div>			
 </div>	
 {% endblock %}

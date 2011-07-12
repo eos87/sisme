@@ -141,12 +141,7 @@ def acciones_reflexion(request):
     
     return render_to_response('contraparte/acciones_reflexion.html', RequestContext(request, locals()))
 
-def involucramiento_poblacion(request):    
-    informes = _query_set_filtrado(request)
-    
-    titulos = {'mujeres': 'Participantes mujeres', 'hombres': 'Participantes hombres'}
-        
-    dicc = {1: {'Participantes mujeres': {u'Niñas': 'muj_ninas',
+dicc = {1: {'Participantes mujeres': {u'Niñas': 'muj_ninas',
                                            u'Adolescentes': 'muj_adols',
                                            u'Jóvenes': 'muj_jovenes',
                                            u'Adultas': 'muj_adultas'}},
@@ -166,18 +161,28 @@ def involucramiento_poblacion(request):
                                            u'Adolescentes': 'hom_disca_adols',
                                            u'Jóvenes': 'hom_disca_jovenes',
                                            u'Adultos': 'hom_disca_adultos'}},
-            5: {u'Mujeres étnicas': {u'Niñas': 'muj_etnia_ninas',
+            5: {u'Mujeres población étnicas': {u'Niñas': 'muj_etnia_ninas',
                                     u'Adolescentes': 'muj_etnia_adols',
                                     u'Jóvenes': 'muj_etnia_jovenes',
                                     u'Adultas': 'muj_etnia_adultas'},
-                u'Hombres étnicos': {u'Niños': 'hom_etnia_ninos',
+                u'Hombres población étnicos': {u'Niños': 'hom_etnia_ninos',
                                     u'Adolescentes': 'hom_etnia_adols',
                                     u'Jóvenes': 'hom_etnia_jovenes',
-                                    u'Adultos': 'hom_etnia_adultos'}}
+                                    u'Adultos': 'hom_etnia_adultos'}},
+            6: {u'Mujeres con VIH': {u'Niñas': 'muj_vih_ninas',
+                                    u'Adolescentes': 'muj_vih_adols',
+                                    u'Jóvenes': 'muj_vih_jovenes',
+                                    u'Adultas': 'muj_vih_adultas'},
+                u'Hombres con VIH': {u'Niños': 'hom_vih_ninos',
+                                    u'Adolescentes': 'hom_vih_adols',
+                                    u'Jóvenes': 'hom_vih_jovenes',
+                                    u'Adultos': 'hom_vih_adultos'}}            
             }
-                                                
-    
-    check_none = lambda x: x if x else 0
+
+check_none = lambda x: x if x else 0
+
+def involucramiento_poblacion(request):    
+    informes = _query_set_filtrado(request)
     
     resultados = {}    
     for grupo, valores in dicc.items():
@@ -187,12 +192,72 @@ def involucramiento_poblacion(request):
             for accion in ACCION_POSEE_INFO:
                 query = PoseenInfo.objects.filter(informe__in=informes, tipo_accion=accion[0])
                 resultados[grupo][k][accion[1]] = {key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campos.items()}
+                
+    resultados_2 = {}
+    for grupo, valores in dicc.items():
+        resultados_2[grupo] = {}
+        for k, campos in valores.items():            
+            resultados_2[grupo][k] = {}            
+            for accion in ACCION_POSEE_INFO:
+                query = RecibenInfo.objects.filter(informe__in=informes, tipo_accion=accion[0])
+                resultados_2[grupo][k][accion[1]] = {key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campos.items()}
     
     return render_to_response('contraparte/involucramiento-poblacion.html', RequestContext(request, locals()))
 
+def prevencion_violencia(request):
+    informes = _query_set_filtrado(request)
+    resultados = {}    
+    for grupo, valores in dicc.items():
+        resultados[grupo] = {}
+        for k, campos in valores.items():            
+            resultados[grupo][k] = {}            
+            for accion in ACCION_PREVENCION:
+                query = PrevencionVBG.objects.filter(informe__in=informes, tipo_accion=accion[0])
+                resultados[grupo][k][accion[1]] = {key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campos.items()}
+                
+    resultados_2 = {}
+    for grupo, valores in dicc.items():
+        resultados_2[grupo] = {}
+        for k, campos in valores.items():            
+            resultados_2[grupo][k] = {}            
+            for accion in ACCION_PREVENCION:
+                query = MasculinidadLibre.objects.filter(informe__in=informes, tipo_accion=accion[0])
+                resultados_2[grupo][k][accion[1]] = {key: check_none(query.aggregate(campo_sum=Sum(field))['campo_sum']) for key, field in campos.items()}
+                
+    return render_to_response('contraparte/prevencion_violencia.html', RequestContext(request, locals()))
 
-
+def acceso_a_servicios(request):
+    informes = _query_set_filtrado(request)
+    tabla_casos_atendidos = {}
+    organizaciones = [informe.organizacion for informe in informes]
+    
+    for organizacion in organizaciones:
+        query = informes.filter(organizacion=organizacion)
+        tabla_casos_atendidos[organizacion.nombre_corto] = {tipo[1]: check_none(CasoAtendido.objects.filter(informe__in=query, 
+                                                                             tipo_caso=tipo[0]).aggregate(campo_sum=Sum('cantidad'))['campo_sum']) for tipo in TIPOS_CASOS}
+    
+    tabla_estado_casos = {}
+    for tipo in TIPOS_CASOS:
+        tabla_estado_casos[tipo[1]] = {situacion[1]: check_none(CasoAtendido.objects.filter(informe__in=informes,
+                                                                                 situacion_caso = situacion[0], 
+                                                                                 tipo_caso=tipo[0]).aggregate(campo_sum=Sum('cantidad'))['campo_sum']) \
+                                       for situacion in SITUACION_CASOS}
         
+    tabla_denuncias = {}
+    for tipo in TIPO_DENUNCIA:
+        tabla_denuncias[tipo[1]] = {instancia[1]: check_none(DenunciaInterpuesta.objects.filter(informe__in=informes,
+                                                                                                tipo_denuncia = tipo[0],
+                                                                                                instancia_administra=instancia[0]).count()) \
+                                    for instancia in INSTANCIA_ADMINISTRA}
+        
+    tabla_estado_denuncias = {}
+    for instancia in INSTANCIA_ADMINISTRA:
+        tabla_estado_denuncias[instancia[1]] = {situacion[1]: check_none(DenunciaInterpuesta.objects.filter(informe__in=informes,
+                                                                                                situacion_denuncia = situacion[0],
+                                                                                                instancia_administra=instancia[0]).count()) \
+                                    for situacion in SITUACION_DENUNCIA}
+    
+    return render_to_response('contraparte/acceso_a_servicios.html', RequestContext(request, locals()))
     
     
     

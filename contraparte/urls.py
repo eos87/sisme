@@ -14,4 +14,10 @@ urlpatterns = patterns('sisme.contraparte.views',
     (r'^involucramiento-poblacion/$', 'involucramiento_poblacion'),
     (r'^acciones-reflexion/$', 'acciones_reflexion'),
     
+    #------------- indicadores resultado 2.2 -------------------------
+    (r'^prevencion-violencia/$', 'prevencion_violencia'),
+    
+    #------------- indicadores resultado 2.3 -------------------------
+    (r'^acceso-a-servicios/$', 'acceso_a_servicios'),
+    
 )
