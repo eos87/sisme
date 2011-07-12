@@ -1,13 +1,15 @@
 {% extends "base.html" %}
+{% load tools %}
 
 {% block title %}Inicio{% endblock %}
 
 {% block extra_head %}
 <script type="text/javascript">
 	$(window).bind("resize", ajustarAncho);
+	$(window).bind("resize", ajustarAlto);
 	$(document).ready(function(){
 		ajustarAncho();
-		ajustarAlto();
+		ajustarAlto();		
 	});
 	function ajustarAncho(){
 		var ancho_meses = $('#calendar-meses').width();		
@@ -15,6 +17,9 @@
 		var borde_porcentaje = (1*100)/ancho_meses;		
 		var new_width = 8.333-borde_porcentaje;		
 		$('.calendar-month').each(function(){			
+			$(this).css({'width': new_width+'%', 'border-left': '1px #d2dbdf solid'});
+		});
+		$('.month_blanco').each(function(){			
 			$(this).css({'width': new_width+'%', 'border-left': '1px #d2dbdf solid'});
 		});
 	}
@@ -25,7 +30,7 @@
 				$(this).height(altura_nombre-1);
 			});
 		});
-	}
+	}	
 </script>
 {% endblock %}
 
@@ -76,12 +81,14 @@
 			<div class="proyecto_name">
 				Proyecto: <b>{{codigo}}</b>
 			</div>
+			{% with id=forloop.counter %}			
 			<div class="proyecto_meses">				
-				{% for key, value in proyecto.items %}				
-				<div class="proyecto_month {% if value %}{% cycle 'month_estilo_1' 'month_estilo_2' %}{% endif %}"></div>
+				{% for key, value in proyecto.items %}							
+				<div class="proyecto_month {% if value %}{{estilos|get_value:id}}{% else %}month_blanco{% endif %}"></div>
 				{% endfor %}
 				<div class="clean"></div>				
-			</div>
+			</div>			
+			{% endwith %}
 			<div class="clean"></div>
 		</div>
 		{% endfor %}		

@@ -333,14 +333,11 @@ td {
 	float: left;
 	width: 70%;	
 }
-.month_estilo_1{
-	background: #96dbd8 url(/files/img/style_1.png) repeat-x !important;	
-}
 .proyecto_month{	
 	float: left;
 	width: 8.333%;	
 	background: #fff;
-	border-bottom: 1px #d2dbdf solid;
+	border-bottom: 1px #fff solid;
 }
 .filters{
 	background: #fff;
@@ -364,9 +361,15 @@ td {
 	padding-left: 10px;
 	line-height: 35px;
 }
-.month_estilo_2{
-	background: #fe5007 url(/files/img/style_2.png) repeat-x !important;	
+.month_estilo_1{
+	background: #96dbd8 url(/files/img/style_1.png) repeat-x !important;
+	border-bottom: 1px #72bbcf solid;
 }
+.month_estilo_2{
+	background: #fe5007 url(/files/img/style_2.png) repeat-x !important;
+	border-bottom: 1px #fe5007 solid;
+}
+
 	
 	
 
