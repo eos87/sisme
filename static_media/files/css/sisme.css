@@ -369,6 +369,9 @@ td {
 	background: #fe5007 url(/files/img/style_2.png) repeat-x !important;
 	border-bottom: 1px #fe5007 solid;
 }
+.blanco_borde{
+	border-bottom: 1px #d2dbdf solid !important;
+}
 
 	
 	

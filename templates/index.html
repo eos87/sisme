@@ -84,7 +84,7 @@
 			{% with id=forloop.counter %}			
 			<div class="proyecto_meses">				
 				{% for key, value in proyecto.items %}							
-				<div class="proyecto_month {% if value %}{{estilos|get_value:id}}{% else %}month_blanco{% endif %}"></div>
+				<div class="proyecto_month {% if value %}{{estilos|get_value:id}}{% else %}month_blanco{% endif %}{% if forloop.parentloop.last %} blanco_borde{% endif %}"></div>
 				{% endfor %}
 				<div class="clean"></div>				
 			</div>			
