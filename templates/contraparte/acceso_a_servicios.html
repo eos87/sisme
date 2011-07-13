@@ -18,7 +18,8 @@
 		<li><a href="#estado-casos"><span>Estado de los casos atendidos</span></a></li>
 		<li><a href="#denuncias-interpuestas"><span>Denuncias interpuestas</span></a></li>
 		<li><a href="#estado-denuncias"><span>Estado de denuncias</span></a></li>
-		<li><a href="#ref-contra"><span>Referencias y Contrareferencias</span></a></li>
+		<li><a href="#albergues"><span>Atención en Albergues</span></a></li>
+		<li><a href="#ref-contra"><span>Referencias y Contrareferencias</span></a></li>		
 	</ul>
 	<div id="casos-atendidos">	
 	{% with tabla=tabla_casos_atendidos titulo='Casos atendidos por las organizaciones' primer_td='Organizaciones' colspan=4 titulo_combinado='# de casos atendidos' %}
@@ -40,8 +41,48 @@
 		{% include "tabla_generica.html" %}
 	{% endwith %}
 	</div>
+	<div id="albergues">
+	<a class="guardarXLS" href="#" onclick="exportarXLS('atencion-albergues'); return false;">Guardar XLS</a><div class="clean"></div> 
+		<div id="atencion-albergues">
+			<table width="100%">
+				<caption>Atención en Albergues</caption>
+				<thead>
+					<tr>
+						<th rowspan="2">Organización</th>
+						<th colspan="4" class='centrado'>Tipo de población atendida</th>
+						<th rowspan="2" class='centrado'>Total</th>
+						<th rowspan="2" class='centrado'>Concluyen con plan de vida</th>
+						<th rowspan="2" class='centrado'>% concluyen con plan de vida</th>	
+					</tr>
+					<tr>
+						<th>Mujeres</th>
+						<th>Niños</th>
+						<th>Niñas</th>
+						<th>Adolescentes</th>						
+					</tr>					
+				</thead>
+				<tbody>
+				{% for key, value in tabla_albergues.items %}
+					<tr>
+						<td>{{key}}</td>
+						<td>{{value.1}}</td>
+						<td>{{value.2}}</td>
+						<td>{{value.3}}</td>
+						<td>{{value.4}}</td>
+						<td>{{value.total}}</td>
+						<td>{{value.plan}}</td>
+						<td>{{value.porcentaje}}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			<br><br>
+		</div>		
+	</div>
 	<div id="ref-contra">
-	
+		{% with tabla=tabla_ref_contra titulo='Referencias y contrareferencias que realizan las OCP' primer_td='Tipo' colspan=5 titulo_combinado='Instancia pública' %}
+		{% include "tabla_generica.html" %}
+		{% endwith %}
 	</div>
 </div>	
 {% endblock %}

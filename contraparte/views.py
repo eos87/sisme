@@ -244,22 +244,50 @@ def acceso_a_servicios(request):
                                        for situacion in SITUACION_CASOS}
         
     tabla_denuncias = {}
+    denuncia_query = DenunciaInterpuesta.objects.filter(informe__in=informes)
     for tipo in TIPO_DENUNCIA:
-        tabla_denuncias[tipo[1]] = {instancia[1]: check_none(DenunciaInterpuesta.objects.filter(informe__in=informes,
-                                                                                                tipo_denuncia = tipo[0],
-                                                                                                instancia_administra=instancia[0]).count()) \
+        tabla_denuncias[tipo[1]] = {instancia[1]: check_none(denuncia_query.filter(tipo_denuncia = tipo[0], 
+                                                                                   instancia_administra=instancia[0]).count()) \
                                     for instancia in INSTANCIA_ADMINISTRA}
         
     tabla_estado_denuncias = {}
     for instancia in INSTANCIA_ADMINISTRA:
-        tabla_estado_denuncias[instancia[1]] = {situacion[1]: check_none(DenunciaInterpuesta.objects.filter(informe__in=informes,
-                                                                                                situacion_denuncia = situacion[0],
+        tabla_estado_denuncias[instancia[1]] = {situacion[1]: check_none(denuncia_query.filter(situacion_denuncia = situacion[0],
                                                                                                 instancia_administra=instancia[0]).count()) \
                                     for situacion in SITUACION_DENUNCIA}
     
+    tabla_albergues = {}    
+    for org in ORGANIZACION_CHOICE:
+        query = AtencionMujer.objects.filter(informe__in=informes, organizacion=org[0])        
+        tabla_albergues[org[1]] = {tipo[0]: query.filter(tipo_poblacion=tipo[0]).count() for tipo in TIPO_POBLACION_ATENCION}
+        
+        #sacar total para cada llave
+        total = sum(tabla_albergues[org[1]].values())
+        #calcular lo que tienen proyecto de vida
+        cantidad = query.filter(plan_vida=1).count()
+        
+        tabla_albergues[org[1]]['plan'] = cantidad
+        tabla_albergues[org[1]]['porcentaje'] = get_porcentaje(total, cantidad)
+        tabla_albergues[org[1]]['total'] = total
+        
+    REF_CONTRA = ((1, u'Referencias'), (2, u'Contrareferencias'))
+    tabla_ref_contra = {}
+    for op in REF_CONTRA:
+        tabla_ref_contra[op[1]] = {instancia[1]: ReferenciaContraReferencia.objects.filter(informe__in=informes,
+                                                                             tipo_referencia=op[0],
+                                                                             instancia=instancia[0]).count() \
+                                   for instancia in INSTANCIA_PUBLICA}
+    
     return render_to_response('contraparte/acceso_a_servicios.html', RequestContext(request, locals()))
     
-    
+
+def get_porcentaje(total, cantidad):
+    '''Metodo para calcular el porcentaje de una cantidad sobre un total'''
+    if total == None or cantidad == None or total == 0:
+        x = 0
+    else:
+        x = (cantidad * 100) / total
+    return x
     
     
     

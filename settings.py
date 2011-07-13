@@ -80,7 +80,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+
+INTERNAL_IPS = ('127.0.0.1',)
+
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS':False }
 
 ROOT_URLCONF = 'sisme.urls'
 
@@ -103,6 +108,7 @@ INSTALLED_APPS = (
     'sisme.fed',
     'sisme.contraparte',
     'south',
+    'debug_toolbar',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
