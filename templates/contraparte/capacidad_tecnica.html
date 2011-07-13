@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Acceso a servicios para victimas{% endblock %}
+
+{% block extra_head %}
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/files/js/highcharts.js"></script>
+<script type="text/javascript" src="/files/js/exporting_patched.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		$('#tabs').tabs();		
+	});
+</script>
+<script type="text/javascript">
+    var plotOptions = {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: false
+            },
+            showInLegend: true
+         },
+         series: {
+            dataLabels: {
+                enabled: true,
+                align: "center",
+                formatter: function() {
+                    return ''+ this.percentage.toFixed(0) + ' %';
+                },
+                color: '#000',
+                style: {
+                    font: '12px Trebuchet MS, Verdana, sans-serif'
+                }
+            }
+        }
+    }
+    var tooltip = {
+        formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ this.y;
+        }
+    }    
+        
+    $(document).ready(function(){
+    	var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'capacidad-adminitiva',
+                defaultSeriesType: 'pie',
+                height: 480,
+                width: 960
+            },
+            title: {
+                text: 'Capacidad admitiva y gestión'
+            },
+            subtitle: {
+                text: ''
+            },                                
+            tooltip: tooltip,
+            plotOptions: plotOptions,
+            series: [{data: [{% for key, value in tabla_cap_admitiva.items %}['{{key}}', {{value}}]{% if not forloop.last %}, {% endif %}{% endfor %}]}]
+        });
+    	var chart1 = new Highcharts.Chart({
+            chart: {
+                renderTo: 'medir-reportar',
+                defaultSeriesType: 'pie',
+                height: 480,
+                width: 960
+            },
+            title: {
+                text: 'Medir y reportar indicadores'
+            },
+            subtitle: {
+                text: ''
+            },                                
+            tooltip: tooltip,
+            plotOptions: plotOptions,
+            series: [{data: [{% for key, value in tabla_medir_reportar.items %}['{{key}}', {{value}}]{% if not forloop.last %}, {% endif %}{% endfor %}]}]
+        });
+    	var chart2 = new Highcharts.Chart({
+            chart: {
+                renderTo: 'plan-estrategico',
+                defaultSeriesType: 'pie',
+                height: 480,
+                width: 960
+            },
+            title: {
+                text: 'Uso de plan estratégico'
+            },
+            subtitle: {
+                text: ''
+            },                                
+            tooltip: tooltip,
+            plotOptions: plotOptions,
+            series: [{data: [{% for key, value in tabla_plan.items %}['{{key}}', {{value}}]{% if not forloop.last %}, {% endif %}{% endfor %}]}]
+        });
+    });    
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="tabs" style="font-size: 70%;">
+	<ul>
+		<li><a href="#capacidad-adminitiva"><span>Capacidad admitiva y gestión</span></a></li>
+		<li><a href="#medir-reportar"><span>Medir y reportar indicadores</span></a></li>
+		<li><a href="#plan-estrategico"><span>Uso de plan estratégico</span></a></li>
+	</ul>
+	<div id="capacidad-adminitiva">	
+		
+	</div>
+	<div id="medir-reportar">	
+	
+	</div>
+	<div id="plan-estrategico">	
+	
+	</div>
+</div>	
+{% endblock %}
