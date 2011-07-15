@@ -80,7 +80,7 @@ def generales(request):
         for tematrabajo in TemaTrabajo.objects.filter(tema=tema, proyecto__in=proyectos_filtrados):
             for municipio in tematrabajo.municipio.all():
                 lista.append(municipio)
-        tabla_temas[tema] = lista              
+        tabla_temas[tema] = list(set(lista))              
     
     return render_to_response("fed/generales.html", RequestContext(request, locals()))
 
