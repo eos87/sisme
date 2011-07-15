@@ -1,6 +1,6 @@
 {% load tools %}
-<a class="guardarXLS" href="#" onclick="exportarXLS('{{titulo|slugify}}'); return false;">Guardar XLS</a><div class="clean"></div> 
-<div id="{{titulo|slugify}}">
+<a class="guardarXLS" href="#" onclick="exportarXLS('{{titulo|slugify}}_{{aux}}'); return false;">Guardar XLS</a><div class="clean"></div> 
+<div id="{{titulo|slugify}}_{{aux}}">
 	<table width="100%">
 		<caption>{{titulo}}</caption>
 		<thead>

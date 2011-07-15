@@ -21,7 +21,7 @@
 	<div id="acciones-impulsadas">
 	{% for key, value in resultados.items %}	
 	{% for k,v in value.items %}
-	{% with tabla=v titulo=k primer_td='Acciones' colspan=5 titulo_combinado=k percent=1 %}
+	{% with tabla=v titulo=k primer_td='Acciones' colspan=5 titulo_combinado=k percent=1 aux=1 %}
 		{% include "tabla_generica.html" %}
 		{% endwith %}	
 	{% endfor %}	
@@ -30,7 +30,7 @@
 	<div id="masculinidad-libre">
 	{% for key, value in resultados_2.items %}	
 	{% for k,v in value.items %}
-	{% with tabla=v titulo=k primer_td='Acciones' colspan=5 titulo_combinado=k percent=1 %}
+	{% with tabla=v titulo=k primer_td='Acciones' colspan=5 titulo_combinado=k percent=1 aux=2 %}
 		{% include "tabla_generica.html" %}
 		{% endwith %}	
 	{% endfor %}	
