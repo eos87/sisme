@@ -233,8 +233,11 @@ def acceso_a_servicios(request):
     
     for organizacion in organizaciones:
         query = informes.filter(organizacion=organizacion)
-        tabla_casos_atendidos[organizacion.nombre_corto] = {tipo[1]: check_none(CasoAtendido.objects.filter(informe__in=query, 
-                                                                             tipo_caso=tipo[0]).aggregate(campo_sum=Sum('cantidad'))['campo_sum']) for tipo in TIPOS_CASOS}
+        tabla_casos_atendidos[organizacion.nombre_corto] = {tipo[1]: check_none(CasoAtendido.objects.filter(informe__in=query,
+                                                                             tipo_caso=tipo[0], situacion_caso=2).aggregate(campo_sum=Sum('cantidad'))['campo_sum']) + \
+                                                            check_none(CasoAtendido.objects.filter(informe__in=query,
+                                                                             tipo_caso=tipo[0], situacion_caso=3).aggregate(campo_sum=Sum('cantidad'))['campo_sum']) 
+                                                            for tipo in TIPOS_CASOS}
     
     SITUACION_C = ((2, u'Nuevo'), (3, 'En seguimiento'), (4, u'En abandono'), (5, u'Con diagnóstico favorable'))
     tabla_estado_casos = {}
