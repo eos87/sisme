@@ -290,15 +290,15 @@ def capacidad_tecnica(request):
     informes = _query_set_filtrado(request)
     tabla_cap_admitiva = {}
     for op in A_TRAVES:
-        tabla_cap_admitiva[op[1]] = CapacidadAdmitiva.objects.filter(atraves=op[0], ha_mejorado=1).count()
+        tabla_cap_admitiva[op[1]] = CapacidadAdmitiva.objects.filter(informe__in=informes, atraves=op[0], ha_mejorado=1).count()
         
     tabla_medir_reportar = {}
     for op in MANERA:
-        tabla_medir_reportar[op[1]] = MedirReportar.objects.filter(manera=op[0], ha_mejorado=1).count()
+        tabla_medir_reportar[op[1]] = MedirReportar.objects.filter(informe__in=informes, manera=op[0], ha_mejorado=1).count()
         
     tabla_plan = {}
     for op in MANERA_PLAN:
-        tabla_plan[op[1]] = PlanEstrategico.objects.filter(manera=op[0], utiliza_plan=1).count()
+        tabla_plan[op[1]] = PlanEstrategico.objects.filter(informe__in=informes, manera=op[0], utiliza_plan=1).count()
     
     return render_to_response('contraparte/capacidad_tecnica.html', RequestContext(request, locals()))
 
