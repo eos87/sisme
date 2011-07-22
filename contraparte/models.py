@@ -423,7 +423,7 @@ class MasculinidadLibre(BaseR22):
  
 #-------------------------- Resultado 2.3 ----------------------------
 TIPOS_CASOS = ((1, u'Médica'), (2, u'Psicológica'), (3, u'Legal'), (4, u'Atención General'))
-SITUACION_CASOS = ((1, u'Total atendido'), (2, u'Nuevo'), (3, 'En seguimiento'), (4, u'En abandono'), (5, u'Con diagnóstico favorable'))
+SITUACION_CASOS = ((2, u'Nuevo'), (3, 'En seguimiento'), (4, u'En abandono'), (5, u'Con diagnóstico favorable'))
 
 class CasoAtendido(models.Model):
     informe = models.ForeignKey(Informe)
