@@ -236,12 +236,15 @@ def acceso_a_servicios(request):
         tabla_casos_atendidos[organizacion.nombre_corto] = {tipo[1]: check_none(CasoAtendido.objects.filter(informe__in=query, 
                                                                              tipo_caso=tipo[0]).aggregate(campo_sum=Sum('cantidad'))['campo_sum']) for tipo in TIPOS_CASOS}
     
+    SITUACION_C = ((2, u'Nuevo'), (3, 'En seguimiento'), (4, u'En abandono'), (5, u'Con diagnóstico favorable'))
     tabla_estado_casos = {}
     for tipo in TIPOS_CASOS:
-        tabla_estado_casos[tipo[1]] = {situacion[1]: check_none(CasoAtendido.objects.filter(informe__in=informes,
+        tabla_estado_casos[tipo[1]] = {situacion[0]: check_none(CasoAtendido.objects.filter(informe__in=informes,
                                                                                  situacion_caso = situacion[0], 
                                                                                  tipo_caso=tipo[0]).aggregate(campo_sum=Sum('cantidad'))['campo_sum']) \
-                                       for situacion in SITUACION_CASOS}
+                                       for situacion in SITUACION_C}
+        #sacar total para nuevos y en seguimiento
+        tabla_estado_casos[tipo[1]]['total'] = tabla_estado_casos[tipo[1]][2] + tabla_estado_casos[tipo[1]][3]
         
     tabla_denuncias = {}
     denuncia_query = DenunciaInterpuesta.objects.filter(informe__in=informes)

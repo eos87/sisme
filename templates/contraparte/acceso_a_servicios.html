@@ -26,10 +26,39 @@
 		{% include "tabla_generica.html" %}
 	{% endwith %}
 	</div>				
-	<div id="estado-casos">
-	{% with tabla=tabla_estado_casos titulo='Estados de los casos atendidos' primer_td='Tipo de atención' colspan=5 titulo_combinado='Casos' %}
-		{% include "tabla_generica.html" %}
-	{% endwith %}
+	<div id="estado-casos">	
+	<a class="guardarXLS" href="#" onclick="exportarXLS('estado-casos-atendidos'); return false;">Guardar XLS</a><div class="clean"></div> 
+		<div id="estado-casos-atendidos">
+			<table width="100%">
+				<caption>Estados de los casos atendidos</caption>
+				<thead>
+					<tr>
+						<th rowspan="2">Tipo de atención</th>
+						<th colspan="2" class='centrado'>Casos</th>
+						<th rowspan="2" class='centrado'>Total atendido</th>
+						<th rowspan="2" class='centrado'>Con diagnóstico favorable</th>
+						<th rowspan="2" class='centrado'>En abandono</th>	
+					</tr>
+					<tr>
+						<th>Nuevo</th>
+						<th>En seguimiento</th>												
+					</tr>					
+				</thead>
+				<tbody>
+				{% for key, value in tabla_estado_casos.items %}
+					<tr>
+						<td>{{key}}</td>
+						<td>{{value.2}}</td>
+						<td>{{value.3}}</td>						
+						<td>{{value.total}}</td>
+						<td>{{value.4}}</td>
+						<td>{{value.5}}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			<br><br>
+		</div>	
 	</div>
 	<div id="denuncias-interpuestas">
 	{% with tabla=tabla_denuncias titulo='Denuncias interpuestas' primer_td='Tipo de denuncia' colspan=3 titulo_combinado='Instancia de justicia' %}
