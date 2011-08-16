@@ -22,4 +22,7 @@ urlpatterns = patterns('sisme.contraparte.views',
     
     #------------- indicadores resultado 3.1 -------------------------
     (r'^capacidad-tecnica/$', 'capacidad_tecnica'),
+    
+    #Area de influencia
+    (r'^influencia/$', 'influencia'),
 )

@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^xls/$', 'sisme.utils.save_as_xls'),
     url(r'^ajax/meses/$', 'sisme.utils.ajax_meses'),     
     url(r'^a/', include('sisme.contraparte.urls')),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}),
 
     url(r'^admin/', include(admin.site.urls)),
 )

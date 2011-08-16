@@ -5,6 +5,7 @@ from django.db.models import Sum
 from forms import InfluenciaForm
 from models import *
 from sisme.fed.models import *
+import json
 
 def indicadores(request):
     if request.method == 'POST':
@@ -21,6 +22,42 @@ def indicadores(request):
         centinela = 0
     return render_to_response('contraparte/indicadores.html', RequestContext(request, locals()))
 
+def reducir_lista(lista):    
+    meh = []
+    for foo in lista:
+        if not foo in meh:
+            meh.append(foo)
+    return meh
+
+def influencia(request):
+    if request.method == 'POST':
+        form = InfluenciaForm(request.POST)
+        if form.is_valid():
+            request.session['modalidad'] = form.cleaned_data['modalidad']
+            request.session['organizacion'] = form.cleaned_data['organizacion']
+            request.session['resultado'] = form.cleaned_data['resultado']
+            request.session['meses'] = form.cleaned_data['meses']
+            request.session['anio'] = form.cleaned_data['anio'] 
+                                
+            centinela = 1
+            dicc = {}            
+            query = _query_set_filtrado(request)
+            for municipio in reducir_lista(query.values('proyecto__tematrabajo__municipio__nombre', 
+                                          'proyecto__tematrabajo__municipio__latitud',
+                                          'proyecto__tematrabajo__municipio__longitud')):
+                dicc[municipio['proyecto__tematrabajo__municipio__nombre']] \
+                = {'lat': float(municipio['proyecto__tematrabajo__municipio__latitud']),
+                   'lng': float(municipio['proyecto__tematrabajo__municipio__longitud']),
+                   'proys': []
+                   }
+            markers = json.dumps(dicc)
+            for obj in query:
+                pass         
+    else:
+        form = InfluenciaForm()
+        centinela = 0
+        
+    return render_to_response('contraparte/influencia.html', RequestContext(request, locals()))
 
 def _query_set_filtrado(request):
     params = {}
@@ -41,7 +78,6 @@ def _query_set_filtrado(request):
         params['anio'] = request.session['anio']    
         
     return Informe.objects.filter(** params)
-
 
 #------------- Resultado 1.1 ------------------------
 def impulsando_politicas_publicas(request):
