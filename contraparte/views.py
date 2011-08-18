@@ -39,20 +39,30 @@ def influencia(request):
             request.session['meses'] = form.cleaned_data['meses']
             request.session['anio'] = form.cleaned_data['anio'] 
                                 
-            centinela = 1
             dicc = {}            
             query = _query_set_filtrado(request)
+            if query.count() != 0:
+                centinela = 1
+            else:
+                centinela = 2                
             for municipio in reducir_lista(query.values('proyecto__tematrabajo__municipio__nombre', 
                                           'proyecto__tematrabajo__municipio__latitud',
-                                          'proyecto__tematrabajo__municipio__longitud')):
-                dicc[municipio['proyecto__tematrabajo__municipio__nombre']] \
+                                          'proyecto__tematrabajo__municipio__longitud',
+                                          'proyecto__tematrabajo__municipio__id')):
+                dicc[municipio['proyecto__tematrabajo__municipio__id']] \
                 = {'lat': float(municipio['proyecto__tematrabajo__municipio__latitud']),
                    'lng': float(municipio['proyecto__tematrabajo__municipio__longitud']),
+                   'name': municipio['proyecto__tematrabajo__municipio__nombre'], 
                    'proys': []
                    }
-            markers = json.dumps(dicc)
+            
             for obj in query:
-                pass         
+                for tema in obj.proyecto.tematrabajo_set.all():
+                    for muni in tema.municipio.all():
+                        proyecto = '<b>[%s]</b> %s' % (obj.organizacion.nombre_corto, obj.proyecto.nombre)
+                        if not proyecto in dicc[muni.id]['proys']:
+                            dicc[muni.id]['proys'].append(proyecto)
+            markers = json.dumps(dicc)             
     else:
         form = InfluenciaForm()
         centinela = 0

@@ -64,8 +64,27 @@
         }
         map = new google.maps.Map(document.getElementById("mapa"), myOptions);
         {% if centinela == 1 %}
-        var a = JSON.parse('{{markers|escapejs}}');
-        console.log(a);
+        var data = JSON.parse('{{markers|escapejs}}');        
+    	var infowindow = new google.maps.InfoWindow();
+        $.each(data, function(i, foo){        	
+        	var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(foo.lat, foo.lng),
+                map: map,
+                title:foo.name               
+            });
+        	google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map, marker);
+                var text = '<div class="infowindow">'+foo.name+'<br><ul>';
+                $.each(foo.proys, function(i, item){
+                     text += '<li>'+item+'</li>';    				
+                });
+                text += '</ul></div>';
+                infowindow.setContent(text);
+            });
+        });    
+        {% endif %}
+        {% if centinela == 2 %}
+        alert('No hay datos');
         {% endif %}
 	});
 </script>
