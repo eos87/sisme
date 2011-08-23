@@ -19,7 +19,7 @@ def generales(request):
         proyectos_filtrados = Proyecto.objects.all()
     
     
-    orgs_filtradas = len([proy.organizacion for proy in proyectos_filtrados])
+    orgs_filtradas = len(list(set([proy.organizacion for proy in proyectos_filtrados])))
     
     #organizaciones por modalidad de apoyo
     tabla_modalidad = {}
