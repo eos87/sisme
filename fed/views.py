@@ -19,13 +19,15 @@ def generales(request):
         proyectos_filtrados = Proyecto.objects.all()
     
     
-    orgs_filtradas = len(list(set([proy.organizacion for proy in proyectos_filtrados])))
+    orgs_filtradas = len([proy.organizacion for proy in proyectos_filtrados])
+    total_orgs = 0
     
     #organizaciones por modalidad de apoyo
     tabla_modalidad = {}
     for op in MODALIDAD_CHOICE:
         orgs = [proyecto.organizacion.nombre_corto for proyecto in proyectos_filtrados.filter(modalidad=op[0])]
         lista = list(set(orgs))
+        total_orgs += len(lista)
         tabla_modalidad[op[1]] = {'cantidad': len(lista), 'organizaciones': lista}
         
     #cobertura de los proyectos
