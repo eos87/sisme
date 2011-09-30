@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block extra_head %}
+<script src="/files/js/jquery.carousel.min.js" type="text/javascript"></script>
+<script src="/files/js/cconfig.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	checkWidth();
+});
+$(window).bind("resize", checkWidth);
+function checkWidth(){
+	var page_width = $(window).width();
+	var fed_width = $('.fed').outerWidth();	
+	$('.descfed').css('width', (page_width - fed_width) - 110);
+	$('#carrusel-container').css('width', (page_width - 122));
+}
+</script>
+<style type="text/css">
+	.main-nav{display: none;}
+	.home-nav{display: block;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="home">
+	<div class="bigbuttons">
+		<a href="/a/influencia/" class="influencia-b"></a>	
+		<a href="/a/indicadores/" class="indicadores-b"></a>	
+		<a href="/generales/" class="generales-b"></a>
+		<div class="clean"></div>
+	</div>	
+	<div class="otroslinks">
+		<div class="title">Otros Enlaces</div>
+		<div class="links">
+			<a href="/index/" class="crono">Cronograma de entrega de informes</a>
+			<a href="#" class="manual">Manual de usuario</a>
+		</div>
+	</div>
+	<div class="clean"></div>
+</div>
+<div class="introfed">
+	<div>
+		<div class="fed">
+			<span class="name">FED</span><br>
+			Oficial de programa. Monitoreo, evaluación e investigación.
+			<br><br>
+			Teléfono:<br>
+			2277-5174<br><br>			
+			Correo:<br>
+			juan.arguello@fed-hivos.org<br><br>	
+		</div>
+		<div class="descfed">
+			El <b>Fondo para la Equidad de Género y los Derechos Sexuales y Reproducivos</b> es un mecanismo  común  de  apoyo  de  la  cooperación  internacional  a  las  organizaciones  de la sociedad civil nicaragüense que promueven la equidad e igualdad de género y el pleno reconocimiento y ejercicio de los derechos sexuales y derechos reproductivos de la ciudadanía nicaragüense.
+			<br><br>
+			Ha contribuido no sólo a la disminución de los costos de la ayuda, sino que ha permitido, por su apertura hacia las organizaciones de la sociedad civil, potenciar capacidades y fortalezas existentes, así como estimular la creación y desarrollo de iniciativas novedosas. Los donantes del FED son los siguientes: 	Noruega, Suecia, Finlandia, Países Bajos, Austria, Luxemburgo, Dinamarca, GTZ/Alemania y UNFPA. La fase piloto del FED  inició en 2006 y finalizó en septiembre del 2009. A partir de este momento inicia la Fase I que tendrá una duración de cuatro años. HIVOS es la organización administradora a través de la Secretaría Técnica. El fondo FED cuenta además con unComité Consultivo compuesto por organizaciones con amplia experiencia en los temas como Oxfam Canadá y el Fondo Centroamericano de Mujeres, FCAM. 
+		</div>
+		<div class="clean"></div>
+	</div>
+	<div class="carrusel-title">Contrapartes</div>
+	<div class="carrusel">
+		<div id="carrusel-container">
+        <ul>            
+            <li class="carrusel-item"><a href="#"><img src="/files/img/ixchen.png" width="122" height="91" alt=""></a></li>
+            <li class="carrusel-item"><a href="#"><img src="/files/img/nime.png" width="122" height="91" alt=""></a></li>
+            <li class="carrusel-item"><a href="#"><img src="/files/img/oyanka.png" width="122" height="91" alt=""></a></li>    
+            <li class="carrusel-item"><a href="#"><img src="/files/img/ixchen.png" width="122" height="91" alt=""></a></li>
+            <li class="carrusel-item"><a href="#"><img src="/files/img/nime.png" width="122" height="91" alt=""></a></li>
+            <li class="carrusel-item"><a href="#"><img src="/files/img/oyanka.png" width="122" height="91" alt=""></a></li>
+            <li class="carrusel-item"><a href="#"><img src="/files/img/ixchen.png" width="122" height="91" alt=""></a></li>
+            <li class="carrusel-item"><a href="#"><img src="/files/img/nime.png" width="122" height="91" alt=""></a></li>
+            <li class="carrusel-item"><a href="#"><img src="/files/img/oyanka.png" width="122" height="91" alt=""></a></li>                        
+            <li class="carrusel-item"><a href="#"><img src="/files/img/ixchen.png" width="122" height="91" alt=""></a></li>
+            <li class="carrusel-item"><a href="#"><img src="/files/img/nime.png" width="122" height="91" alt=""></a></li>
+            <li class="carrusel-item"><a href="#"><img src="/files/img/oyanka.png" width="122" height="91" alt=""></a></li>
+        </ul>
+    </div> 
+	</div>
+</div>
+{% endblock %}

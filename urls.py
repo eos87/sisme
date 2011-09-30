@@ -8,7 +8,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'sisme.views.index'),
+    url(r'^$', 'sisme.views.home'),
+    url(r'^index/$', 'sisme.views.index'),
     url(r'^generales/$', 'sisme.fed.views.generales', name='generales'),
     url(r'^ajax/orgs/$', 'sisme.utils.get_orgs'),
     url(r'^xls/$', 'sisme.utils.save_as_xls'),

@@ -29,3 +29,7 @@ def have_informe(proyecto, mes, year):
         return True
     except:
         return False
+    
+def home(request):
+    
+    return render_to_response('home.html', RequestContext(request, locals()))
