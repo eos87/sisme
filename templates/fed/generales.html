@@ -311,9 +311,10 @@
 					{% for key, value in tabla_cobertura_municipios.items %}
 					{% for k, v in value.items %}
 					<tr>
-						{% if forloop.first %}<td rowspan="{{value|length}}">{{key}}</td>{% endif %}
-						<td>{{k}}</td>
-						<td>{{v}}</td>
+						{% if forloop.first %}<td rowspan="{{value|length}}">{{key}}</td>{% endif %}						
+						<td>{{k}}</td>																		
+						<td>{{v|join:", "}}</td>
+						{% if forloop.first %}<td rowspan="{{value|length}}">{{value|length}} municipios</td>{% endif %}
 					</tr>
 					{% endfor %}
 					{% endfor %}
