@@ -209,7 +209,7 @@
 					{% for grupoetareo in proyecto.poblacionmetaindirecta_set.all %}
 					<tr>					
 						{% if forloop.first %}<td rowspan="{{proyecto.poblacionmetaindirecta_set.all.count}}">{{proyecto.organizacion}}</td>{% endif %}
-						{% if forloop.first %}<td " rowspan="{{proyecto.poblacionmetaindirecta_set.all.count}}">{{proyecto.nombre}}</td>{% endif %}
+						{% if forloop.first %}<td rowspan="{{proyecto.poblacionmetaindirecta_set.all.count}}">{{proyecto.nombre}}</td>{% endif %}
 						<td>{{grupoetareo.get_grupo_etareo_display}}</td>						
 						<td>{{grupoetareo.hombres}}</td>
 						<td>{{grupoetareo.mujeres}}</td>
@@ -295,7 +295,7 @@
 			</table>
 		</div>
 	</div>
-	<div id="cont5">
+	<div id="cont5">		
 		<a class="guardarXLS" href="#" onclick="exportarXLS('cobertura-orgs'); return false;">Guardar XLS</a><div class="clean"></div>
 		<div id='cobertura-orgs'>
 			<table width="100%">
@@ -304,14 +304,18 @@
 					<tr>
 						<th>Nombre de la organización</th>
 						<th>Area de cobertura por municipios</th>
+						<th>Municipios</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for key, value in tabla_cobertura_municipios.items %}
+					{% for k, v in value.items %}
 					<tr>
-						<td>{{key}}</td>
-						<td>{% for municipio in value %}{{municipio}}{% if not forloop.last %},{% endif %} {% endfor %}</td>
+						{% if forloop.first %}<td rowspan="{{value|length}}">{{key}}</td>{% endif %}
+						<td>{{k}}</td>
+						<td>{{v}}</td>
 					</tr>
+					{% endfor %}
 					{% endfor %}
 				</tbody>
 			</table>

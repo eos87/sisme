@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from forms import GralForm
 from models import *
+from lugar.models import *
 
 def generales(request):    
     if request.method == 'POST':
@@ -16,8 +17,7 @@ def generales(request):
     if request.session['gral_year'] != 0:        
         proyectos_filtrados = Proyecto.objects.filter(fecha_inicio__year=request.session['gral_year'])
     else:
-        proyectos_filtrados = Proyecto.objects.all()
-    
+        proyectos_filtrados = Proyecto.objects.all()    
     
     orgs_filtradas = len([proy.organizacion for proy in proyectos_filtrados])
     total_orgs = 0
@@ -67,12 +67,17 @@ def generales(request):
     #cobertura de las organizaciones por municipios
     tabla_cobertura_municipios = {}
     for org in [proy.organizacion for proy in proyectos_filtrados]:
+        tabla_cobertura_municipios[org] = {}
         lista = []
         for proyecto in proyectos_filtrados.filter(organizacion=org):
-            for tema in proyecto.tematrabajo_set.all():
-                for municipio in tema.municipio.all():
-                    lista.append(municipio)
-        tabla_cobertura_municipios[org] = list(set(lista))
+            for depa in Departamento.objects.filter(municipio__tematrabajo__proyecto=proyecto):
+                tabla_cobertura_municipios[org][depa.nombre] = Municipio.objects.filter(tematrabajo__proyecto=proyecto, 
+                                                                                        departamento=depa).distinct().values_list('nombre', 
+                                                                                                                       flat=True)
+#            for tema in proyecto.tematrabajo_set.all():
+#                for municipio in tema.municipio.all():
+#                    lista.append(municipio.nombre)
+        
         
     #cobertura por temas
     temas = Tema.objects.all()
