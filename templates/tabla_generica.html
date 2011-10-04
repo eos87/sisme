@@ -1,5 +1,6 @@
 {% load tools %}
-<a class="guardarXLS" href="#" onclick="exportarXLS('{{titulo|slugify}}_{{aux}}'); return false;">Guardar XLS</a><div class="clean"></div> 
+<a class="guardarXLS" href="#" onclick="exportarXLS('{{titulo|slugify}}_{{aux}}'); return false;">Guardar XLS</a> 
+<a class="viewGraph" href="#" onclick="viewGraph_{{titulo|toSlug}}_{{aux}}(); return false;"></a><div class="clean"></div>
 <div id="{{titulo|slugify}}_{{aux}}">
 	<table width="100%">
 		<caption>{{titulo}}</caption>
@@ -46,4 +47,10 @@
 		</tbody>
 	</table>
 </div>
+<script type="text/javascript">
+function viewGraph_{{titulo|toSlug}}_{{aux}}(){
+	var data = '{{tabla}}';
+	exportGraph(data);
+}
+</script>
 <br><br>

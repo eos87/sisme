@@ -35,7 +35,9 @@ def get_value(dicc, key):
     '''donde dicc es el diccionario con valores y key la llave a obtener'''
     return dicc[key] 
 
-
+@register.filter
+def toSlug(value):
+    return '_'.join(value.split(' '))
 
 
 

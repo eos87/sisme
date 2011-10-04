@@ -38,7 +38,9 @@ def ajax_meses(request):
             
     return HttpResponse(simplejson.dumps(dicc_mes), mimetype='application/json')        
         
-    
+def view_graph(request):
+    var = request.POST['data']
+    return HttpResponse(var, mimetype='text/plain')
     
     
     

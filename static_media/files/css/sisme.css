@@ -87,7 +87,7 @@ a{
 	font-size: 14px;
 	color: #bdbebc;
 }
-.guardarXLS{
+.guardarXLS, .viewGraph{
 	display: block;
 	float: right;
 	width: 96px;
@@ -95,8 +95,12 @@ a{
 	background: url(/files/img/xls-sprite.png) no-repeat;
 	text-indent: -9999px;		
 }
-.guardarXLS:hover{
+.guardarXLS:hover, .viewGraph:hover{
 	background-position: 0px -28px;
+}
+.viewGraph{
+	margin-right: 5px;
+	background: url(/files/img/grafo.png) no-repeat;
 }
 #footer{
 	margin-top: 15px;	
