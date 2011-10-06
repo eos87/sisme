@@ -313,8 +313,7 @@
 					<tr>
 						{% if forloop.first %}<td rowspan="{{value|length}}">{{key}}</td>{% endif %}						
 						<td>{{k}}</td>																		
-						<td>{{v|join:", "}}</td>
-						{% if forloop.first %}<td rowspan="{{value|length}}">{{value|length}} municipios</td>{% endif %}
+						<td>{{v|join:", "}}</td>						
 					</tr>
 					{% endfor %}
 					{% endfor %}

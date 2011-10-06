@@ -1,16 +1,23 @@
-function exportGraph(data){
+function exportGraph(data, title){
 	var foo = data;
-	var csrf_token =  $.cookie('csrftoken');
-		
-	var form = $('<form>').attr({
-	    type: 'hidden',
-	    method: 'POST',
-	    action: '/graph/',
-	    id: 'formgraph'
-	}).appendTo('body');
-	
-	$('<input>').attr({type: 'hidden', name: 'data',  value: foo}).appendTo(form);
-	$('<input>').attr({type: 'hidden', name: 'csrfmiddlewaretoken',  value: csrf_token}).appendTo(form);
-		
-	$(form).submit();
+	var titulo = title;
+	var csrf_token =  $.cookie('csrftoken');	
+	$.post("/graph-params/", {
+		data : foo,
+		title: titulo,
+		csrfmiddlewaretoken : csrf_token
+	}, function(data) {
+		if(data!='error'){
+			var options = {
+					'width'				: 970,
+					'height'			: 500,
+					'autoScale'			: false,				
+					'type'				: 'iframe'
+				}
+			var link = $('<a></a>').attr('href', '/view-graph/')
+			$(link).fancybox(options).trigger('click');
+		}else{
+			alert('Ha ocurrido un error :(');
+		}
+	});
 }

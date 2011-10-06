@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+{% load tools %}
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/files/js/highcharts.js"></script>
+	<script type="text/javascript" src="/files/js/exporting_patched.js"></script>
+	<script type="text/javascript">	
+		var plotOptions = {
+	        column: {            
+	            borderWidth: 0,
+	            pointPadding: 0.2
+	        },
+	        series: {
+// 	            pointWidth: 12,            
+	            dataLabels: {
+	                enabled: true,
+	                align: "center",
+	                formatter: function() {
+	                    return ''+ this.y.toFixed(0);
+	                },
+	                color: '#000',
+	                style: {
+	                    font: '12px Trebuchet MS, Verdana, sans-serif'
+	                }
+	            }
+	        }
+	    }
+	    var tooltip = {
+	        formatter: function() {
+	            return ''+
+	                '<b>' + this.x + ' | '+ this.series.name +':</b> '+ this.y;
+	        }
+	    }
+	    var leyenda = {
+	        layout: 'horizontal',
+	        align: 'center',
+	        verticalAlign: 'bottom',
+	        shadow: true
+	    }    
+	    $(document).ready(function() {
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'grafo',
+                    defaultSeriesType: 'column',
+                    height: 480,
+                    width: 960
+                },
+                title: {
+                    text: '{{titulo}}'
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        {% for key in data.keys %}'{{key}}'{% if not forloop.last %}, {% endif %}{% endfor %}
+                    ]
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Cantidades'
+                    }
+                },
+                legend: leyenda,
+                tooltip: tooltip,
+                plotOptions: plotOptions,
+                series: [
+                         {% for k in data.itervalues.next.keys %}                         
+                         {name: '{{k}}', data: [{% for key, value in data.items %}{{value|get_value:k}}{% if not forloop.last %}, {% endif %}{% endfor %}]},
+                         {% endfor %}
+                ]
+            });
+	    });
+	</script>
+</head>
+<body>
+	<div id="grafo"></div>	
+</body>
+</html>

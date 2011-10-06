@@ -1,6 +1,9 @@
 {% load tools %}
-<a class="guardarXLS" href="#" onclick="exportarXLS('{{titulo|slugify}}_{{aux}}'); return false;">Guardar XLS</a> 
-<a class="viewGraph" href="#" onclick="viewGraph_{{titulo|toSlug}}_{{aux}}(); return false;"></a><div class="clean"></div>
+<a class="guardarXLS" href="#" onclick="exportarXLS('{{titulo|slugify}}_{{aux}}'); return false;">Guardar XLS</a>
+{% if tabla|total_general != 0 %} 
+<a class="viewGraph" href="#" onclick="viewGraph_{{titulo|toSlug}}_{{aux}}(); return false;"></a>
+{% endif %}
+<div class="clean"></div>
 <div id="{{titulo|slugify}}_{{aux}}">
 	<table width="100%">
 		<caption>{{titulo}}</caption>
@@ -49,8 +52,9 @@
 </div>
 <script type="text/javascript">
 function viewGraph_{{titulo|toSlug}}_{{aux}}(){
-	var data = '{{tabla}}';
-	exportGraph(data);
+	var data = '{{tabla|escapejs}}';
+	var title = '{{titulo}}';
+	exportGraph(data, title);
 }
 </script>
 <br><br>

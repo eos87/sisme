@@ -38,9 +38,18 @@ def ajax_meses(request):
             
     return HttpResponse(simplejson.dumps(dicc_mes), mimetype='application/json')        
         
-def view_graph(request):
-    var = request.POST['data']
-    return HttpResponse(var, mimetype='text/plain')
+def graph_params(request):
+    try:        
+        request.session['datagraph'] = request.POST['data']
+        request.session['title'] = request.POST['title']
+    except:
+        return HttpResponse('error')
+    return HttpResponse('ok')
+
+def view_graph(request):    
+    data = eval(request.session['datagraph'])
+    titulo = request.session['title']
+    return render_to_response('grafo.html', RequestContext(request, locals()))
     
     
     
