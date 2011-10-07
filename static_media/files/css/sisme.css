@@ -102,6 +102,15 @@ a{
 	margin-right: 5px;
 	background: url(/files/img/grafo.png) no-repeat;
 }
+.spin{
+	float: right;	
+	position: relative;			
+}
+.spinimg{
+	position: absolute;
+	right: 208px;
+	top: 45px;
+}
 #footer{
 	margin-top: 15px;	
 	background: url(/files/img/footer-line.png) repeat-x top;
