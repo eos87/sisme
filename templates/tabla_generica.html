@@ -55,7 +55,7 @@
 function viewGraph_{{titulo|toSlug}}_{{aux}}(){
 	var img = $('<img>').attr('src', '/files/img/spin.gif')
 	var spin = $('#spin_{{titulo|toSlug}}_{{aux}}');
-	$(spin).html(img).addClass('spinimg');
+	$(spin).append(img).addClass('spinimg');
 	
 	var data = '{{tabla|escapejs}}';
 	var title = '{{titulo}}';
