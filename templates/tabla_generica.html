@@ -1,4 +1,13 @@
 {% load tools %}
+<script type="text/javascript">
+function viewGraph_{{titulo|toSlug}}_{{aux}}(){	
+	var id = 'spin_{{titulo|toSlug}}_{{aux}}';	
+	var data = '{{tabla|escapejs}}';
+	var title = '{{titulo}}';
+	exportGraph(data, title, id);			
+}
+</script>
+
 <a class="guardarXLS" href="#" onclick="exportarXLS('{{titulo|slugify}}_{{aux}}'); return false;">Guardar XLS</a>
 {% if tabla|total_general != 0 %} 
 <a class="viewGraph" href="#" onclick="viewGraph_{{titulo|toSlug}}_{{aux}}(); return false;"></a>
@@ -51,15 +60,4 @@
 		</tbody>
 	</table>
 </div>
-<script type="text/javascript">
-function viewGraph_{{titulo|toSlug}}_{{aux}}(){
-	var img = $('<img>').attr('src', '/files/img/spin.gif')
-	var spin = $('#spin_{{titulo|toSlug}}_{{aux}}');
-	$(spin).append(img).addClass('spinimg');
-	
-	var data = '{{tabla|escapejs}}';
-	var title = '{{titulo}}';
-	exportGraph(data, title, spin);			
-}
-</script>
 <br><br>

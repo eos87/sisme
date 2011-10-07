@@ -104,12 +104,11 @@ a{
 }
 .spin{
 	float: right;	
-	position: relative;			
-}
-.spinimg{
-	position: absolute;
-	right: 208px;
-	top: 45px;
+	position: relative;	
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+	margin-top: 7px;			
 }
 #footer{
 	margin-top: 15px;	

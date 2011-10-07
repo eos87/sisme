@@ -9,34 +9,8 @@
 <script type="text/javascript" src="http://turismoruralnica.com/files/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/files/js/fb/jquery.fancybox-1.3.4.pack.js"></script>
 <script type="text/javascript" src="/files/js/table.exporting.js"></script>
-<script type="text/javascript" src="/files/js/graph.export.js"></script>
 <script type="text/javascript" src="/files/js/sum.column.js"></script>
-<script type="text/javascript">
-	var options = {
-		'width' : 970,
-		'height' : 500,
-		'autoScale' : false,
-		'type' : 'iframe'
-	}
-	var link = $('<a></a>').attr('href', '/view-graph/');
-	
-	(function($) {
-		var cache = [];
-		// Arguments are image paths relative to the current page.
-		$.preLoadImages = function() {
-			var args_len = arguments.length;
-			for ( var i = args_len; i--;) {
-				var cacheImage = document.createElement('img');
-				cacheImage.src = arguments[i];
-				cache.push(cacheImage);
-			}
-		}
-	})(jQuery);
-
-	$(document).ready(function(){
-		jQuery.preLoadImages("/files/img/spin.gif");
-	})
-</script>
+<script type="text/javascript" src="/files/js/graph.export.js"></script>
 {% block extra_head %}
 {% endblock %}
 </head>
