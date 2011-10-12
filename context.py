@@ -6,7 +6,10 @@ def global_vars(request):
         if username == 'equipofed':
             user_org = 'FED'
         else:
-            user_org = request.user.organizacion_set.all().order_by('?')[0].nombre_corto                        
+            try:
+                user_org = request.user.organizacion_set.all().order_by('?')[0].nombre_corto
+            except:
+                user_org = 'FED'                                                
     else:
         username = u'Invitado'
         user_org = u'Ninguna'    
