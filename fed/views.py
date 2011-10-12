@@ -30,6 +30,14 @@ def generales(request):
         total_orgs += len(lista)
         tabla_modalidad[op[1]] = {'cantidad': len(lista), 'organizaciones': lista}
         
+    #organizaciones por modalidad que han finalizado
+    tabla_modalidad_finalizado = {}
+    fecha_actual = datetime.date.today()
+    for op in MODALIDAD_CHOICE:
+        orgs = ['%s-%s' % (proyecto.organizacion.nombre_corto, proyecto.codigo) for proyecto in proyectos_filtrados.filter(modalidad=op[0], fecha_fin__lte=fecha_actual)]
+        tabla_modalidad_finalizado[op[1]] = {'cantidad': len(orgs), 'organizaciones': orgs}
+    print tabla_modalidad_finalizado
+        
     #cobertura de los proyectos
     tabla_cobertura = {}
     for op in COBERTURA:
@@ -40,7 +48,7 @@ def generales(request):
     tabla_montos = {}
     orgs = [proyecto.organizacion for proyecto in proyectos_filtrados]
     for org in orgs:
-        tabla_montos[org] = proyectos_filtrados.filter(organizacion=org)
+        tabla_montos[org] = proyectos_filtrados.filter(organizacion=org) 
     
     #tablas por poblacion meta
     tabla_poblacion_meta = {}
@@ -74,11 +82,7 @@ def generales(request):
                 tabla_cobertura_municipios[org][depa.nombre] = Municipio.objects.filter(tematrabajo__proyecto=proyecto, 
                                                                                         departamento=depa).distinct().values_list('nombre', 
                                                                                                                        flat=True)
-#            for tema in proyecto.tematrabajo_set.all():
-#                for municipio in tema.municipio.all():
-#                    lista.append(municipio.nombre)
-        
-        
+                
     #cobertura por temas
     temas = Tema.objects.all()
     tabla_temas = {}
