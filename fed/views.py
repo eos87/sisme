@@ -32,11 +32,12 @@ def generales(request):
         
     #organizaciones por modalidad que han finalizado
     tabla_modalidad_finalizado = {}
+    total_orgs_fin = 0
     fecha_actual = datetime.date.today()
     for op in MODALIDAD_CHOICE:
-        orgs = ['%s-%s' % (proyecto.organizacion.nombre_corto, proyecto.codigo) for proyecto in proyectos_filtrados.filter(modalidad=op[0], fecha_fin__lte=fecha_actual)]
+        orgs = ['%s-<b>%s</b>' % (proyecto.organizacion.nombre_corto, proyecto.codigo) for proyecto in proyectos_filtrados.filter(modalidad=op[0], fecha_fin__lte=fecha_actual)]
+        total_orgs += len(orgs)
         tabla_modalidad_finalizado[op[1]] = {'cantidad': len(orgs), 'organizaciones': orgs}
-    print tabla_modalidad_finalizado
         
     #cobertura de los proyectos
     tabla_cobertura = {}
