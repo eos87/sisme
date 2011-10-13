@@ -568,7 +568,8 @@ p{
 }
 .orglogo{
 	float: left;
-	width: 180px;	
+	width: 180px;
+	margin-right: 10px;	
 }
 .orglogo img{
 	padding: 10px;
