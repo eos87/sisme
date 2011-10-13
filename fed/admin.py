@@ -8,7 +8,7 @@ class BaseAdmin(admin.ModelAdmin):
 class OrganizacionAdmin(BaseAdmin):
     list_display = ['nombre_corto', 'telefono_1', 'email', 'contacto']
     list_filter = ['user']
-    search_fields = ['nombre', 'nombre_corto', 'email', 'telefono', 'contacto', 'telefono_contacto']
+    search_fields = ['nombre', 'nombre_corto', 'email', 'telefono1', 'contacto', 'telefono_contacto']
     
 class TemaTrabajoInline(admin.TabularInline):
     filter_horizontal = ['municipio']    
