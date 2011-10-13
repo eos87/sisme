@@ -14,7 +14,7 @@ MONTH_CHOICES = (('', 'Mes'),
                  (9, 'Septiembre'), (10, 'Octubre'),
                  (11, 'Noviembre'), (12, 'Diciembre'))
 
-ANIOS_CHOICE = (('', u'Año'), (2009, 2009), (2010, 2010), (2011, 2011))
+ANIOS_CHOICE = (('', u'Año'), (2010, 2010), (2011, 2011), (2012, 2012), )
 
 class InfluenciaForm(forms.Form):
     modalidad = forms.MultipleChoiceField(choices=MODALIDAD_CHOICE, label='Modalidad de apoyo', required=False)

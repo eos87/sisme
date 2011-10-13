@@ -272,6 +272,8 @@ def prevencion_violencia(request):
                 
     return render_to_response('contraparte/prevencion_violencia.html', RequestContext(request, locals()))
 
+
+#-------------------------Resultado 5 -----------------
 def acceso_a_servicios(request):
     informes = _query_set_filtrado(request)
     tabla_casos_atendidos = {}
