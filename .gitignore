@@ -3,7 +3,6 @@ nbproject/
 files/logos/
 files/admin/
 uploads/
-media/
 *.pyc
 *.html~
 *.py~
