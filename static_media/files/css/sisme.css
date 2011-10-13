@@ -568,7 +568,7 @@ p{
 }
 .orglogo{
 	float: left;
-	width: 10%;	
+	width: 180px;	
 }
 .orglogo img{
 	padding: 10px;
@@ -576,7 +576,7 @@ p{
 }
 .orgdata{
 	float: left;
-	width: 80%;
+	width: 760px;
 	font-family: "Arial", serif;	
 }
 .orgname{
@@ -605,4 +605,7 @@ p{
 }
 .proydate{
 	color: #628690;
+}
+.auxiliar{
+	font-size: 14px;
 }
