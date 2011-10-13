@@ -25,10 +25,14 @@ def generales(request):
     #organizaciones por modalidad de apoyo
     tabla_modalidad = {}
     for op in MODALIDAD_CHOICE:
-        orgs = [proyecto.organizacion.nombre_corto for proyecto in proyectos_filtrados.filter(modalidad=op[0])]
-        lista = list(set(orgs))
-        total_orgs += len(lista)
-        tabla_modalidad[op[1]] = {'cantidad': len(lista), 'organizaciones': lista}
+        orgs_2010 = [proyecto.organizacion.nombre_corto for proyecto in proyectos_filtrados.filter(modalidad=op[0], fecha_inicio__year=2010)]
+        orgs_2011 = [proyecto.organizacion.nombre_corto for proyecto in proyectos_filtrados.filter(modalidad=op[0], fecha_inicio__year=2011)]
+        lista1 = list(set(orgs_2010))
+        lista2 = list(set(orgs_2011))
+        total_orgs += len(lista1)
+        total_orgs += len(lista2)
+        tabla_modalidad[op[1]] = {'cantidad1': len(lista1), '2010': lista1,
+                                  'cantidad2': len(lista2), '2011': lista2,}
         
     #organizaciones por modalidad que han finalizado
     tabla_modalidad_finalizado = {}
@@ -36,7 +40,7 @@ def generales(request):
     fecha_actual = datetime.date.today()
     for op in MODALIDAD_CHOICE:
         orgs = ['%s-<b>%s</b>' % (proyecto.organizacion.nombre_corto, proyecto.codigo) for proyecto in proyectos_filtrados.filter(modalidad=op[0], fecha_fin__lte=fecha_actual)]
-        total_orgs += len(orgs)
+        total_orgs_fin += len(orgs)
         tabla_modalidad_finalizado[op[1]] = {'cantidad': len(orgs), 'organizaciones': orgs}
         
     #cobertura de los proyectos
