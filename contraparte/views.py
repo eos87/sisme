@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from django.db.models import Sum
 from forms import InfluenciaForm
@@ -356,8 +356,10 @@ def get_porcentaje(total, cantidad):
         x = (cantidad * 100) / total
     return x
     
+def organizacion_detail(request, id):
+    org = get_object_or_404(Organizacion, id=id)
     
-    
+    return render_to_response('contraparte/organizacion_detail.html', RequestContext(request, locals()))
     
         
         
