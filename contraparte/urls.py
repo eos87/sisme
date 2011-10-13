@@ -25,4 +25,5 @@ urlpatterns = patterns('sisme.contraparte.views',
     
     #Area de influencia
     (r'^influencia/$', 'influencia'),
+    (r'^organizacion/(?P<id>\d+)/$', 'organizacion_detail'),
 )

@@ -79,6 +79,35 @@
 			</table>
 		</div>		
 		<br><br>
+		<!-- Inicia tabla de organizaciones por modelidad que han finalizado -->
+		<a class="guardarXLS" href="#" onclick="exportarXLS('modalidad_finalizado'); return false;">Guardar XLS</a><div class="clean"></div>		
+		<div id="modalidad_finalizado">
+			<table width="100%">
+				<caption>Organizaciones por modalidad de apoyo que han finalizado</caption>
+				<thead>
+					<tr>
+						<th>Modalidad de apoyo</th>
+						<th># de organizaciones</th>
+						<th>Nombres de las organizaciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for key, value in tabla_modalidad_finalizado.items %}
+					<tr>
+						<td>{{key}}</td>
+						<td class="cantidad_org">{{value.cantidad}}</td>
+						<td>{% for org in value.organizaciones %}{{org|safe}}{%if not forloop.last%}, {% endif %}{% endfor %}</td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<td class="negrita">Total</td>
+						<td>{{total_orgs_fin}}</td>
+						<td>{{total_orgs_fin}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+		<br><br>		
 		<!-- Inicia tabla por nivel de cobertura de los proyectos -->
 		<a class="guardarXLS" href="#" onclick="exportarXLS('cobertura'); return false;">Guardar XLS</a><div class="clean"></div>
 		<div id="cobertura">		
@@ -303,7 +332,7 @@
 				<thead>
 					<tr>
 						<th>Nombre de la organización</th>
-						<th>Area de cobertura por municipios</th>
+						<th>Departamentos</th>
 						<th>Municipios</th>
 					</tr>
 				</thead>

@@ -2,7 +2,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from sisme.lugar.models import Municipio
+from sisme.files import *
+from sisme.thumbs import ImageWithThumbsField
 import datetime
+
+from south.modelsinspector import add_introspection_rules
+add_introspection_rules([], ["^sisme\.thumbs\.ImageWithThumbsField"])
 
 class Organizacion(models.Model):
     user = models.ForeignKey(User, verbose_name='Usuario')
@@ -24,6 +29,9 @@ class Organizacion(models.Model):
     obj_gral = models.TextField(blank=True, default='', verbose_name='Objetivo General')
     estrategias = models.TextField(blank=True, default='', verbose_name=u'Líneas estratégicas')
     antecedentes = models.TextField(blank=True, default='')
+    logo = ImageWithThumbsField(upload_to=get_file_path, sizes=((122, 91), (160, 75)), blank=True, null=True, help_text=u'Logo de la organizacion')
+    
+    fileDir = 'logos'
     
     def __unicode__(self):
         return u'%s' % self.nombre_corto

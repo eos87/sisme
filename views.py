@@ -18,8 +18,8 @@ def index(request):
         form = GanttForm()
         organizacion = Organizacion.objects.all().order_by('?')[0]
         for proyecto in organizacion.proyecto_set.all():
-            proys[proyecto.codigo] = {mes: have_informe(proyecto, mes, datetime.date.today().year) for mes in range(1,13)}    
-    
+            proys[proyecto.codigo] = {mes: have_informe(proyecto, mes, datetime.date.today().year) for mes in range(1,13)}
+            
     return render_to_response('index.html', RequestContext(request, locals()))
 
 
@@ -31,5 +31,5 @@ def have_informe(proyecto, mes, year):
         return False
     
 def home(request):
-    
+    orgs = Organizacion.objects.all()
     return render_to_response('home.html', RequestContext(request, locals()))

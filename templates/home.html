@@ -26,9 +26,9 @@ function checkWidth(){
 {% block content %}
 <div class="home">
 	<div class="bigbuttons">
-		<a href="/a/influencia/" class="influencia-b"></a>	
-		<a href="/a/indicadores/" class="indicadores-b"></a>	
 		<a href="/generales/" class="generales-b"></a>
+		<a href="/a/influencia/" class="influencia-b"></a>	
+		<a href="/a/indicadores/" class="indicadores-b"></a>		
 		<div class="clean"></div>
 	</div>	
 	<div class="otroslinks">
@@ -61,19 +61,12 @@ function checkWidth(){
 	<div class="carrusel-title">Contrapartes</div>
 	<div class="carrusel">
 		<div id="carrusel-container">
-        <ul>            
-            <li class="carrusel-item"><a href="#"><img src="/files/img/ixchen.png" width="122" height="91" alt=""></a></li>
-            <li class="carrusel-item"><a href="#"><img src="/files/img/nime.png" width="122" height="91" alt=""></a></li>
-            <li class="carrusel-item"><a href="#"><img src="/files/img/oyanka.png" width="122" height="91" alt=""></a></li>    
-            <li class="carrusel-item"><a href="#"><img src="/files/img/ixchen.png" width="122" height="91" alt=""></a></li>
-            <li class="carrusel-item"><a href="#"><img src="/files/img/nime.png" width="122" height="91" alt=""></a></li>
-            <li class="carrusel-item"><a href="#"><img src="/files/img/oyanka.png" width="122" height="91" alt=""></a></li>
-            <li class="carrusel-item"><a href="#"><img src="/files/img/ixchen.png" width="122" height="91" alt=""></a></li>
-            <li class="carrusel-item"><a href="#"><img src="/files/img/nime.png" width="122" height="91" alt=""></a></li>
-            <li class="carrusel-item"><a href="#"><img src="/files/img/oyanka.png" width="122" height="91" alt=""></a></li>                        
-            <li class="carrusel-item"><a href="#"><img src="/files/img/ixchen.png" width="122" height="91" alt=""></a></li>
-            <li class="carrusel-item"><a href="#"><img src="/files/img/nime.png" width="122" height="91" alt=""></a></li>
-            <li class="carrusel-item"><a href="#"><img src="/files/img/oyanka.png" width="122" height="91" alt=""></a></li>
+        <ul> 
+        	{% for org in orgs %}
+        	{% if org.logo %}
+        	<li class="carrusel-item"><a href="/a/organizacion/{{org.id}}/"><img src="{{org.logo.url_122x91}}" width="122" height="91" alt=""></a></li>
+        	{% endif %}
+        	{% endfor %}
         </ul>
     </div> 
 	</div>
