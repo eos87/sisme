@@ -81,11 +81,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'sisme.161.SQLLogToConsoleMiddleware',
 )
 
-#INTERNAL_IPS = ('127.0.0.1',)
+INTERNAL_IPS = ('127.0.0.1',)
 
-#DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS':False }
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS':False }
 
 ROOT_URLCONF = 'sisme.urls'
 

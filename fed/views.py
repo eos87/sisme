@@ -19,24 +19,29 @@ def generales(request):
     else:
         proyectos_filtrados = Proyecto.objects.all()    
     
-    orgs_filtradas = len([proy.organizacion for proy in proyectos_filtrados])
+    #orgs_filtradas = len([proy.organizacion for proy in proyectos_filtrados])
+    
+       
+    #organizaciones por modalidad de apoyo
+    tabla_modalidad = {}  
     total_orgs = 0
     
-    #organizaciones por modalidad de apoyo
-    tabla_modalidad = {}
     for op in MODALIDAD_CHOICE:
-        orgs = [proyecto.organizacion.nombre_corto for proyecto in proyectos_filtrados.filter(modalidad=op[0])]
-        lista = list(set(orgs))
+        lista = []        
+        orgs = Organizacion.objects.filter(proyecto__in=proyectos_filtrados.filter(modalidad=op[0])).distinct()        
+        lista = [org.nombre_corto for org in orgs]
         total_orgs += len(lista)
         tabla_modalidad[op[1]] = {'cantidad': len(lista), 'organizaciones': lista}
         
     #organizaciones por modalidad que han finalizado
     tabla_modalidad_finalizado = {}
-    total_orgs_fin = 0
     fecha_actual = datetime.date.today()
+    total_orgs_fin = 0
+    
     for op in MODALIDAD_CHOICE:
-        orgs = ['%s-<b>%s</b>' % (proyecto.organizacion.nombre_corto, proyecto.codigo) for proyecto in proyectos_filtrados.filter(modalidad=op[0], fecha_fin__lte=fecha_actual)]
-        total_orgs += len(orgs)
+        orgs = ['%s-<b>%s</b>' % (proyecto.organizacion.nombre_corto, proyecto.codigo) for proyecto in proyectos_filtrados.filter(modalidad=op[0], 
+                                                                                                                                  fecha_fin__lte=fecha_actual)]
+        total_orgs_fin += len(orgs)
         tabla_modalidad_finalizado[op[1]] = {'cantidad': len(orgs), 'organizaciones': orgs}
         
     #cobertura de los proyectos
@@ -46,33 +51,40 @@ def generales(request):
         tabla_cobertura[op[1]] = proys
         
     #organizacion y montos de proyectos
-    tabla_montos = {}
-    orgs = [proyecto.organizacion for proyecto in proyectos_filtrados]
-    for org in orgs:
-        tabla_montos[org] = proyectos_filtrados.filter(organizacion=org) 
+    tabla_montos = {}        
+    for proy in proyectos_filtrados:
+        org_name = proy.organizacion
+        if org_name in tabla_montos:
+            tabla_montos[org_name].append(proy)
+        else:
+            tabla_montos[org_name] = [proy,]  
     
     #tablas por poblacion meta
     tabla_poblacion_meta = {}
     for op in MODALIDAD_CHOICE:
-        organizaciones_meta = [proyecto.organizacion for proyecto in proyectos_filtrados.filter(modalidad=op[0])]
-        for org in organizaciones_meta:
+        if not op in tabla_poblacion_meta:
             tabla_poblacion_meta[op] = {}
-        for org in organizaciones_meta:
-            tabla_poblacion_meta[op][org] = proyectos_filtrados.filter(organizacion=org)  
+            
+        for proy in proyectos_filtrados.filter(modalidad=op[0]):
+            org = proy.organizacion            
+            if org in tabla_poblacion_meta[op]:
+                tabla_poblacion_meta[op][org].append(proyecto)
+            else:
+                tabla_poblacion_meta[op][org] = [proy, ]
             
     #resultados a los que aportan los proyectos
     tabla_resultados = {}
     resultados = Resultado.objects.all()
     for proyecto in proyectos_filtrados:
         for resultado in resultados:
-            for resultado in resultados:
+            if not proyecto in tabla_resultados: 
                 tabla_resultados[proyecto] = {}            
-            for resultado in resultados:
-                if resultado in proyecto.resultados.all():
-                    tabla_resultados[proyecto][resultado.codigo] = 1
-                else:
-                    tabla_resultados[proyecto][resultado.codigo] = 0
-                    
+        for resultado in resultados:
+            if resultado in proyecto.resultados.all():
+                tabla_resultados[proyecto][resultado.codigo] = 1
+            else:
+                tabla_resultados[proyecto][resultado.codigo] = 0
+                
     #cobertura de las organizaciones por municipios
     tabla_cobertura_municipios = {}
     for org in [proy.organizacion for proy in proyectos_filtrados]:
