@@ -27,8 +27,12 @@ def generales(request):
     total_orgs = 0
     
     for op in MODALIDAD_CHOICE:
-        orgs_2010 = [proyecto.organizacion.nombre_corto for proyecto in proyectos_filtrados.filter(modalidad=op[0], fecha_inicio__year=2010)]
-        orgs_2011 = [proyecto.organizacion.nombre_corto for proyecto in proyectos_filtrados.filter(modalidad=op[0], fecha_inicio__year=2011)]
+        orgs_2010 = Organizacion.objects.filter(proyecto__in=proyectos_filtrados, 
+                                                proyecto__modalidad=op[0], 
+                                                proyecto__fecha_inicio__year=2010).values_list('nombre_corto', flat=True)
+        orgs_2011 = Organizacion.objects.filter(proyecto__in=proyectos_filtrados, 
+                                                proyecto__modalidad=op[0], 
+                                                proyecto__fecha_inicio__year=2011).values_list('nombre_corto', flat=True)
         lista1 = list(set(orgs_2010))
         lista2 = list(set(orgs_2011))
         total_orgs += len(lista1)
@@ -42,8 +46,11 @@ def generales(request):
     total_orgs_fin = 0
     
     for op in MODALIDAD_CHOICE:
-        orgs = ['%s-<b>%s</b>' % (proyecto.organizacion.nombre_corto, proyecto.codigo) for proyecto in proyectos_filtrados.filter(modalidad=op[0], 
-                                                                                                                                  fecha_fin__lte=fecha_actual)]
+        #orgs = ['%s-<b>%s</b>' % (proyecto.organizacion.nombre_corto, proyecto.codigo) for proyecto in proyectos_filtrados.filter(modalidad=op[0],fecha_fin__lte=fecha_actual)] 
+        orgs = Organizacion.objects.filter(proyecto__in=proyectos_filtrados,
+                                           proyecto__modalidad=op[0],
+                                           proyecto__fecha_fin__lte=fecha_actual).values_list('nombre_corto', flat=True)
+                                                                                                                                 
         total_orgs_fin += len(orgs)
         tabla_modalidad_finalizado[op[1]] = {'cantidad': len(orgs), 'organizaciones': orgs}
         
@@ -71,7 +78,7 @@ def generales(request):
         for proy in proyectos_filtrados.filter(modalidad=op[0]):
             org = proy.organizacion            
             if org in tabla_poblacion_meta[op]:
-                tabla_poblacion_meta[op][org].append(proyecto)
+                tabla_poblacion_meta[op][org].append(proy)
             else:
                 tabla_poblacion_meta[op][org] = [proy, ]
             
@@ -79,9 +86,8 @@ def generales(request):
     tabla_resultados = {}
     resultados = Resultado.objects.all()
     for proyecto in proyectos_filtrados:
-        for resultado in resultados:
-            if not proyecto in tabla_resultados: 
-                tabla_resultados[proyecto] = {}            
+        if not proyecto in tabla_resultados: 
+            tabla_resultados[proyecto] = {}            
         for resultado in resultados:
             if resultado in proyecto.resultados.all():
                 tabla_resultados[proyecto][resultado.codigo] = 1
