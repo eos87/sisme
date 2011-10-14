@@ -25,7 +25,7 @@ class Organizacion(models.Model):
     email = models.EmailField(blank=True, default='email@example.com')
     contacto = models.CharField(max_length=120, blank=True, default='', verbose_name=u'Persona de contacto del proyecto')
     telefono_contacto = models.CharField(max_length=15, blank=True, default='', verbose_name=u'Teléfono del contacto')
-    sitio_web = models.URLField(blank=True, default='www.example.com')
+    sitio_web = models.URLField(blank=True, default='www.example.com', verify_exists=False)
     obj_gral = models.TextField(blank=True, default='', verbose_name='Objetivo General')
     estrategias = models.TextField(blank=True, default='', verbose_name=u'Líneas estratégicas')
     antecedentes = models.TextField(blank=True, default='')

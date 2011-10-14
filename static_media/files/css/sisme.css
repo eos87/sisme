@@ -545,3 +545,68 @@ td {
 .carrusel-item img:hover{
     border: 2px #959595 solid;
 }
+.orgdescripcion{
+	color: #244955;
+	font-size: 13px;
+	font-family: "Arial", serif;
+	width: 100%;
+	background: #fff;	
+}
+.orgdescripcion .contenidoorg{
+	padding: 10px;
+}
+.orgdescripcion .orgtitle{
+	font-weight: bold;
+}
+p{
+	padding: 0;
+	margin: 0;
+}
+.orgheader{
+	margin-top: 5px;
+	padding: 20px;
+}
+.orglogo{
+	float: left;
+	width: 180px;
+	margin-right: 10px;	
+}
+.orglogo img{
+	padding: 10px;
+	background: #fff;
+}
+.orgdata{
+	float: left;
+	width: 760px;
+	font-family: "Arial", serif;	
+}
+.orgname{
+	color: #0d5a71;
+	font-size: 22px;
+}
+.orglargo{
+	color: #a4505a;
+	font-size: 18px;
+}
+.orgproys{
+	border-top: 1px #dcdcdb solid;
+	padding-top: 15px;
+	margin-top: 15px;
+}
+.proys{
+	color: #0d5a71;
+	font-size: 15px;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+.proyficha{
+	color: #333;
+	font-size: 14px;
+	padding-bottom: 8px;	
+}
+.proydate{
+	color: #628690;
+}
+.auxiliar{
+	font-size: 14px;
+}

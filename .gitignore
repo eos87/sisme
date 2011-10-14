@@ -2,7 +2,7 @@ settings_local.py
 nbproject/
 files/logos/
 files/admin/
-media/
+uploads/
 *.pyc
 *.html~
 *.py~

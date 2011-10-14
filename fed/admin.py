@@ -8,7 +8,11 @@ class BaseAdmin(admin.ModelAdmin):
 class OrganizacionAdmin(BaseAdmin):
     list_display = ['nombre_corto', 'telefono_1', 'email', 'contacto']
     list_filter = ['user']
-    search_fields = ['nombre', 'nombre_corto', 'email', 'telefono', 'contacto', 'telefono_contacto']
+    search_fields = ['nombre', 'nombre_corto', 'email', 'telefono1', 'contacto', 'telefono_contacto']
+    
+    class Media:
+        js = ('/files/js/tiny_mce/tiny_mce.js',
+              '/files/js/tiny_mce/tconfig.js')
     
 class TemaTrabajoInline(admin.TabularInline):
     filter_horizontal = ['municipio']    

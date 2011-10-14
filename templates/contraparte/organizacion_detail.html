@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load tools %}
+
+{% block title %}{{org.nombre_corto}}{% endblock %}
+
+{% block content %}
+
+<div class="orgheader">
+	<div class="orglogo"><img src="{{org.logo.url_160x75}}" alt="{{org.nombre_corto}}"></div>
+	<div class="orgdata">
+		<div class="orgname">{{org.nombre_corto}}</div>
+		<div class="orglargo">{{org.nombre|title}}</div>
+	</div>
+	<div class="clean"></div>
+	<div class="orgproys">
+		<div class="proys">Proyectos con el FED</div>
+		{% for proy in org.proyecto_set.all %}
+		<div class="proyficha">
+			<div class="proydate"><b>Inicia</b> - {{proy.fecha_inicio}} | <b>Finaliza</b> - {{proy.fecha_fin}}</div>
+			<div>{{proy.nombre}}</div>
+		</div>
+		<div class="proyficha">
+			<div class="proydate"><b>Inicia</b> - {{proy.fecha_inicio}} | <b>Finaliza</b> - {{proy.fecha_fin}}</div>
+			<div>{{proy.nombre}}</div>
+		</div>		
+		{% endfor %}
+	</div>
+</div>
+<div class="org-profile auxiliar">
+	<div class="index-calendar-title right-text">Perfil</div>
+	<div class="index-label">Dirección</div>
+	<div class="index-field">{{org.direccion}}</div>
+	<div class="index-label">Fecha de constitución</div>
+	<div class="index-field">{{org.fecha}}</div>
+	<div class="index-label">Representante legal</div>
+	<div class="index-field">{{org.representante_legal}}</div>
+	<div class="index-label">Teléfono</div>
+	<div class="index-field">{{org.telefono_1}}</div>
+	<div class="index-label">Email</div>
+	<div class="index-field">{{org.email}}</div>
+	<div class="index-label">Persona de contacto</div>
+	<div class="index-field">{{org.contacto}}</div>
+	<div class="index-label">Teléfono de contacto</div>
+	<div class="index-field">{{org.telefono_contacto}}</div>
+	{% if org.sitio_web != 'www.example.com' %}
+	<div class="index-label">Sitio web</div>
+	<div class="index-field">{{org.sitio_web}}</div>
+	{% endif %}
+</div>
+<div class="gantt-calendar">
+	<div class="index-calendar-title">Descripción</div>	
+	<div>	
+		<div class="orgdescripcion">
+			<br>
+			<div class="contenidoorg">
+				<div class="orgtitle">Objetivo General</div>
+				<div>{{org.obj_gral|safe}}</div><br>
+				<div class='orgtitle'>Lineas Estratégicas</div>
+				<div>{{org.estrategias|safe}}</div>
+				<br>
+				<div class='orgtitle'>Antecedentes</div>
+				<div>{{org.antecedentes|safe}}</div>
+				<br>
+			</div>
+		</div>		
+		<div class="clean"></div>
+	</div>	
+</div>
+{% endblock %}

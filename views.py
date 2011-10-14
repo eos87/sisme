@@ -31,5 +31,5 @@ def have_informe(proyecto, mes, year):
         return False
     
 def home(request):
-    orgs = Organizacion.objects.all()
+    orgs = Organizacion.objects.all().order_by('?')
     return render_to_response('home.html', RequestContext(request, locals()))

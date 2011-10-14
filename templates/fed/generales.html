@@ -58,6 +58,7 @@
 				<thead>
 					<tr>
 						<th>Modalidad de apoyo</th>
+						<th>Período</th>
 						<th># de organizaciones</th>
 						<th>Nombres de las organizaciones</th>
 					</tr>
@@ -65,15 +66,27 @@
 				<tbody>
 					{% for key, value in tabla_modalidad.items %}
 					<tr>
-						<td>{{key}}</td>
-						<td class="cantidad_org">{{value.cantidad}}</td>
-						<td>{% for org in value.organizaciones %}{{org}}{%if not forloop.last%}, {% endif %}{% endfor %}</td>
+						<td rowspan="3">{{key}}</td>						
+						<td class="cantidad_org">2010</td>
+						<td class="cantidad_org">{{value.cantidad1}}</td>
+						<td>{% for org in value.2010 %}{{org}}{%if not forloop.last%}, {% endif %}{% endfor %}</td>
+					</tr>
+					<tr>
+						<td class="cantidad_org">2011</td>
+						<td class="cantidad_org">{{value.cantidad2}}</td>
+						<td>{% for org in value.2011 %}{{org}}{%if not forloop.last%}, {% endif %}{% endfor %}</td>
+					</tr>
+					<tr>
+						<td class="cantidad_org">2012</td>
+						<td></td>
+						<td></td>
 					</tr>
 					{% endfor %}
 					<tr>
 						<td class="negrita">Total</td>
 						<td>{{total_orgs}}</td>
 						<td>{{total_orgs}}</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
