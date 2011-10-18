@@ -83,7 +83,7 @@ MIDDLEWARE_CLASSES = (
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
-#INTERNAL_IPS = ('127.0.0.1',)
+#INTERNAL_IPS = ('69.89.31.231', '190.181.162.6',)
 
 #DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS':False }
 
