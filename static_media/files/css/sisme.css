@@ -225,7 +225,7 @@ caption {
 	font-size: 15px;
 	color: #8c8f3d;
 	font-family: Trebuchet MS, Verdana, sans-serif;
-	padding-left: 13px;
+	padding-left: 15px;
 	padding-top: 5px;
 }
 th {
@@ -244,7 +244,7 @@ th {
 	vertical-align: middle;
 }
 td {
-	font: normal 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	font: normal 13px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
 	border-right: 1px solid #E0DDD2;
 	border-bottom: 1px solid #E0DDD2;
 	padding: 6px 12px 6px 12px;

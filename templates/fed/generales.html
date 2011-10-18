@@ -176,7 +176,7 @@
 				<tbody>
 					{% for key, value in tabla_montos.items %} {% for proyecto in value	%}
 					<tr>
-						{% if forloop.first %}<td rowspan="{{value.count}}">{{key}}</td>{% endif %}
+						{% if forloop.first %}<td rowspan="{{value}}">{{key}}</td>{% endif %}
 						<td>{{proyecto.nombre}}</td>
 						<td class="derecha montofed">{{proyecto.monto_fed}}</td>
 						<td class="derecha montopropio">{{proyecto.monto_contrapartida}}</td>
@@ -248,16 +248,18 @@
 				<tbody>				
 					{% for k,v in value.items %}					
 					{% for proyecto in v %}
-					{% for grupoetareo in proyecto.poblacionmetaindirecta_set.all %}
+					{% with poblacion=proyecto.poblacionmetaindirecta_set.all %}
+					{% for grupoetareo in poblacion %}
 					<tr>					
-						{% if forloop.first %}<td rowspan="{{proyecto.poblacionmetaindirecta_set.all.count}}">{{proyecto.organizacion}}</td>{% endif %}
-						{% if forloop.first %}<td rowspan="{{proyecto.poblacionmetaindirecta_set.all.count}}">{{proyecto.nombre}}</td>{% endif %}
+						{% if forloop.first %}<td rowspan="{{poblacion.count}}">{{proyecto.organizacion}}</td>{% endif %}
+						{% if forloop.first %}<td rowspan="{{poblacion.count}}">{{proyecto.nombre}}</td>{% endif %}
 						<td>{{grupoetareo.get_grupo_etareo_display}}</td>						
 						<td>{{grupoetareo.hombres}}</td>
 						<td>{{grupoetareo.mujeres}}</td>
 						<td>{{grupoetareo.get_total}}</td>
 					</tr>
-					{% endfor %}					
+					{% endfor %}
+					{% endwith %}
 					{% endfor %}
 					{% endfor %}
 				</tbody>
