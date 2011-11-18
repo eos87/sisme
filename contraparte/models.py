@@ -541,21 +541,3 @@ class PlanEstrategico(models.Model):
     class Meta:
         verbose_name = u'Plan Estratégico'
         verbose_name_plural = u'Plan Estratégico'
-                   
-
-
-
-
-
-
-
-
-
-   
-    
-
-
-    
-    
-    
-    
