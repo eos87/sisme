@@ -455,7 +455,8 @@ class DenunciaInterpuesta(models.Model):
     class Meta:
         verbose_name_plural = u'Denuncias Interpuestas'
         
-ORGANIZACION_CHOICE = ((1, u'Oyanka'), (2, u'INPRHU'), (3, u'Fundación entre Mujeres'), (4, 'Coletivo de Mujeres'), (5, 'ITZA'))
+ORGANIZACION_CHOICE = ((1, u'Oyanka'), (2, u'INPRHU'), (3, u'Fundación entre Mujeres'), (4, 'Coletivo de Mujeres'), (5, 'ITZA'),
+                       (6, u'Nydia White'), (7, u'Acción Ya'))
 TIPO_POBLACION_ATENCION = ((1, u'Mujeres'), (2, u'Niños'), (3, u'Niñas'), (4, u'Adolescentes'))
 SI_NO_SIMPLE = ((1, 'Si'), (2, 'No'))
 

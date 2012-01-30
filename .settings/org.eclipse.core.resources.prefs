@@ -1,3 +1,5 @@
-#Mon Oct 17 14:19:33 CST 2011
+#Mon Jan 30 10:46:57 CST 2012
 eclipse.preferences.version=1
 encoding//contraparte/migrations/0005_auto__add_demandajusticia__add_acciondemanda__add_denuncia__del_field_.py=utf-8
+encoding//contraparte/models.py=UTF-8
+encoding//fed/models.py=UTF-8
