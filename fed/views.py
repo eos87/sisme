@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from forms import GralForm
 from models import *
-from lugar.models import *
+from sisme.lugar.models import *
 
 def generales(request):    
     if request.method == 'POST':

@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from models import *
-from fed.models import *
+from sisme.fed.models import *
 
 class AccionImpulsadaInline(admin.TabularInline):
     verbose_name_plural = '1.1.1 Acciones impulsadas que posicionan el tema de equidad e igualdad'

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from models import *
-from contraparte.models import Informe
+from sisme.contraparte.models import Informe
 
 class BaseAdmin(admin.ModelAdmin):
     save_on_top = True    
