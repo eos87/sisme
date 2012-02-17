@@ -5,7 +5,11 @@ from models import *
 from sisme.fed.models import *
 from django.contrib.admin.models import LogEntry
 
-admin.site.register(LogEntry)
+class LogEntryAdmin(admin.ModelAdmin):
+    list_display = ['user', 'content_type', 'object_id', 'object_repr', 'action_flag', 'change_message']
+    list_filter = ['user']
+
+admin.site.register(LogEntry, LogEntryAdmin)
 
 class AccionImpulsadaInline(admin.TabularInline):
     verbose_name_plural = '1.1.1 Acciones impulsadas que posicionan el tema de equidad e igualdad'
