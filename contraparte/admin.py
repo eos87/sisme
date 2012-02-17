@@ -6,7 +6,7 @@ from sisme.fed.models import *
 from django.contrib.admin.models import LogEntry
 
 class LogEntryAdmin(admin.ModelAdmin):
-    list_display = ['user', 'content_type', 'object_id', 'object_repr', 'action_flag', 'change_message']
+    list_display = ['action_time', 'user', 'content_type', 'object_id', 'action_flag', 'change_message']
     list_filter = ['user']
 
 admin.site.register(LogEntry, LogEntryAdmin)
