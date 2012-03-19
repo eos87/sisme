@@ -2,7 +2,7 @@
 from django.db import models
 from sisme.fed.models import *
 
-YEARS = ((2010, '2010'), (2011, '2011'),)
+YEARS = ((2010, '2010'), (2011, '2011'), (2012, '2012'), (2013, '2013'))
 MESES = ((1, 'Enero'), (2, 'Febrero'),
          (3, 'Marzo'), (4, 'Abril'),
          (5, 'Mayo'), (6, 'Junio'),
